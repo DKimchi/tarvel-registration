@@ -10,7 +10,12 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
+import { UserModule } from './user/user.module';
 export const firebaseConfig = environment.firebase;
+
+import { DataFBService } from './services/data-fb.service';
+import { CarDataService } from './services/car-data.service';
+import { AuthService } from './services/auth.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,9 +25,10 @@ export const firebaseConfig = environment.firebase;
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFirestoreModule, // firestore
-    AngularFireAuthModule // auth
+    AngularFireAuthModule, // auth
+    UserModule
   ],
-  providers: [],
+  providers: [DataFBService, CarDataService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
