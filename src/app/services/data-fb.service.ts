@@ -11,6 +11,7 @@ import { tripModule } from '../models/trip-module';
   providedIn: 'root'
 })
 export class DataFBService {
+  // tslint:disable-next-line:ban-types
   generalData: Object = {
     billNames: '',
     carCollection: [],
@@ -18,12 +19,8 @@ export class DataFBService {
     pasNames: ''
   };
 
-  private generalDataSource = new BehaviorSubject(this.generalData);
-  generalDataObservable = this.generalDataSource.asObservable();
+  constructor(private afs: AngularFirestore) {}
 
-  constructor(private afs: AngularFirestore) {
-    afs.firestore.settings({ timestampsInSnapshots: true });
-  }
   getCarNames(collectionName: string) {
     return this.afs
       .doc(collectionName + '/carNames')
@@ -105,10 +102,6 @@ export class DataFBService {
       .doc('general/general')
       .valueChanges()
       .pipe(take(1));
-  }
-
-  dataForGeneralData(generalData: any) {
-    this.generalDataSource.next(generalData);
   }
 
   setTripToDB(tripData: tripModule) {

@@ -66,6 +66,6 @@ export class AuthService {
 
   async signOut() {
     await this.afAuth.auth.signOut();
-    this.router.navigate(['/user']);
+    this.router.navigate(['/']);
   }
 }

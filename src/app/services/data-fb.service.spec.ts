@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { DataFbService } from './data-fb.service';
+import { DataFBService } from './data-fb.service';
 
 describe('DataFbService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: DataFbService = TestBed.get(DataFbService);
+    const service: DataFBService = TestBed.get(DataFBService);
     expect(service).toBeTruthy();
   });
 });

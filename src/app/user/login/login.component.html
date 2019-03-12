@@ -1,3 +1,54 @@
-<p>
-  jkl;jkl;k;l login works!
-</p>
+<div *ngIf="(auth.user$ | async); then authenticated; else guest">
+  <!-- template will replace this div -->
+</div>
+
+<ng-template #authenticated>
+  <div *ngIf="(auth.user$ | async) as user">
+    <div class="div-card-firstTime">
+      <mat-card>
+        <mat-card-header class="card-from">
+          <mat-card-title
+            >שלום, {{ user.displayName }}<br />ברוך הבא לאפליקצית רישום
+            נסיעות</mat-card-title
+          >
+          <mat-card-subtitle>שאלון פרטים אישיים</mat-card-subtitle>
+          <button (click)="auth.signOut()">Logout</button>
+        </mat-card-header>
+      </mat-card>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #guest>
+  <div class="div-card">
+    <mat-card class="card-from">
+      <mat-card-header class="title-open-from">
+        <mat-card-title>בוכים הבאים לאתר רישום נסיעות </mat-card-title>
+        <mat-card-subtitle
+          >אתר לרישום נסיעת של קבוצות הבחירה של מחנות העולים</mat-card-subtitle
+        >
+      </mat-card-header>
+      <form (ngSubmit)="openDialogEmailsingin()">
+        <mat-form-field appearance="outline" id="initialCode">
+          <mat-label>הכנס קוד ראשוני לכניסה לאתר</mat-label>
+          <input
+            matInput
+            placeholder="קוד ראשוני"
+            [type]="hide ? 'password' : 'text'"
+            [formControl]="initialCode"
+            required
+          />
+          <mat-icon matSuffix (click)="hide = !hide">{{
+            hide ? 'visibility_off' : 'visibility'
+          }}</mat-icon>
+          <mat-error *ngIf="this.initialCode.hasError('required')"
+            >חייב להכניס קוד ראשוני כדי לכנס</mat-error
+          >
+        </mat-form-field>
+        <button mat-stroked-button type="submit">
+          היכנס
+        </button>
+      </form>
+    </mat-card>
+  </div>
+</ng-template>
