@@ -17,4 +17,9 @@ export class StartKmComponent implements OnInit {
       this.carData = val;
     });
   }
+
+  readLastTrip() {
+    // this.carDataService.resetCarData();
+    console.log(this.carData);
+  }
 }
