@@ -164,21 +164,23 @@ export class CarDataService {
   constructor(public dataService: DataFBService) {}
 
   getDataFormFB(collectionOfCar: string, carName: string) {
-    let carSelected;
-    this.subscribe = this.dataService
-      .getCarDoc(collectionOfCar, carName)
-      .subscribe(val => {
-        carSelected = val;
-        this.dataForCarSelected(carSelected);
+    const checkCar = this.dataService
+      .checkIfCarExists(collectionOfCar, carName)
+      .then(val => {
+        let carSelected;
+        if (val) {
+          this.subscribe = this.dataService
+            .getCarDoc(collectionOfCar, carName)
+            .subscribe(val => {
+              carSelected = val;
+              this.dataForCarSelected(carSelected);
+              console.log('קיים');
+            });
+        } else {
+          this.resetCarData();
+          console.log('לא קיים');
+        }
       });
-  }
-
-  getGeneralDataFormFB() {
-    let general;
-    this.dataService.getCarDoc('general', 'general').subscribe(val => {
-      general = val;
-      this.dataService.dataForGeneralData(general);
-    });
   }
 
   dataForCarSelected(carData: carModule) {

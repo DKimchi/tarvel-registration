@@ -28,6 +28,24 @@ export class DataFBService {
       .pipe(take(1));
   }
 
+  checkIfCarExists(collectionName: string, carName: string) {
+    const carData = this.afs.doc(collectionName + '/' + carName);
+    let gatCarData = carData
+      .get()
+      .toPromise()
+      .then(doc => {
+        if (!doc.exists) {
+          console.log('לא במערכת של  data');
+          return false;
+        } else {
+          console.log('cngrf,.');
+          return true;
+        }
+      });
+    console.log(gatCarData);
+    return gatCarData;
+  }
+
   getCarDoc(collectionName: string, carName: string) {
     return this.afs.doc(collectionName + '/' + carName).valueChanges();
   }

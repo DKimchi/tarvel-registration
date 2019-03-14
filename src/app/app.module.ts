@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatInputModule } from '@angular/material';
+import { MatSelectModule } from '@angular/material/select';
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -19,6 +20,7 @@ import { DataFBService } from './services/data-fb.service';
 import { CarDataService } from './services/car-data.service';
 import { AuthService } from './services/auth.service';
 import { UIModule } from './ui/ui.module';
+import 'hammerjs';
 
 @NgModule({
   declarations: [AppComponent],
@@ -32,7 +34,8 @@ import { UIModule } from './ui/ui.module';
     AngularFireAuthModule, // auth
     UserModule,
     NgxAuthFirebaseUIModule.forRoot(firebaseConfig),
-    UIModule
+    UIModule,
+    MatSelectModule
   ],
   providers: [DataFBService, CarDataService, AuthService],
   bootstrap: [AppComponent]

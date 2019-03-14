@@ -1,0 +1,18 @@
+<button id="carSelector" mat-raised-button (click)="openCarPickrDialog()">
+  {{ carData.name ? selectCarBtnText : 'בחר רכב' }}
+</button>
+
+<mat-form-field>
+  <mat-select
+    placeholder="אשכול רכבים"
+    [(ngModel)]="collectionOfCar"
+    name="collectionOfCar"
+  >
+    <mat-option
+      *ngFor="let collection of listOfCollection"
+      [value]="collection"
+    >
+      {{ collection }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>

@@ -1,0 +1,15 @@
+<mat-card class="example-card">
+  <img
+    id="headerImage"
+    mat-card-image
+    src="../../assets/img/Travel registration.jpg"
+    alt="Photo of a Travel registration"
+  />
+  <app-car-selector></app-car-selector>
+  <app-start-km id="startkm"></app-start-km>
+  <app-pas-selector></app-pas-selector>
+  <button mat-raised-button id="startTripBtn" (click)="startCurrentTrip()">
+    {{ startTripBtnText }}
+  </button>
+  <app-end-trip id="endTrip"></app-end-trip>
+</mat-card>

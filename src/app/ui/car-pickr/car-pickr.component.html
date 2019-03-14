@@ -1,0 +1,42 @@
+<form class="example-form" id="form_top">
+  <mat-grid-list cols="2" rowHeight="2:1">
+    <mat-grid-tile>
+      <mat-form-field class="car-picker-field">
+        <input
+          #carInput
+          type="text"
+          placeholder="חפש רכב"
+          aria-label="חפש רכב"
+          matInput
+          [formControl]="myControl"
+        />
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-form-field class="car-picker-field">
+        <mat-select
+          appearance="fill"
+          (change)="getCarNames()"
+          placeholder="אשכול רכבים"
+          [(ngModel)]="collectionOfCar"
+          (ngModelChange)="getCarNames($event)"
+          name="collectionOfCar"
+        >
+          <mat-option
+            *ngFor="let collection of listOfCollection"
+            [value]="collection"
+          >
+            {{ collection }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </mat-grid-tile>
+  </mat-grid-list>
+  <!-- TODO: לעשות את הבחירה מתוך התפריט -->
+</form>
+
+<mat-nav-list *ngFor="let option of (filteredOptions | async)">
+  <mat-option (click)="chooseCar(option)" [value]="option">
+    {{ option }}
+  </mat-option>
+</mat-nav-list>
