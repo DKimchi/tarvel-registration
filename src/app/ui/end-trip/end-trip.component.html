@@ -1,3 +1,46 @@
-<p>
-  end-trip works!
-</p>
+<mat-grid-list id="endTrip" cols="8" rowHeight="2rem">
+  <mat-grid-tile class="sound" colspan="1">
+    <button mat-icon-button color="primary" (click)="soundNoButClick()">
+      <mat-icon>{{ soundNo ? 'volume_up' : 'volume_off' }}</mat-icon>
+    </button>
+  </mat-grid-tile>
+  <mat-grid-tile id="labelendKM" colspan="2">
+    <label for="endKM">ק"מ סיום:</label>
+  </mat-grid-tile>
+  <mat-grid-tile colspan="5">
+    <div class="endKM" id="divendkm">
+      <mat-form-field class="endKM" appearance="fill">
+        <mat-label class="endKM">ק"מ סיום - חובה</mat-label>
+        <input
+          class="endKM"
+          matInput
+          type="number"
+          placeholder='ק"מ סיום'
+          (input)="changeEndKM($event)"
+          [(ngModel)]="this.endKM"
+          [disabled]="!this.carDataService.isCarSelected"
+        />
+      </mat-form-field>
+    </div>
+  </mat-grid-tile>
+</mat-grid-list>
+
+<div id="divEndTripBtns">
+  <button
+    class="endTripBtn"
+    mat-raised-button
+    id="firstEndTripBtn"
+    (click)="endTrip()"
+    [disabled]="!this.carDataService.isCarSelected"
+  >
+    סגור נסיעה
+  </button>
+  <button
+    class="endTripBtn"
+    mat-raised-button
+    (click)="test()"
+    [disabled]="!this.carDataService.isCarSelected"
+  >
+    סגור נסיעה<br />ופתח נסיעת המשך
+  </button>
+</div>

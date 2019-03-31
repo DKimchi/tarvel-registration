@@ -1,3 +1,184 @@
-<p>
-  pas-selector works!
-</p>
+<mat-grid-list cols="9" rowHeight="1.75rem" gutterSize="0.5rem">
+  <mat-grid-tile [colspan]="3">
+    <label for="labelCarDriverName">שם נהג:</label>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="6">
+    <button
+      mat-raised-button
+      class="btnPas"
+      id="btnDriverName"
+      (click)="openDialogPasNames('driver')"
+      [disabled]="!this.carDataService.isCarSelected"
+    >
+      {{
+        carData.currentTrip.driver.name
+          ? carData.currentTrip.driver.name
+          : 'שם נהג - חובה'
+      }}
+    </button>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="3">
+    <label for="labelCarDriverName">יעד חיוב נהג:</label>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="6">
+    <button
+      mat-raised-button
+      class="btnPas btnbill"
+      id="btnDriverBill"
+      (click)="openDialogPasBill('driver')"
+      [disabled]="!this.carDataService.isCarSelected"
+    >
+      {{
+        carData.currentTrip.driver.bill.nameOfBill
+          ? carData.currentTrip.driver.bill.nameOfBill
+          : 'יעד חיוב נהג - חובה'
+      }}
+    </button>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="3">
+    <label for="labelCarDriverName">שם נוסע 2:</label>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="6">
+    <button
+      mat-raised-button
+      class="btnPas"
+      id="btnPas2Name"
+      (click)="openDialogPasNames('pas2')"
+      [disabled]="!this.carDataService.isCarSelected"
+    >
+      {{
+        carData.currentTrip.pas2.name
+          ? carData.currentTrip.pas2.name
+          : 'שם נוסע 2'
+      }}
+    </button>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="3">
+    <label for="labelCarDriverName">יעד חיוב נוסע 2:</label>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="6">
+    <button
+      mat-raised-button
+      class="btnPas btnbill"
+      id="btnPas2Bill"
+      (click)="openDialogPasBill('pas2')"
+      [disabled]="!this.carDataService.isCarSelected"
+    >
+      {{
+        carData.currentTrip.pas2.bill.nameOfBill
+          ? carData.currentTrip.pas2.bill.nameOfBill
+          : 'יעד חיוב נוסע 2'
+      }}
+    </button>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="3">
+    <label for="labelCarDriverName">שם נוסע 3:</label>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="6">
+    <button
+      mat-raised-button
+      class="btnPas"
+      id="btnPas3Name"
+      (click)="openDialogPasNames('pas3')"
+      [disabled]="!this.carDataService.isCarSelected"
+    >
+      {{
+        carData.currentTrip.pas3.name
+          ? carData.currentTrip.pas3.name
+          : 'שם נוסע 3'
+      }}
+    </button>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="3">
+    <label for="labelCarDriverName">יעד חיוב נוסע 3:</label>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="6">
+    <button
+      mat-raised-button
+      class="btnPas btnbill"
+      id="btnPas3Bill"
+      (click)="openDialogPasBill('pas3')"
+      [disabled]="!this.carDataService.isCarSelected"
+    >
+      {{
+        carData.currentTrip.pas3.bill.nameOfBill
+          ? carData.currentTrip.pas3.bill.nameOfBill
+          : 'יעד חיוב נוסע 3'
+      }}
+    </button>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="3">
+    <label for="labelCarDriverName">שם נוסע 4:</label>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="6">
+    <button
+      mat-raised-button
+      class="btnPas"
+      id="btnPas4Name"
+      (click)="openDialogPasNames('pas4')"
+      [disabled]="!this.carDataService.isCarSelected"
+    >
+      {{
+        carData.currentTrip.pas4.name
+          ? carData.currentTrip.pas4.name
+          : 'שם נוסע 4'
+      }}
+    </button>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="3">
+    <label for="labelCarDriverName">יעד חיוב נוסע 4:</label>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="6">
+    <button
+      mat-raised-button
+      class="btnPas btnbill"
+      id="btnPas4Bill"
+      (click)="openDialogPasBill('pas4')"
+      [disabled]="!this.carDataService.isCarSelected"
+    >
+      {{
+        carData.currentTrip.pas4.bill.nameOfBill
+          ? carData.currentTrip.pas4.bill.nameOfBill
+          : 'יעד חיוב נוסע 4'
+      }}
+    </button>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="3">
+    <label for="labelCarDriverName">שם נוסע 5:</label>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="6">
+    <button
+      mat-raised-button
+      class="btnPas"
+      id="btnPas5Name"
+      (click)="openDialogPasNames('pas5')"
+      [disabled]="!this.carDataService.isCarSelected"
+    >
+      {{
+        carData.currentTrip.pas5.name
+          ? carData.currentTrip.pas5.name
+          : 'שם נוסע 5'
+      }}
+    </button>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="3">
+    <label for="labelCarDriverName">יעד חיוב נוסע 5:</label>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="6">
+    <button
+      mat-raised-button
+      class="btnPas btnbill "
+      id="btnPas5Bill"
+      (click)="openDialogPasBill('pas5')"
+      [disabled]="!this.carDataService.isCarSelected"
+    >
+      {{
+        carData.currentTrip.pas5.bill.nameOfBill
+          ? carData.currentTrip.pas5.bill.nameOfBill
+          : 'יעד חיוב נוסע 5'
+      }}
+    </button>
+  </mat-grid-tile>
+</mat-grid-list>
+
+<!-- TODO:להסיף את נוסעים 6 ו7 -->

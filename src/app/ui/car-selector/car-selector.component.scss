@@ -1,18 +1,24 @@
 $btn-margin-left: 40px;
 $mat-width: 120px;
 
-#carSelector {
-  background-color: orange;
-  width: calc(100% - 120px - 40px);
-  height: 40px;
-  font-size: 1.2rem;
-  font-weight: bold;
-  position: relative;
-  top: -5px;
-  margin-left: $btn-margin-left;
+.carSelector {
+  margin-bottom: 2px;
 }
 
-mat-form-field {
-  width: $mat-width;
-  height: 40px;
+#btnCarSelector {
+  background-color: orange;
+  height: 100%;
+  width: 100%;
+  font-size: 1.2rem;
+  font-weight: bold;
+  justify-items: center;
+  align-items: center;
+  overflow-wrap: break-word;
+  white-space: normal !important;
+  word-wrap: break-word;
+}
+
+.btnProfile {
+  background-color: whitesmoke;
+  height: 100%;
 }

@@ -1,15 +1,95 @@
 <mat-card class="example-card">
-  <img
-    id="headerImage"
-    mat-card-image
-    src="../../assets/img/Travel registration.jpg"
-    alt="Photo of a Travel registration"
-  />
-  <app-car-selector></app-car-selector>
-  <app-start-km id="startkm"></app-start-km>
-  <app-pas-selector></app-pas-selector>
-  <button mat-raised-button id="startTripBtn" (click)="startCurrentTrip()">
-    {{ startTripBtnText }}
-  </button>
-  <app-end-trip id="endTrip"></app-end-trip>
+  <mat-sidenav-container>
+    <mat-sidenav-content>
+      <img
+        id="headerImage"
+        mat-card-image
+        src="../../assets/img/Travel registration.jpg"
+        alt="Photo of a Travel registration"
+      />
+      <div class="carSelector">
+        <button class="btnsDetails" routerLink="/profile">
+          <mat-icon aria-label="כפתור לפתיחה של פרטים אישים"
+            >account_circle</mat-icon
+          ><br />
+          עדכון פרטים
+        </button>
+        <app-car-selector></app-car-selector>
+        <button class="btnsDetails" (click)="sidenavCarDetails.toggle()">
+          <mat-icon aria-label="כפתור לפתיחה נתונים על רכב נבחר"
+            >drive_eta</mat-icon
+          ><br />פרטי רכב
+        </button>
+      </div>
+      <div class="startKM">
+        <button mat-button color="accent" (click)="sidenavConstTrips.toggle()">
+          נסיעות קבועות
+        </button>
+
+        <app-start-km></app-start-km>
+      </div>
+      <app-pas-selector></app-pas-selector>
+      <button
+        mat-raised-button
+        color="primary"
+        id="startTripBtn"
+        (click)="startCurrentTrip()"
+        [disabled]="!this.carDataService.isCarSelected"
+      >
+        {{ startTripBtnText }}
+      </button>
+      <app-end-trip id="endTrip"></app-end-trip>
+    </mat-sidenav-content>
+
+    <mat-sidenav #sidenavConstTrips mode="over">
+      <mat-toolbar color="accent">
+        <mat-toolbar-row>
+          <span>נסיעות קבועות</span>
+          <mat-icon
+            routerLink="/new-const-trip"
+            id="addConstTrip"
+            aria-hidden="false"
+            aria-label="הוסף נסיעה קבוע"
+            >add</mat-icon
+          >
+        </mat-toolbar-row>
+      </mat-toolbar>
+      <mat-list>
+        <mat-list-item *ngFor="let constTrip of constTrips">
+          <div class="btnConstTrip">
+            <button
+              mat-button
+              color="primary"
+              (click)="gatConstTrip(constTrip)"
+              (click)="sidenavConstTrips.toggle()"
+            >
+              {{ constTrip.name }}
+            </button>
+            <div>
+              <mat-icon
+                [routerLink]="['/new-const-trip', constTrip.name]"
+                class="editConstTrip"
+                aria-hidden="false"
+                aria-label="עריכה של נסיעה קבוע"
+                (click)="sidenavConstTrips.toggle()"
+                >edit</mat-icon
+              >
+              <mat-icon
+                class="editConstTrip"
+                id="deleteConstTrip"
+                aria-hidden="false"
+                aria-label="עריכה של נסיעה קבוע"
+                (click)="sidenavConstTrips.toggle()"
+                (click)="deleteConstTrip(constTrip)"
+                >delete</mat-icon
+              >
+            </div>
+          </div>
+        </mat-list-item>
+      </mat-list>
+    </mat-sidenav>
+    <mat-sidenav #sidenavCarDetails mode="over" position="end">
+      נתוני רכב
+    </mat-sidenav>
+  </mat-sidenav-container>
 </mat-card>

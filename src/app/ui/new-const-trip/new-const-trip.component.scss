@@ -1,0 +1,100 @@
+.btnPas {
+  width: 100%;
+  background-color: rgb(231, 152, 152);
+  padding: 0;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.btnbill {
+  background-color: rgb(240, 236, 236);
+}
+
+.mat-grid-list {
+  top: 10px;
+  font-size: 0.9rem;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+mat-card-subtitle {
+  margin-bottom: 0;
+}
+
+.constTrip-card {
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  top: 1rem;
+  left: 50%;
+  transform: translate(-50%);
+  max-width: 400px;
+}
+
+.card-header {
+  width: 20rem;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0;
+}
+
+.title-open-from {
+  display: block;
+}
+
+#initialCode {
+  width: 100%;
+}
+
+#openDialogEmailsingin {
+  display: flex;
+  margin-top: 1rem;
+  font-size: 0.8rem;
+}
+
+.inputLabel {
+  font-size: 1rem;
+}
+
+.mainBillol {
+  margin: 0;
+  padding: 0;
+  counter-reset: item;
+}
+
+.mainBillli {
+  float: right;
+  margin-left: 0.5em;
+  padding: 0;
+  text-indent: 0;
+  list-style-type: none;
+  counter-increment: item;
+}
+
+.mainBillol > li:before {
+  display: inline-block;
+  width: 1em;
+  padding-right: 0;
+  font-weight: bold;
+  text-align: right;
+  content: counter(item) '.';
+}
+
+#mainBillDisplay {
+  display: flow-root;
+}
+#mainBillDisplay > h3 {
+  margin-top: 0;
+}
+#constTripLadel > ::ng-deep figure {
+  justify-content: start;
+}
+.constTrip {
+  text-align: right;
+}
+
+#singUpBtn {
+  width: -webkit-fill-available;
+  margin-top: 1.3rem;
+}

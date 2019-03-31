@@ -1,19 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CarPickrComponent } from './car-pickr.component';
+import { PasPickrComponent } from './pas-pickr.component';
 
-describe('CarPickrComponent', () => {
-  let component: CarPickrComponent;
-  let fixture: ComponentFixture<CarPickrComponent>;
+describe('PasPickrComponent', () => {
+  let component: PasPickrComponent;
+  let fixture: ComponentFixture<PasPickrComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [CarPickrComponent]
-    }).compileComponents();
+      declarations: [ PasPickrComponent ]
+    })
+    .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CarPickrComponent);
+    fixture = TestBed.createComponent(PasPickrComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

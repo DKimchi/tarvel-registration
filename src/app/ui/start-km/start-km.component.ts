@@ -10,6 +10,7 @@ import { carModule } from 'src/app/models/car-module';
 })
 export class StartKmComponent implements OnInit {
   carData: carModule;
+  sidenavConstTrips = false;
   constructor(public carDataService: CarDataService) {}
 
   ngOnInit() {

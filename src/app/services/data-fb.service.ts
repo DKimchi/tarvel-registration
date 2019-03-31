@@ -21,6 +21,33 @@ export class DataFBService {
 
   constructor(private afs: AngularFirestore) {}
 
+  getUserConstTrip(constTripName) {
+    return this.afs
+      .doc(constTripName)
+      .valueChanges()
+      .pipe(take(1));
+  }
+
+  getUserData(userName: string) {
+    return this.afs
+      .collection('users', ref => ref.where('displayName', '==', userName))
+      .snapshotChanges()
+      .pipe(
+        map(actions =>
+          actions.map(a => {
+            if (a.payload.doc.exists) {
+              const data = a.payload.doc.data();
+              const id = a.payload.doc.id;
+              return { id, ...data };
+            } else {
+              return 'vmklfdsaffd';
+            }
+          })
+        )
+      )
+      .pipe(take(1));
+  }
+
   getCarNames(collectionName: string) {
     return this.afs
       .doc(collectionName + '/carNames')
@@ -35,10 +62,8 @@ export class DataFBService {
       .toPromise()
       .then(doc => {
         if (!doc.exists) {
-          console.log('לא במערכת של  data');
           return false;
         } else {
-          console.log('cngrf,.');
           return true;
         }
       });

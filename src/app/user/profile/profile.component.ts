@@ -14,6 +14,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { take } from 'rxjs/operators';
 import { DataFBService } from 'src/app/services/data-fb.service';
 import { validateArgCount } from '@firebase/util';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -21,10 +22,8 @@ import { validateArgCount } from '@firebase/util';
 })
 export class ProfileComponent implements OnInit {
   mainBillsSelected: string;
-  InitialCodeFromDB: string;
   collectionOfCarFromDB: string[];
   biilNames: string[];
-  noValid: string;
   listOfName: string[];
   firstTime = false;
   initialData = this.fb.group({
@@ -44,7 +43,8 @@ export class ProfileComponent implements OnInit {
   constructor(
     public dataFBService: DataFBService,
     public auth: AuthService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -52,10 +52,8 @@ export class ProfileComponent implements OnInit {
       this.collectionOfCarFromDB = val['carCollection'];
       this.biilNames = val['billNames'].split(',');
       this.listOfName = val['pasNames'].split(',');
-      console.log(this.collectionOfCarFromDB, this.biilNames, this.listOfName);
     });
     this.getUserData();
-    console.log(this.initialData);
   }
 
   getUserData() {
@@ -116,6 +114,7 @@ export class ProfileComponent implements OnInit {
       val.mainBills = this.initialData.value.mainBills;
       val.constTrips = this.initialData.value.constTrips;
       this.auth.updateUserData(val);
+      this.router.navigate(['/main-from']);
     });
   }
 }

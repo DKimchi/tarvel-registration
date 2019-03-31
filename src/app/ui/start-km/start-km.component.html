@@ -1,14 +1,4 @@
-<mat-grid-list cols="7" rowHeight="2rem">
-  <mat-grid-tile class="lastTrip" [colspan]="2">
-    <button
-      mat-raised-button
-      color="primary"
-      id="btnLastTrip"
-      (click)="readLastTrip()"
-    >
-      נסיעה אחרונה
-    </button>
-  </mat-grid-tile>
+<mat-grid-list cols="5" rowHeight="2rem">
   <mat-grid-tile id="labelStartKM" [colspan]="2">
     <label for="startKM">ק"מ התחלה:</label>
   </mat-grid-tile>
@@ -22,6 +12,7 @@
           type="number"
           placeholder='ק"מ התחלה'
           [(ngModel)]="carData['currentTrip']['startKM']"
+          [disabled]="!this.carDataService.isCarSelected"
         />
       </mat-form-field>
     </div>

@@ -1,7 +1,31 @@
+$padding-card: 0.3rem;
+body {
+  width: 400px;
+}
+.startKM {
+  display: grid;
+  grid-template-columns: 2fr 5fr;
+}
+.carSelector {
+  display: grid;
+  grid-template-columns: 2fr 9fr 2fr;
+  grid-column-gap: 5px;
+  grid-auto-columns: 100px;
+}
+
+.btnsDetails {
+  background-color: whitesmoke;
+  height: 100%;
+  font-size: 0.5rem;
+}
 .example-card {
   max-width: 400px;
   margin: auto;
+  width: 100%;
   padding-top: 0.5rem;
+  padding-left: $padding-card;
+  padding-right: $padding-card;
+  padding-bottom: $padding-card;
 }
 
 .example-header-image {
@@ -10,21 +34,58 @@
 }
 
 #headerImage {
-  width: calc(100%);
+  width: 100%;
   margin: auto;
   height: 5rem;
 }
 
 #startTripBtn {
-  background-color: rgb(22, 220, 247);
-  width: calc(100%);
+  // background-color: rgb(22, 220, 247);
+  width: 100%;
   height: 40px;
   font-size: 1.2rem;
   font-weight: bold;
   top: 0.5rem;
+  margin-top: 15px;
 }
 
 #endTrip {
   background-color: black;
   top: 50px;
+}
+
+#addConstTrip {
+  position: absolute;
+  left: 10px;
+}
+
+#addConstTrip:hover {
+  cursor: pointer;
+  background-color: blue;
+}
+
+.btnConstTrip {
+  padding: 0 !important;
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  grid-column-gap: 5px;
+}
+.btnConstTrip > button {
+  padding: 0;
+  grid-column-start: 1;
+  grid-column-end: 2;
+  text-align: right;
+}
+.editConstTrip {
+  font-size: medium;
+  position: relative;
+  top: 10px;
+}
+.editConstTrip:hover {
+  cursor: pointer;
+  background-color: rgb(245, 245, 244);
+}
+
+#deleteConstTrip {
+  margin-right: 0.5rem;
 }

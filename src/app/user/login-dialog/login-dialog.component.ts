@@ -43,13 +43,10 @@ export class LoginDialogComponent {
         if (user) {
           if (user.metadata.creationTime === user.metadata.lastSignInTime) {
             this.firstTime = true;
-            console.log('פעם ראשונה');
           } else {
             this.firstTime = false;
-            console.log('לא ראשון');
           }
           this.dialogEmailRef.close(this.firstTime);
-          this.router.navigate(['/profile']);
           return this.afs.doc<User>(`users/${event.uid}`).valueChanges();
         } else {
           // Logged out

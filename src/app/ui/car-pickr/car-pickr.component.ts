@@ -9,6 +9,7 @@ import { DataFBService } from 'src/app/services/data-fb.service';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-car-pickr',
@@ -17,27 +18,24 @@ import { FormControl } from '@angular/forms';
 })
 export class CarPickrComponent implements OnInit {
   listOfCollection: Array<string>;
-  collectionOfCar: string = this.data.collectionOfCar;
+  collectionOfCar: string = this.data;
   // TODO: open  collectionOfCar from uesr Default
   generalData: object;
   myControl = new FormControl();
   options: string[] = [];
   filteredOptions: Observable<string[]>;
+
   constructor(
     public dialogRef: MatDialogRef<CarPickrComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    // @Inject(MAT_BOTTOM_SHEET_DATA) public data: any,
-    // private bottomSheetRef: MatBottomSheetRef<CarPickrComponent>,
     public dataFBService: DataFBService
   ) {
     this.dataFBService.getGeneralDataFormFB().subscribe(val => {
       this.listOfCollection = val['carCollection'];
-      this.getCarNames();
     });
   }
 
   getCarNames() {
-    console.log(this.collectionOfCar);
     this.dataFBService
       .getCarNames(this.collectionOfCar)
       .toPromise()
@@ -53,11 +51,17 @@ export class CarPickrComponent implements OnInit {
       .catch(err => console.log(err));
   }
   // TODO: לסדר את הפוקוס ותחלה של הבחירת רכבים
-  chooseCar(event): void {
-    this.dialogRef.close(event);
+  chooseCar(carName: string): void {
+    const carSelected = {
+      carName,
+      carCollection: this.collectionOfCar
+    };
+    this.dialogRef.close(carSelected);
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getCarNames();
+  }
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();

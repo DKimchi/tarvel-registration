@@ -12,6 +12,7 @@ import { MatDialog } from '@angular/material';
 import { LoginDialogComponent } from '../login-dialog/login-dialog.component';
 import { take, map } from 'rxjs/operators';
 import { DataFBService } from 'src/app/services/data-fb.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -31,7 +32,7 @@ export class LoginComponent implements OnInit {
     public auth: AuthService,
     private snackBar: MatSnackBar,
     public dialogEmail: MatDialog,
-    private fb: FormBuilder
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -50,12 +51,16 @@ export class LoginComponent implements OnInit {
       });
     } else {
       const dialogEmailRef = this.dialogEmail.open(LoginDialogComponent);
+
       dialogEmailRef
         .afterClosed()
         .pipe(take(1))
         .subscribe(result => {
-          // this.firstTime = result;
-          console.log(result);
+          if (result) {
+            this.router.navigate(['/profile']);
+          } else {
+            this.router.navigate(['/main-from']);
+          }
         });
       this.initialCode.setValue('');
       this.initialCode.markAsPending();

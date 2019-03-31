@@ -11,6 +11,12 @@ import { MatListModule } from '@angular/material/list';
 import { MatInputModule } from '@angular/material';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { UIRoutingModule } from './ui-routing.module';
 import { MainFromComponent } from './main-from/main-from.component';
@@ -19,6 +25,10 @@ import { PasSelectorComponent } from './pas-selector/pas-selector.component';
 import { EndTripComponent } from './end-trip/end-trip.component';
 import { StartKmComponent } from './start-km/start-km.component';
 import { CarPickrComponent } from './car-pickr/car-pickr.component';
+import { PasPickrComponent } from './pas-pickr/pas-pickr.component';
+import { BiilPickrComponent } from './biil-pickr/biil-pickr.component';
+import { NewConstTripComponent } from './new-const-trip/new-const-trip.component';
+import { DeleteConstTripComponent } from './delete-const-trip/delete-const-trip.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +37,11 @@ import { CarPickrComponent } from './car-pickr/car-pickr.component';
     PasSelectorComponent,
     EndTripComponent,
     StartKmComponent,
-    CarPickrComponent
+    CarPickrComponent,
+    PasPickrComponent,
+    BiilPickrComponent,
+    NewConstTripComponent,
+    DeleteConstTripComponent
   ],
   imports: [
     CommonModule,
@@ -42,8 +56,19 @@ import { CarPickrComponent } from './car-pickr/car-pickr.component';
     MatListModule,
     MatInputModule,
     MatDialogModule,
-    MatGridListModule
+    MatGridListModule,
+    MatIconModule,
+    MatButtonModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    MatTooltipModule,
+    MatSnackBarModule
   ],
-  entryComponents: [CarPickrComponent]
+  entryComponents: [
+    CarPickrComponent,
+    PasPickrComponent,
+    BiilPickrComponent,
+    DeleteConstTripComponent
+  ]
 })
 export class UIModule {}

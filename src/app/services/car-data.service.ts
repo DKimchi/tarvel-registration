@@ -8,6 +8,7 @@ import { DataFBService } from '../services/data-fb.service';
   providedIn: 'root'
 })
 export class CarDataService {
+  isCarSelected = false;
   carData: carModule = {
     name: '',
     typeOfCar: '',
@@ -169,6 +170,7 @@ export class CarDataService {
       .then(val => {
         let carSelected;
         if (val) {
+          this.isCarSelected = true;
           this.subscribe = this.dataService
             .getCarDoc(collectionOfCar, carName)
             .subscribe(val => {
@@ -188,6 +190,7 @@ export class CarDataService {
   }
 
   resetCarData() {
+    this.isCarSelected = false;
     const carData: carModule = {
       name: '',
       typeOfCar: '',
