@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { MainFromComponent } from './main-from/main-from.component';
 import { MainFromGuard } from './main-from/main-from-guard.guard';
 import { NewConstTripComponent } from './new-const-trip/new-const-trip.component';
+import { AddCarDetailComponent } from './add-car-detail/add-car-detail.component';
 
 const routes: Routes = [
   {
@@ -15,6 +16,12 @@ const routes: Routes = [
     component: NewConstTripComponent,
     canActivate: [MainFromGuard],
     children: [{ path: ':name', component: NewConstTripComponent }]
+  },
+  {
+    path: 'add-car-detail',
+    component: AddCarDetailComponent,
+    canActivate: [MainFromGuard],
+    children: [{ path: ':name', component: AddCarDetailComponent }]
   }
 ];
 

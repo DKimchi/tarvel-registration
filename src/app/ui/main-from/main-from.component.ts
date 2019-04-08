@@ -18,6 +18,7 @@ export class MainFromComponent implements OnInit {
   startTripBtnText = 'התחלת נסיעה';
   carData: carModule;
   user: User;
+  dateLastTrip;
   constTrips: Array<object>;
   constructor(
     private dialogDel: MatDialog,
@@ -78,16 +79,20 @@ export class MainFromComponent implements OnInit {
         // TODO: קריאה של היעדי חיוב עיקריים
       }
     );
-    // this.auth.user$.subscribe(val => {
-    //   for (let index = 0; index < val.constTrips.length; index++) {
-    //     if (val.constTrips[index]['name'] === constTrip.name) {
-    //       val.constTrips.splice(index, 1);
-    //       console.log(val);
-    //       this.auth.updateUserData(val);
-    //     } else {
-    //       console.log('לא כאן', val.constTrips[index]);
-    //     }
-    //   }
-    // });
+  }
+
+  getLastTripDate() {
+    if (this.carData.name !== '') {
+      const d = this.carData.lastTrip.dateAndTime['toDate']();
+      this.dateLastTrip = `${d.getDate()}/${d.getMonth() +
+        1}/${d.getFullYear()}`;
+      this.dateLastTrip = d.toLocaleDateString('he-IL', {
+        day: 'numeric',
+        month: 'numeric',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+    }
   }
 }

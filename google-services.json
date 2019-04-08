@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "79605643022",
+    "firebase_url": "https://travelregistration-b5dbd.firebaseio.com",
+    "project_id": "travelregistration-b5dbd",
+    "storage_bucket": "travelregistration-b5dbd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:79605643022:android:41cea88041f19ef1",
+        "android_client_info": {
+          "package_name": "li.co.travelRegistration"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "79605643022-1n8b4frmbf60hpbuj3m75i9af4l2m6d5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDS9Ca0t8FYVmipk4u6FFlrVBwZpoNV9D4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

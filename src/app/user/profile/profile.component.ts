@@ -30,8 +30,7 @@ export class ProfileComponent implements OnInit {
     displayName: ['', Validators.required],
     defaultCollectionOfCar: ['', Validators.required],
     circleOfBelonging: ['', Validators.required],
-    mainBills: ['', Validators.required],
-    constTrips: this.fb.array([this.initConstTrip()])
+    mainBills: ['', Validators.required]
   });
 
   get mainBills() {

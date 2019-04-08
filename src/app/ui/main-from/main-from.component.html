@@ -15,14 +15,23 @@
           עדכון פרטים
         </button>
         <app-car-selector></app-car-selector>
-        <button class="btnsDetails" (click)="sidenavCarDetails.toggle()">
+        <button
+          class="btnsDetails"
+          (click)="getLastTripDate()"
+          (click)="sidenavCarDetails.toggle()"
+        >
           <mat-icon aria-label="כפתור לפתיחה נתונים על רכב נבחר"
             >drive_eta</mat-icon
           ><br />פרטי רכב
         </button>
       </div>
       <div class="startKM">
-        <button mat-button color="accent" (click)="sidenavConstTrips.toggle()">
+        <button
+          mat-button
+          color="accent"
+          (click)="sidenavConstTrips.toggle()"
+          [disabled]="!this.carDataService.isCarSelected"
+        >
           נסיעות קבועות
         </button>
 
@@ -41,13 +50,14 @@
       <app-end-trip id="endTrip"></app-end-trip>
     </mat-sidenav-content>
 
-    <mat-sidenav #sidenavConstTrips mode="over">
+    <mat-sidenav class="sidenav" #sidenavConstTrips mode="over">
       <mat-toolbar color="accent">
         <mat-toolbar-row>
           <span>נסיעות קבועות</span>
           <mat-icon
             routerLink="/new-const-trip"
             id="addConstTrip"
+            class="addBtn"
             aria-hidden="false"
             aria-label="הוסף נסיעה קבוע"
             >add</mat-icon
@@ -88,8 +98,75 @@
         </mat-list-item>
       </mat-list>
     </mat-sidenav>
-    <mat-sidenav #sidenavCarDetails mode="over" position="end">
-      נתוני רכב
+    <mat-sidenav class="sidenav" #sidenavCarDetails mode="over" position="end">
+      <mat-toolbar color="primary">
+        <mat-toolbar-row>
+          <span>פרטי רכב</span>
+          <mat-icon
+            routerLink="/add-car-detail"
+            class="addBtn"
+            aria-hidden="false"
+            aria-label="הוסף נסיעה קבוע"
+            >create</mat-icon
+          >
+        </mat-toolbar-row>
+      </mat-toolbar>
+      <mat-list>
+        <mat-list-item>
+          <h4 matLine><b>שם רכב:</b></h4>
+          <div matLine>
+            {{ carData.name }}
+          </div>
+        </mat-list-item>
+        <mat-list-item>
+          <h4 matLine><b>מספר רכב:</b></h4>
+          <div matLine>
+            {{ carData.carNumber }}
+          </div>
+        </mat-list-item>
+        <mat-list-item>
+          <h4 matLine><b>קוד רכב:</b></h4>
+          <div matLine>
+            {{ carData.code }}
+          </div>
+        </mat-list-item>
+        <mat-list-item>
+          <h4 matLine><b>נסיעה אחרונה:</b></h4>
+          <div matLine>
+            <div matLine><b>שם נהג:</b> {{ carData.lastTrip.driver.name }}</div>
+            <div matLine>
+              <b>תאריך נסיעה:</b>
+              {{ dateLastTrip }}
+            </div>
+            <div matLine>
+              <b>ק"מ סיום:</b>
+              {{ carData.lastTrip.endKM }}
+            </div>
+          </div>
+        </mat-list-item>
+        <mat-list-item>
+          <h4 matLine><b>אחראי רכב:</b></h4>
+          <div matLine>
+            {{ carData.responsible }}
+          </div>
+        </mat-list-item>
+        <mat-list-item>
+          <h4 matLine><b>טלפון שירות דרכים:</b></h4>
+          <div matLine>
+            {{ carData.rentCompany.name }} - {{ carData.rentCompany.tel }}
+          </div>
+        </mat-list-item>
+        <mat-list-item>
+          <h4 matLine><b>סוג רכב:</b></h4>
+          <div matLine>{{ carData.typename }} - {{ carData.typeOfCar }}</div>
+        </mat-list-item>
+        <mat-list-item>
+          <h4 matLine><b>למי מותר לנוהג:</b></h4>
+          <div matLine>
+            {{ carData.permissibletoDrive }}
+          </div>
+        </mat-list-item>
+      </mat-list>
     </mat-sidenav>
   </mat-sidenav-container>
 </mat-card>

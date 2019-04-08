@@ -40,7 +40,7 @@ export class CarPickrComponent implements OnInit {
       .getCarNames(this.collectionOfCar)
       .toPromise()
       .then(val => {
-        this.options = val['carNames'].split(',');
+        this.options = val['carNames'];
       })
       .then(() => {
         this.filteredOptions = this.myControl.valueChanges.pipe(

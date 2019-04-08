@@ -54,12 +54,14 @@ body {
   top: 50px;
 }
 
-#addConstTrip {
+.addBtn {
   position: absolute;
   left: 10px;
+  margin-right: 20px;
+  border: 1px solid lightblue;
 }
 
-#addConstTrip:hover {
+.addBtn:hover {
   cursor: pointer;
   background-color: blue;
 }
@@ -88,4 +90,8 @@ body {
 
 #deleteConstTrip {
   margin-right: 0.5rem;
+}
+
+.sidenav {
+  min-width: 200px;
 }

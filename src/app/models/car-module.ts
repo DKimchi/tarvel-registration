@@ -4,8 +4,9 @@ import { tripModule } from './trip-module';
 export interface carModule {
   name: string;
   typeOfCar: string;
+  typename: string;
   responsible: string;
-  payment: string;
+  carPayBy: string;
   lastRegister: string;
   lastTrip: tripModule;
   // tslint:disable-next-line:ban-types
@@ -19,4 +20,6 @@ export interface carModule {
     name: string;
     tel: string;
   };
+  permissibletoDrive: string;
+  startKMinFleet: number;
 }

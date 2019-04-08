@@ -17,6 +17,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 import { UIRoutingModule } from './ui-routing.module';
 import { MainFromComponent } from './main-from/main-from.component';
@@ -29,6 +30,7 @@ import { PasPickrComponent } from './pas-pickr/pas-pickr.component';
 import { BiilPickrComponent } from './biil-pickr/biil-pickr.component';
 import { NewConstTripComponent } from './new-const-trip/new-const-trip.component';
 import { DeleteConstTripComponent } from './delete-const-trip/delete-const-trip.component';
+import { AddCarDetailComponent } from './add-car-detail/add-car-detail.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,8 @@ import { DeleteConstTripComponent } from './delete-const-trip/delete-const-trip.
     PasPickrComponent,
     BiilPickrComponent,
     NewConstTripComponent,
-    DeleteConstTripComponent
+    DeleteConstTripComponent,
+    AddCarDetailComponent
   ],
   imports: [
     CommonModule,
@@ -62,7 +65,8 @@ import { DeleteConstTripComponent } from './delete-const-trip/delete-const-trip.
     MatSidenavModule,
     MatToolbarModule,
     MatTooltipModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatSlideToggleModule
   ],
   entryComponents: [
     CarPickrComponent,

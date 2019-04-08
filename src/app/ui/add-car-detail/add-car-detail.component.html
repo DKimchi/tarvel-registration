@@ -1,0 +1,282 @@
+<div *ngIf="cardata as car" class="main-div">
+  <mat-card class="main-card">
+    <mat-card-header>
+      <mat-card-title
+        >נתונים לרכב קבוע
+        <strong>{{ car.name ? car.name : 'חדש' }}</strong></mat-card-title
+      >
+      <mat-card-subtitle
+        >שאלון לעדכון פרטים של רכב קבוע באפליקציה</mat-card-subtitle
+      >
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="newCarData" (ngSubmit)="onSubmit()">
+        <mat-grid-list cols="9" rowHeight="4rem" gutterSize="2px">
+          <mat-grid-tile [colspan]="7" [rowspan]="1">
+            <mat-form-field class="input">
+              <mat-label class="inputLabel" for="name">
+                שם רכב
+              </mat-label>
+              <input #name matInput formControlName="name" required />
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile [colspan]="2" [rowspan]="1">
+            <mat-icon
+              #tooltipName="matTooltip"
+              matSuffix
+              (click)="tooltipName.toggle()"
+              matTooltip="שם הרכב. שם זה יוצג באפליקציה רישום נסיעות"
+              >help_outline</mat-icon
+            ></mat-grid-tile
+          >
+          <mat-grid-tile [colspan]="7" [rowspan]="1">
+            <mat-form-field class="input">
+              <mat-label class="inputLabel" for="carNumber">
+                מספר רכב
+              </mat-label>
+              <input
+                #carNumber
+                type="number"
+                matInput
+                formControlName="carNumber"
+                required
+              />
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile [colspan]="2" [rowspan]="1">
+            <mat-icon
+              #tooltipCarNumber="matTooltip"
+              matSuffix
+              (click)="tooltipCarNumber.toggle()"
+              matTooltip="מספר רישוי של הרכב"
+              >help_outline</mat-icon
+            >
+          </mat-grid-tile>
+          <mat-grid-tile [colspan]="7" [rowspan]="1">
+            <mat-form-field class="input">
+              <mat-label class="inputLabel" for="startKMinFleet">
+                ק"מ כניסה לצי רכב
+              </mat-label>
+              <input
+                #startKMinFleet
+                matInput
+                type="number"
+                formControlName="startKMinFleet"
+                required
+              />
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile [colspan]="2" [rowspan]="1">
+            <mat-icon
+              #tooltipStartKMinFleet="matTooltip"
+              matSuffix
+              (click)="tooltipStartKMinFleet.toggle()"
+              matTooltip='ק"מ שבו הרכב נכנס לצי.'
+              >help_outline</mat-icon
+            >
+          </mat-grid-tile>
+          <mat-grid-tile [colspan]="7" [rowspan]="1">
+            <mat-form-field class="input">
+              <mat-label class="inputLabel" for="code">
+                קוד רכב
+              </mat-label>
+              <input #code matInput formControlName="code" />
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile [colspan]="2" [rowspan]="1">
+            <mat-icon
+              #tooltipCode="matTooltip"
+              matSuffix
+              (click)="tooltipCode.toggle()"
+              matTooltip="קוד ההנעה של הרכב. אם אין קוד להשאיר ריק"
+              >help_outline</mat-icon
+            >
+          </mat-grid-tile>
+          <mat-grid-tile [colspan]="7" [rowspan]="1">
+            <mat-form-field class="input">
+              <mat-label class="inputLabel" for="responsible"
+                >אחראי רכב</mat-label
+              >
+              <input
+                #responsible
+                matInput
+                formControlName="responsible"
+                required
+              />
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile [colspan]="2" [rowspan]="1">
+            <mat-icon
+              #tooltipResponsible="matTooltip"
+              matSuffix
+              (click)="tooltipResponsible.toggle()"
+              matTooltip="לרשום מי אחראי על הרכב. זה יכול להיות אדם או צוות."
+              >help_outline</mat-icon
+            >
+          </mat-grid-tile>
+          <mat-grid-tile [colspan]="7" [rowspan]="1">
+            <mat-form-field class="input">
+              <mat-label class="inputLabel" for="carPayBy"
+                >משלם על הרכב</mat-label
+              >
+              <input #carPayBy matInput formControlName="carPayBy" required />
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile [colspan]="2" [rowspan]="1">
+            <mat-icon
+              #carPayBy="matTooltip"
+              matSuffix
+              (click)="carPayBy.toggle()"
+              matTooltip="גוף הכלכלי אשר משלם את ההוצאות של הרכב."
+              >help_outline</mat-icon
+            >
+          </mat-grid-tile>
+          <mat-grid-tile colspan="7">
+            <mat-form-field class="input">
+              <mat-label class="inputLabel" for="collectionOfCar"
+                >אשכול רכבים
+              </mat-label>
+              <mat-select
+                placeholder="אשכול רכבים ראשי"
+                formControlName="collectionOfCar"
+                required
+              >
+                <mat-option>--</mat-option>
+                <mat-option
+                  *ngFor="let carcollection of collectionOfCarFromDB"
+                  [value]="carcollection"
+                >
+                  {{ carcollection }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile colspan="2">
+            <mat-icon
+              #tooltipCarCollection="matTooltip"
+              matSuffix
+              (click)="tooltipCarCollection.toggle()"
+              matTooltip="אשכול רכבים הוא אוסף רכבים הקשורים למרחב אחד. רכב צריך להיות משיוח לאאחד. "
+              >help_outline</mat-icon
+            >
+          </mat-grid-tile>
+          <mat-grid-tile [colspan]="7" [rowspan]="1">
+            <mat-form-field class="input">
+              <mat-label class="inputLabel" for="typeName">
+                יצרן ודגם הרכב
+              </mat-label>
+              <input #typeName matInput formControlName="typeName" required />
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile [colspan]="2" [rowspan]="1">
+            <mat-icon
+              #tooltipTypeName="matTooltip"
+              matSuffix
+              (click)="tooltipTypeName.toggle()"
+              matTooltip="פירטו של יצרן רכב הדגם של הרכב"
+              >help_outline</mat-icon
+            >
+          </mat-grid-tile>
+          <mat-grid-tile [colspan]="7" [rowspan]="1">
+            <mat-form-field class="input">
+              <mat-label class="inputLabel" for="typeOfCar">
+                סוג הרכב
+              </mat-label>
+              <input #typeOfCar matInput formControlName="typeOfCar" required />
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile [colspan]="2" [rowspan]="1">
+            <mat-icon
+              #tooltipTypeOfCar="matTooltip"
+              matSuffix
+              (click)="tooltipTypeOfCar.toggle()"
+              matTooltip="סוג הרכב (לדוגמה - סופרמיני, משפחתית וכו')"
+              >help_outline</mat-icon
+            >
+          </mat-grid-tile>
+          <mat-grid-tile [colspan]="7" [rowspan]="1">
+            <mat-slide-toggle
+              class="example-margin"
+              color="primary"
+              formControlName="sevenPasCar"
+            >
+              רכב שבע מקומות
+            </mat-slide-toggle>
+          </mat-grid-tile>
+          <mat-grid-tile [colspan]="2" [rowspan]="1">
+            <mat-icon
+              #tooltipTypeOfCar="matTooltip"
+              matSuffix
+              (click)="tooltipTypeOfCar.toggle()"
+              matTooltip="סוג הרכב (לדוגמה - סופרמיני, משפחתית וכו')"
+              >help_outline</mat-icon
+            >
+          </mat-grid-tile>
+          <mat-grid-tile [colspan]="7" [rowspan]="1">
+            <mat-form-field class="input">
+              <mat-label class="inputLabel" for="companyName">
+                שם חברת שירותי דרך
+              </mat-label>
+              <input #companyName matInput formControlName="companyName" />
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile [colspan]="2" [rowspan]="1">
+            <mat-icon
+              #tooltipCompanyName="matTooltip"
+              matSuffix
+              (click)="tooltipCompanyName.toggle()"
+              matTooltip="שם החברה שנותנת שירותי דרך"
+              >help_outline</mat-icon
+            >
+          </mat-grid-tile>
+          <mat-grid-tile [colspan]="7" [rowspan]="1">
+            <mat-form-field class="input">
+              <mat-label class="inputLabel" for="companyTel">
+                טלפון של חברת שירותי דרך
+              </mat-label>
+              <input #companyTel matInput formControlName="companyTel" />
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile [colspan]="2" [rowspan]="1">
+            <mat-icon
+              #tooltipCompanyTel="matTooltip"
+              matSuffix
+              (click)="tooltipCompanyTel.toggle()"
+              matTooltip="טלפון החברה שנותנת שירותי דרך"
+              >help_outline</mat-icon
+            >
+          </mat-grid-tile>
+          <mat-grid-tile [colspan]="7" [rowspan]="1">
+            <mat-form-field class="input">
+              <mat-label class="inputLabel" for="permissibletoDrive">
+                מי רשאי לנהוג ברכב
+              </mat-label>
+              <input
+                #permissibletoDrive
+                matInput
+                formControlName="permissibletoDrive"
+                required
+              />
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile [colspan]="2" [rowspan]="1">
+            <mat-icon
+              #tooltipPermissibletoDrive="matTooltip"
+              matSuffix
+              (click)="tooltipPermissibletoDrive.toggle()"
+              matTooltip="פירטת של מי מותר לנהוג ברכב(לדוגמה - כל נהג, גיל 21 ושנתיים רשיון)"
+              >help_outline</mat-icon
+            >
+          </mat-grid-tile>
+        </mat-grid-list>
+        <mat-card-actions align="start">
+          <div>
+            <button mat-stroked-button type="submit" id="singUpBtn">
+              עדכן פרטים רכב
+            </button>
+          </div>
+        </mat-card-actions>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
