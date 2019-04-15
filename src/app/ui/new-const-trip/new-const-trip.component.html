@@ -52,8 +52,8 @@
             (click)="openDialogPasBill('driver')"
           >
             {{
-              constTrip.driver.bill
-                ? constTrip.driver.bill
+              constTrip.driver.bill.nameOfBill
+                ? constTrip.driver.bill.nameOfBill
                 : 'יעד חיוב נהג - חובה'
             }}
           </button>
@@ -81,7 +81,11 @@
             id="btnPas2Bill"
             (click)="openDialogPasBill('pas2')"
           >
-            {{ constTrip.pas2.bill ? constTrip.pas2.bill : 'יעד חיוב נוסע 2' }}
+            {{
+              constTrip.pas2.bill.nameOfBill
+                ? constTrip.pas2.bill.nameOfBill
+                : 'יעד חיוב נוסע 2'
+            }}
           </button>
         </mat-grid-tile>
         <mat-grid-tile [colspan]="3">
@@ -107,7 +111,11 @@
             id="btnPas3Bill"
             (click)="openDialogPasBill('pas3')"
           >
-            {{ constTrip.pas3.bill ? constTrip.pas3.bill : 'יעד חיוב נוסע 3' }}
+            {{
+              constTrip.pas3.bill.nameOfBill
+                ? constTrip.pas3.bill.nameOfBill
+                : 'יעד חיוב נוסע 3'
+            }}
           </button>
         </mat-grid-tile>
         <mat-grid-tile [colspan]="3">
@@ -133,7 +141,11 @@
             id="btnPas4Bill"
             (click)="openDialogPasBill('pas4')"
           >
-            {{ constTrip.pas4.bill ? constTrip.pas4.bill : 'יעד חיוב נוסע 4' }}
+            {{
+              constTrip.pas4.bill.nameOfBill
+                ? constTrip.pas4.bill.nameOfBill
+                : 'יעד חיוב נוסע 4'
+            }}
           </button>
         </mat-grid-tile>
         <mat-grid-tile [colspan]="3">
@@ -159,7 +171,11 @@
             id="btnPas5Bill"
             (click)="openDialogPasBill('pas5')"
           >
-            {{ constTrip.pas5.bill ? constTrip.pas5.bill : 'יעד חיוב נוסע 5' }}
+            {{
+              constTrip.pas5.bill.nameOfBill
+                ? constTrip.pas5.bill.nameOfBill
+                : 'יעד חיוב נוסע 5'
+            }}
           </button>
         </mat-grid-tile>
 

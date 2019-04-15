@@ -12,7 +12,9 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 })
 export class PasPickrComponent implements OnInit {
   myControl = new FormControl();
-  options: string[] = this.data;
+  psaSelected = this.data.psaSelected;
+  displayName: string;
+  options: string[] = this.data.pasNames;
   filteredOptions: Observable<string[]>;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -28,6 +30,32 @@ export class PasPickrComponent implements OnInit {
       startWith(''),
       map(value => this._filter(value))
     );
+    switch (this.psaSelected) {
+      case 'driver':
+        this.displayName = 'נהג';
+        break;
+      case 'pas2':
+        this.displayName = 'נוסע 2';
+        break;
+      case 'pas3':
+        this.displayName = 'נוסע 3';
+        break;
+      case 'pas4':
+        this.displayName = 'נוסע 4';
+        break;
+      case 'pas5':
+        this.displayName = 'נוסע 5';
+        break;
+      case 'pas6':
+        this.displayName = 'נוסע 6';
+        break;
+      case 'pas7':
+        this.displayName = 'נוסע 7';
+        break;
+      default:
+        this.displayName = 'נוסע לא ידוע';
+        break;
+    }
   }
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();

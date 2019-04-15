@@ -41,31 +41,52 @@ export class NewConstTripComponent implements OnInit {
     name: '',
     driver: {
       name: '',
-      bill: ''
+      bill: {
+        paidByOrganization: '',
+        nameOfBill: ''
+      }
     },
     pas2: {
       name: '',
-      bill: ''
+      bill: {
+        paidByOrganization: '',
+        nameOfBill: ''
+      }
     },
     pas3: {
       name: '',
-      bill: ''
+      bill: {
+        paidByOrganization: '',
+        nameOfBill: ''
+      }
     },
     pas4: {
       name: '',
-      bill: ''
+      bill: {
+        paidByOrganization: '',
+        nameOfBill: ''
+      }
     },
     pas5: {
       name: '',
-      bill: ''
+      bill: {
+        paidByOrganization: '',
+        nameOfBill: ''
+      }
     },
     pas6: {
       name: '',
-      bill: ''
+      bill: {
+        paidByOrganization: '',
+        nameOfBill: ''
+      }
     },
     pas7: {
       name: '',
-      bill: ''
+      bill: {
+        paidByOrganization: '',
+        nameOfBill: ''
+      }
     }
   };
   constructor(
@@ -86,7 +107,6 @@ export class NewConstTripComponent implements OnInit {
       this.pasNames = val['pasNames'].split(',');
       this.billNames['general'] = val['billNames'].split(',');
       this.pasNames.unshift('אפס שם');
-      this.billNames.driver = val['billNames'].split(',');
     });
     const url = this.router.url.slice(16);
     const name = decodeURIComponent(url);
@@ -98,21 +118,20 @@ export class NewConstTripComponent implements OnInit {
         val.constTrips
           .filter(element => element['name'] === name)
           .map(saveConstTrip => {
-            this.constTrip.name = saveConstTrip['name'];
-            this.constTrip.driver.name = saveConstTrip['driver']['name'];
-            this.constTrip.driver.bill = saveConstTrip['driver']['bill'];
-            this.constTrip.pas2.name = saveConstTrip['pas2']['name'];
-            this.constTrip.pas2.bill = saveConstTrip['pas2']['bill'];
-            this.constTrip.pas3.name = saveConstTrip['pas3']['name'];
-            this.constTrip.pas3.bill = saveConstTrip['pas3']['bill'];
-            this.constTrip.pas4.name = saveConstTrip['pas4']['name'];
-            this.constTrip.pas4.bill = saveConstTrip['pas4']['bill'];
-            this.constTrip.pas5.name = saveConstTrip['pas5']['name'];
-            this.constTrip.pas5.bill = saveConstTrip['pas5']['bill'];
-            this.constTrip.pas6.name = saveConstTrip['pas6']['name'];
-            this.constTrip.pas6.bill = saveConstTrip['pas6']['bill'];
-            this.constTrip.pas7.name = saveConstTrip['pas7']['name'];
-            this.constTrip.pas7.bill = saveConstTrip['pas7']['bill'];
+            for (let index = 1; index <= 7; index++) {
+              let pas = '';
+              if (index === 1) {
+                pas = 'driver';
+              } else {
+                pas = 'pas' + index;
+              }
+              this.constTrip.name = saveConstTrip['name'];
+              this.constTrip[pas].name = saveConstTrip[pas]['name'];
+              this.constTrip[pas].bill.nameOfBill =
+                saveConstTrip[pas]['bill']['nameOfBill'];
+              this.constTrip[pas].bill.paidByOrganization =
+                saveConstTrip[pas]['bill']['paidByOrganization'];
+            }
           });
       });
     }
@@ -126,7 +145,10 @@ export class NewConstTripComponent implements OnInit {
     const dialogPasName = this.dialogPasPickr.open(PasPickrComponent, {
       maxWidth: 400,
       panelClass: 'custom-dialog',
-      data: this.pasNames,
+      data: {
+        pasNames: this.pasNames,
+        psaSelected
+      },
       autoFocus: true
 
       // TODO: חזרה אחורה בטלפון תסגור את הדיאלוג
@@ -138,13 +160,6 @@ export class NewConstTripComponent implements OnInit {
           this.constTrip[psaSelected]['name'] = '';
         } else {
           this.constTrip[psaSelected]['name'] = selected;
-          this.dataFBService.getUserData(selected).subscribe(userData => {
-            if (userData.length !== 0) {
-              this.billNames[psaSelected] = userData[0]['mainBills'];
-            } else {
-              this.billNames[psaSelected] = this.billNames['general'];
-            }
-          });
         }
         // TODO: לסדר איפוס של המשתנה
       } else {
@@ -159,18 +174,29 @@ export class NewConstTripComponent implements OnInit {
       maxWidth: 400,
       panelClass: 'custom-dialog',
       data: {
-        pasBillNames: this.billNames[billSelected],
+        billselected: billSelected,
+        pasName: this.constTrip[billSelected]['name'],
         generalBillNames: this.billNames['general']
       },
-      autoFocus: true
+      autoFocus: false
       // TODO: קריאה של היעדי חיוב עיקריים
     });
     dialogPasBill.afterClosed().subscribe(selected => {
       if (selected) {
         if (selected === 'אפס יעד חיוב') {
-          this.constTrip[billSelected]['bill'] = '';
+          this.constTrip[billSelected]['bill'].nameOfBill = '';
+          this.constTrip[billSelected]['bill'].paidByOrganization = '';
         } else {
-          this.constTrip[billSelected]['bill'] = selected;
+          this.constTrip[billSelected]['bill'].nameOfBill = selected;
+          if (selected.includes('-')) {
+            const selectedPaidByOrganization = selected.split('-');
+            this.constTrip[billSelected]['bill'].paidByOrganization =
+              selectedPaidByOrganization[0];
+          } else {
+            this.constTrip[billSelected]['bill'][
+              'paidByOrganization'
+            ] = selected;
+          }
         }
       } else {
         console.log(selected);
@@ -190,9 +216,13 @@ export class NewConstTripComponent implements OnInit {
         if (this.indexConstTrip !== -1) {
           val.constTrips[this.indexConstTrip] = this.constTrip;
           console.log('שינוי נסיעה קיימת', val.constTrips[this.indexConstTrip]);
-        } else {
+        } else if (val.constTrips) {
           val.constTrips.push(this.constTrip);
           console.log('נסיעה חדשה');
+        } else {
+          val.constTrips = [];
+          val.constTrips.push(this.constTrip);
+          console.log('נסיעה ראשונה');
         }
         console.log(val);
         this.auth.updateUserData(val);

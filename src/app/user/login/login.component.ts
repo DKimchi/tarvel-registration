@@ -74,4 +74,5 @@ export class LoginComponent implements OnInit {
     //   console.log(this.testVal);
     // });
   }
+  // TODO : למחוק test
 }

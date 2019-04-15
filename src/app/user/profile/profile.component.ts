@@ -111,7 +111,6 @@ export class ProfileComponent implements OnInit {
       val.defaultCollectionOfCar = this.initialData.value.defaultCollectionOfCar;
       val.circleOfBelonging = this.initialData.value.circleOfBelonging;
       val.mainBills = this.initialData.value.mainBills;
-      val.constTrips = this.initialData.value.constTrips;
       this.auth.updateUserData(val);
       this.router.navigate(['/main-from']);
     });

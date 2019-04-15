@@ -30,7 +30,7 @@
     class="endTripBtn"
     mat-raised-button
     id="firstEndTripBtn"
-    (click)="endTrip()"
+    (click)="setCircleOfBelonging()"
     [disabled]="!this.carDataService.isCarSelected"
   >
     סגור נסיעה
@@ -44,3 +44,5 @@
     סגור נסיעה<br />ופתח נסיעת המשך
   </button>
 </div>
+
+<!-- TODO: לסדר כפתור המשך נסיעה -->

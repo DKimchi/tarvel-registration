@@ -49,7 +49,6 @@ export class PasSelectorComponent implements OnInit {
       this.pasNames = val['pasNames'].split(',');
       this.billNames['general'] = val['billNames'].split(',');
       this.pasNames.unshift('אפס שם');
-      this.billNames.driver = val['billNames'].split(',');
 
       //TODO: להוריד את האפס שם ולצור דרך אחרת לאפס את השם ויעד חיוב
     });
@@ -63,7 +62,10 @@ export class PasSelectorComponent implements OnInit {
     const dialogPasName = this.dialogPasPickr.open(PasPickrComponent, {
       maxWidth: 400,
       panelClass: 'custom-dialog',
-      data: this.pasNames,
+      data: {
+        pasNames: this.pasNames,
+        psaSelected
+      },
       autoFocus: true
 
       // TODO: חזרה אחורה בטלפון תסגור את הדיאלוג
@@ -73,15 +75,9 @@ export class PasSelectorComponent implements OnInit {
       if (selected) {
         if (selected === 'אפס שם') {
           this.carData['currentTrip'][psaSelected]['name'] = '';
+          this.carData['currentTrip'][psaSelected]['circleOfBelonging'] = '';
         } else {
           this.carData['currentTrip'][psaSelected]['name'] = selected;
-          this.dataFBService.getUserData(selected).subscribe(userData => {
-            if (userData.length !== 0) {
-              this.billNames[psaSelected] = userData[0]['mainBills'];
-            } else {
-              this.billNames[psaSelected] = this.billNames['general'];
-            }
-          });
         }
         // TODO: לסדר איפוס של המשתנה
       } else {
@@ -91,15 +87,16 @@ export class PasSelectorComponent implements OnInit {
     });
   }
 
-  openDialogPasBill(billSelected: string) {
-    const dialogPasBill = this.dialogPasPickr.open(BiilPickrComponent, {
+  async openDialogPasBill(billSelected: string) {
+    const dialogPasBill = await this.dialogPasPickr.open(BiilPickrComponent, {
       maxWidth: 400,
       panelClass: 'custom-dialog',
       data: {
-        pasBillNames: this.billNames[billSelected],
+        billselected: billSelected,
+        pasName: this.carData['currentTrip'][billSelected]['name'],
         generalBillNames: this.billNames['general']
       },
-      autoFocus: true
+      autoFocus: false
       // TODO: קריאה של היעדי חיוב עיקריים
     });
     dialogPasBill.afterClosed().subscribe(selected => {
@@ -110,10 +107,6 @@ export class PasSelectorComponent implements OnInit {
           this.carData['currentTrip'][billSelected]['bill'][
             'nameOfBill'
           ] = selected;
-          const selectedPaidByOrganization = selected.split('-');
-          this.carData['currentTrip'][billSelected]['bill'][
-            'paidByOrganization'
-          ] = selectedPaidByOrganization[0];
         }
       } else {
         console.log(selected);

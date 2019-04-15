@@ -106,6 +106,23 @@ export class EndTripComponent implements OnInit {
     this.endKM = Number(e.target.value);
   }
 
+  setCircleOfBelonging() {
+    for (let index = 1; index <= 7; index++) {
+      let pas = '';
+      if (index === 1) {
+        pas = 'driver';
+      } else {
+        pas = 'pas' + index;
+      }
+      const selectedPaidByOrganization = this.carData['currentTrip'][pas][
+        'bill'
+      ]['nameOfBill'].split('-');
+      this.carData['currentTrip'][pas]['bill']['paidByOrganization'] =
+        selectedPaidByOrganization[0];
+    }
+    this.endTrip();
+  }
+
   endTrip() {
     this.endTripData.dateAndTime = new Date();
     this.endTripData = {
@@ -115,7 +132,7 @@ export class EndTripComponent implements OnInit {
         1}/${this.endTripData.dateAndTime.getFullYear()}`,
       startKM: this.carData['currentTrip']['startKM'],
       endKM: this.endKM,
-      carPayBy: this.carData.payment,
+      carPayBy: this.carData.carPayBy,
       carResponsible: this.carData.responsible,
       carNumber: this.carData.carNumber,
       collectionOfCar: this.carData.collectionOfCar,
@@ -132,11 +149,12 @@ export class EndTripComponent implements OnInit {
           paidByOrganization: this.carData['currentTrip']['driver']['bill'][
             'paidByOrganization'
           ],
+
           nameOfBill: this.carData['currentTrip']['driver']['bill'][
             'nameOfBill'
           ]
         },
-        circleOfBelonging: ''
+        circleOfBelonging: 'ניסיון'
       },
       pas2: {
         name: this.carData['currentTrip']['pas2']['name'],
@@ -146,7 +164,7 @@ export class EndTripComponent implements OnInit {
           ],
           nameOfBill: this.carData['currentTrip']['pas2']['bill']['nameOfBill']
         },
-        circleOfBelonging: ''
+        circleOfBelonging: 'ניסיון 2'
       },
       pas3: {
         name: this.carData['currentTrip']['pas3']['name'],
@@ -156,7 +174,7 @@ export class EndTripComponent implements OnInit {
           ],
           nameOfBill: this.carData['currentTrip']['pas3']['bill']['nameOfBill']
         },
-        circleOfBelonging: ''
+        circleOfBelonging: 'ניסיון 3'
       },
       pas4: {
         name: this.carData['currentTrip']['pas4']['name'],
@@ -166,7 +184,7 @@ export class EndTripComponent implements OnInit {
           ],
           nameOfBill: this.carData['currentTrip']['pas4']['bill']['nameOfBill']
         },
-        circleOfBelonging: ''
+        circleOfBelonging: 'ניסיון 4'
       },
       pas5: {
         name: this.carData['currentTrip']['pas5']['name'],
@@ -176,7 +194,7 @@ export class EndTripComponent implements OnInit {
           ],
           nameOfBill: this.carData['currentTrip']['pas5']['bill']['nameOfBill']
         },
-        circleOfBelonging: ''
+        circleOfBelonging: 'ניסיון 5'
       },
       pas6: {
         name: this.carData['currentTrip']['pas6']['name'],
@@ -409,7 +427,7 @@ export class EndTripComponent implements OnInit {
             1}/${this.endTripData.dateAndTime.getFullYear()}`,
           startKM: this.carData.lastTrip['endKM'],
           endKM: this.endTripData.startKM,
-          carPayBy: this.carData.payment,
+          carPayBy: this.carData.carPayBy,
           carResponsible: this.carData.responsible,
           carNumber: this.carData.carNumber,
           collectionOfCar: this.carData.collectionOfCar,

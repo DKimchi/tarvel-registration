@@ -56,13 +56,18 @@ export class MainFromComponent implements OnInit {
   gatConstTrip(constTrip) {
     this.carData['currentTrip']['driver']['name'] = constTrip.driver.name;
     this.carData['currentTrip']['driver']['bill']['nameOfBill'] =
-      constTrip.driver.bill;
+      constTrip.driver.bill.nameOfBill;
+    this.carData['currentTrip']['driver']['bill']['paidByOrganization'] =
+      constTrip.driver.bill.paidByOrganization;
+
     for (let i = 2; i < 8; i++) {
       const pasNumber = 'pas' + i;
       this.carData['currentTrip'][pasNumber]['name'] =
         constTrip[pasNumber].name;
       this.carData['currentTrip'][pasNumber]['bill']['nameOfBill'] =
-        constTrip[pasNumber].bill;
+        constTrip[pasNumber].bill.nameOfBill;
+      this.carData['currentTrip'][pasNumber]['bill']['paidByOrganization'] =
+        constTrip[pasNumber].bill.paidByOrganization;
     }
     this.startCurrentTrip();
   }

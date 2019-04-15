@@ -1,6 +1,7 @@
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
 
-.custom-dialog {
+.custom-dialog .mat-dialog-container {
   height: 80vh;
   width: 95vw;
+  padding: 0px !important;
 }
