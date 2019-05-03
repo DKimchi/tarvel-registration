@@ -15,6 +15,8 @@ import { DataFBService } from 'src/app/services/data-fb.service';
 })
 export class BiilPickrComponent implements OnInit {
   carData: carModule;
+  fullBillList = true;
+  disabledBillList = false;
   displayName: string;
   myControl = new FormControl();
   billNames: string[] = this.data.generalBillNames;
@@ -34,12 +36,8 @@ export class BiilPickrComponent implements OnInit {
   ngOnInit() {
     this.carDataService.currentCarData.subscribe(async val => {
       this.carData = val;
-      await this.setPasMainBill(this.data.billselected);
+      await this.setPasMainBill();
 
-      // this.filteredOptions = await this.myControl.valueChanges.pipe(
-      //   startWith(''),
-      //   map(value => this._filter(value))
-      // );
       switch (this.data.billselected) {
         case 'driver':
           this.displayName = 'בחר יעד חיוב לנהג';
@@ -77,18 +75,33 @@ export class BiilPickrComponent implements OnInit {
     );
   }
 
-  setPasMainBill(pasBillSelected) {
+  changeBillList() {
+    if (this.fullBillList) {
+      this.options = this.data.generalBillNames;
+    } else {
+      this.options = this.billNames;
+    }
+
+    this.filteredOptions = this.myControl.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value))
+    );
+  }
+
+  setPasMainBill() {
     this.dataFBService.getUserData(this.data.pasName).subscribe(userData => {
       if (userData.length !== 0) {
-        this.billNames = userData[0]['mainBills'];
+        if (userData[0]['mainBills'].length !== 0) {
+          this.billNames = userData[0]['mainBills'];
+          this.fullBillList = false;
+        } else {
+          this.disabledBillList = true;
+        }
+      } else {
+        this.disabledBillList = true;
       }
 
-      this.options = this.billNames;
-
-      this.filteredOptions = this.myControl.valueChanges.pipe(
-        startWith(''),
-        map(value => this._filter(value))
-      );
+      this.changeBillList();
     });
   }
 }

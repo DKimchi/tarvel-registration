@@ -48,8 +48,6 @@ export class PasSelectorComponent implements OnInit {
     this.dataFBService.getGeneralDataFormFB().subscribe(val => {
       this.pasNames = val['pasNames'].split(',');
       this.billNames['general'] = val['billNames'].split(',');
-      this.pasNames.unshift('אפס שם');
-
       //TODO: להוריד את האפס שם ולצור דרך אחרת לאפס את השם ויעד חיוב
     });
   }
@@ -75,6 +73,10 @@ export class PasSelectorComponent implements OnInit {
       if (selected) {
         if (selected === 'אפס שם') {
           this.carData['currentTrip'][psaSelected]['name'] = '';
+          this.carData['currentTrip'][psaSelected]['bill']['nameOfBill'] = '';
+          this.carData['currentTrip'][psaSelected]['bill'][
+            'paidByOrganization'
+          ] = '';
           this.carData['currentTrip'][psaSelected]['circleOfBelonging'] = '';
         } else {
           this.carData['currentTrip'][psaSelected]['name'] = selected;
@@ -103,6 +105,9 @@ export class PasSelectorComponent implements OnInit {
       if (selected) {
         if (selected === 'אפס יעד חיוב') {
           this.carData['currentTrip'][billSelected]['bill']['nameOfBill'] = '';
+          this.carData['currentTrip'][billSelected]['bill'][
+            'paidByOrganization'
+          ] = '';
         } else {
           this.carData['currentTrip'][billSelected]['bill'][
             'nameOfBill'

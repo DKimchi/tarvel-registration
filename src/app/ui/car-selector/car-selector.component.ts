@@ -36,6 +36,7 @@ export class CarSelectorComponent implements OnInit {
   ) {
     this.auth.user$.subscribe(val => {
       this.collectionOfCar = val.defaultCollectionOfCar;
+      console.log(val);
     });
   }
 

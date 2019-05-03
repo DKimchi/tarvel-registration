@@ -1,21 +1,49 @@
 <mat-toolbar class="billPickrToolbar">
   <mat-toolbar-row>{{ displayName }}</mat-toolbar-row>
 </mat-toolbar>
-<form class="example-form">
-  <mat-form-field class="example-full-width">
-    <input
-      type="text"
-      placeholder="בחר יעד חיוב"
-      aria-label="conCar"
-      matInput
-      [formControl]="myControl"
-      [matAutocomplete]="auto"
-    />
-    <mat-autocomplete #auto="matAutocomplete"> </mat-autocomplete>
-  </mat-form-field>
-</form>
+<mat-grid-list id="endTrip" cols="8" rowHeight="3.8rem">
+  <mat-grid-tile colspan="4">
+    <form class="example-form">
+      <mat-form-field class="example-full-width">
+        <input
+          type="text"
+          placeholder="בחר יעד חיוב"
+          aria-label="conCar"
+          matInput
+          [formControl]="myControl"
+          [matAutocomplete]="auto"
+        />
+        <mat-autocomplete #auto="matAutocomplete"> </mat-autocomplete>
+      </mat-form-field>
+    </form>
+  </mat-grid-tile>
+  <mat-grid-tile colspan="2">
+    <div class="btnsDetails">
+      <mat-slide-toggle
+        class="example-margin"
+        color="primary"
+        [(ngModel)]="fullBillList"
+        (ngModelChange)="changeBillList($event)"
+        [disabled]="disabledBillList"
+      ></mat-slide-toggle>
+      <br />
+      רשימה יעדים מלאה
+    </div>
+  </mat-grid-tile>
+  <mat-grid-tile colspan="2">
+    <div class="btnsDetails">
+      <button mat-mini-fab color="warn" (click)="choosePas('אפס יעד חיוב')">
+        <mat-icon aria-label="Example icon-button with a heart icon"
+          >close</mat-icon
+        >
+      </button>
+      <br />
+      אפס שם ויעד חיוב
+    </div>
+  </mat-grid-tile>
+</mat-grid-list>
 
-<mat-nav-list *ngFor="let option of (filteredOptions | async)">
+<mat-nav-list *ngFor="let option of filteredOptions | async">
   <mat-option (click)="choosePas(option)" [value]="option">
     {{ option }}
   </mat-option>

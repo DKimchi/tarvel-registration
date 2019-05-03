@@ -5,7 +5,7 @@
 </mat-toolbar>
 
 <mat-grid-list id="endTrip" cols="8" rowHeight="3.8rem">
-  <mat-grid-tile class="sound" colspan="4">
+  <mat-grid-tile colspan="4">
     <form class="example-form">
       <mat-form-field class="example-full-width">
         <input
@@ -21,25 +21,28 @@
     </form>
   </mat-grid-tile>
   <mat-grid-tile colspan="2">
-    <div class="btnsDetails">
-      <button mat-mini-fab color="warn">
-        <mat-icon aria-label="Example icon-button with a heart icon"
-          >close</mat-icon
-        >
-      </button>
-      <br />
-
-      אפס שם ויעד חיוב
-    </div>
-  </mat-grid-tile>
-  <mat-grid-tile colspan="2">
-    <div class="btnsDetails">
-      <button mat-mini-fab color="primary" (click)="choosePas(option)">
+    <div class="btnsDetails" *ngIf="auth.user$ | async as user">
+      <button
+        mat-mini-fab
+        color="primary"
+        (click)="choosePas(user.displayName)"
+      >
         <mat-icon aria-label="Example icon-button with a heart icon"
           >account_circle</mat-icon
         ></button
       ><br />
       מלא פרטים אישיים
+    </div>
+  </mat-grid-tile>
+  <mat-grid-tile colspan="2">
+    <div class="btnsDetails">
+      <button mat-mini-fab color="warn" (click)="choosePas('אפס שם')">
+        <mat-icon aria-label="Example icon-button with a heart icon"
+          >close</mat-icon
+        >
+      </button>
+      <br />
+      אפס שם ויעד חיוב
     </div>
   </mat-grid-tile>
 </mat-grid-list>
