@@ -17,6 +17,7 @@ export class CarDataService {
   isCarSelected = false;
   carData: carModule = {
     name: '',
+    displayName: '',
     typeOfCar: '',
     typename: '',
     responsible: '',
@@ -33,12 +34,6 @@ export class CarDataService {
       carNumber: '',
       collectionOfCar: '',
       numberOfPas: null,
-      occasional: {
-        startDateInFleet: new Date(),
-        endDateInFleet: new Date(),
-        startKMinFleet: null,
-        endKMinFleet: null
-      },
       driver: {
         name: '',
         bill: {
@@ -165,7 +160,13 @@ export class CarDataService {
     code: '',
     registerOn: '',
     permissibletoDrive: '',
-    startKMinFleet: null
+    startKMinFleet: null,
+    occasional: {
+      startDateInFleet: null,
+      endDateInFleet: null,
+      startKMinFleet: null,
+      endKMinFleet: null
+    }
   };
   private carDataSource = new BehaviorSubject(this.carData);
   currentCarData = this.carDataSource.asObservable();
@@ -177,24 +178,22 @@ export class CarDataService {
   ) {}
 
   getDataFormFB(collectionOfCar: string, carName: string) {
-    const checkCar = this.dataService
-      .checkIfCarExists(collectionOfCar, carName)
-      .then(val => {
-        let carSelected;
-        if (val) {
-          this.isCarSelected = true;
-          this.subscribe = this.dataService
-            .getCarDoc(collectionOfCar, carName)
-            .subscribe(val => {
-              carSelected = val;
-              this.dataForCarSelected(carSelected);
-              console.log('קיים');
-            });
-        } else {
-          this.resetCarData();
-          console.log('לא קיים');
-        }
-      });
+    this.dataService.checkIfCarExists(collectionOfCar, carName).then(val => {
+      let carSelected;
+      if (val) {
+        this.isCarSelected = true;
+        this.subscribe = this.dataService
+          .getCarDoc(collectionOfCar, carName)
+          .subscribe(val => {
+            carSelected = val;
+            this.dataForCarSelected(carSelected);
+            console.log('קיים');
+          });
+      } else {
+        this.resetCarData();
+        console.log('לא קיים');
+      }
+    });
   }
 
   dataForCarSelected(carData: carModule) {
@@ -228,33 +227,53 @@ export class CarDataService {
       permissibletoDrive: Car.permissibletoDrive,
       startKMinFleet: Car.startKMinFleet
     };
-    this.addCarToCarNames(Car.name, Car.collectionOfCar);
+    this.dataService.addCarToCarNames(Car.name, Car.collectionOfCar);
     return carRef.set(data, { merge: true });
   }
 
-  addCarToCarNames(carName: string, collectionOfCar: string) {
-    let names = [];
-    const carNamesRef: AngularFirestoreDocument = this.afs.doc(
-      `${collectionOfCar}/carNames`
+  public updateOccCarData(Car: carModule) {
+    const occCarNumber = Car.name.split(':');
+    // Sets user data to firestore on login
+    const carRef: AngularFirestoreDocument<carModule> = this.afs.doc(
+      `${Car.collectionOfCar}/${occCarNumber[0]}`
     );
-    carNamesRef
-      .get()
-      .toPromise()
-      .then(val => {
-        names = val.data().carNames;
-        if (!names.includes(carName)) {
-          names.push(carName);
-          names.sort();
-          carNamesRef.set({ carNames: names });
-        }
-      });
-    // TODO: לתפוס תעות בהבטחה
+
+    const data = {
+      name: occCarNumber[0],
+      displayName: Car.name,
+      typeOfCar: Car.typeOfCar,
+      typename: Car.typename,
+      responsible: Car.responsible,
+      carPayBy: Car.carPayBy,
+      lastRegister: Car.lastRegister,
+      lastTrip: Car.lastTrip,
+      currentTrip: Car.currentTrip,
+      collectionOfCar: Car.collectionOfCar,
+      rentCompany: {
+        name: Car.rentCompany.name,
+        tel: Car.rentCompany.tel
+      },
+      sevenPasCar: Car.sevenPasCar,
+      carNumber: Car.carNumber,
+      code: Car.code,
+      registerOn: Car.registerOn,
+      permissibletoDrive: Car.permissibletoDrive,
+      occasional: {
+        startDateInFleet: Car.occasional.startDateInFleet,
+        endDateInFleet: Car.occasional.endDateInFleet,
+        startKMinFleet: Car.occasional.startKMinFleet,
+        endKMinFleet: Car.occasional.endKMinFleet
+      }
+    };
+    this.dataService.addOccCarToCarNames(occCarNumber[0], Car.name);
+    return carRef.set(data);
   }
 
   resetCarData() {
     this.isCarSelected = false;
     const carData: carModule = {
       name: '',
+      displayName: '',
       typeOfCar: '',
       typename: '',
       responsible: '',
@@ -263,7 +282,7 @@ export class CarDataService {
       lastTrip: {
         carName: '',
         monthBill: '',
-        dateAndTime: new Date(),
+        dateAndTime: null,
         startKM: null,
         endKM: null,
         carPayBy: '',
@@ -271,12 +290,6 @@ export class CarDataService {
         carNumber: '',
         numberOfPas: null,
         collectionOfCar: '',
-        occasional: {
-          startDateInFleet: new Date(),
-          endDateInFleet: new Date(),
-          startKMinFleet: null,
-          endKMinFleet: null
-        },
         driver: {
           name: '',
           bill: {
@@ -403,7 +416,13 @@ export class CarDataService {
       code: '',
       registerOn: '',
       permissibletoDrive: '',
-      startKMinFleet: null
+      startKMinFleet: null,
+      occasional: {
+        startDateInFleet: null,
+        endDateInFleet: null,
+        startKMinFleet: null,
+        endKMinFleet: null
+      }
     };
     this.dataForCarSelected(carData);
     this.subscribe.unsubscribe();

@@ -34,12 +34,12 @@ export class MainFromComponent implements OnInit {
     this.auth.user$.subscribe(val => {
       this.user = val;
       this.constTrips = val.constTrips;
-      console.log(this.constTrips);
     });
   }
 
   startCurrentTrip() {
     const { collectionOfCar, name } = this.carData;
+    console.log(collectionOfCar, name);
     if (collectionOfCar !== '' && name !== '') {
       if (this.carData.currentTrip['startKM'] === null) {
         console.log('חסר ק"מ פתיחה');

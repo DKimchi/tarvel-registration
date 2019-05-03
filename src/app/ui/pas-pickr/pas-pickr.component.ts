@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-pas-pickr',
@@ -18,7 +19,8 @@ export class PasPickrComponent implements OnInit {
   filteredOptions: Observable<string[]>;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-    public dialogRef: MatDialogRef<PasPickrComponent>
+    public dialogRef: MatDialogRef<PasPickrComponent>,
+    private auth: AuthService
   ) {}
 
   choosePas(event: any): void {

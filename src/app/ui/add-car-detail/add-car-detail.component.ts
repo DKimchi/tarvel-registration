@@ -32,12 +32,6 @@ export class AddCarDetailComponent implements OnInit {
       carNumber: '',
       collectionOfCar: '',
       numberOfPas: null,
-      occasional: {
-        startDateInFleet: null,
-        endDateInFleet: null,
-        startKMinFleet: null,
-        endKMinFleet: null
-      },
       driver: {
         name: '',
         bill: {
@@ -250,5 +244,6 @@ export class AddCarDetailComponent implements OnInit {
       this.carDataService.dataForCarSelected(carDetails);
       this.router.navigate(['/main-from']);
     }
+    // TODO: להגדיר מה קורה שטופס לא מלא ברכב חדש
   }
 }

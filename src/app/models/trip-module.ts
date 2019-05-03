@@ -10,12 +10,6 @@ export interface tripModule {
   carNumber: string;
   collectionOfCar: string;
   numberOfPas: number;
-  occasional?: {
-    startDateInFleet: Date;
-    endDateInFleet: Date;
-    startKMinFleet: number;
-    endKMinFleet: number;
-  };
   driver: {
     name: string;
     bill: {

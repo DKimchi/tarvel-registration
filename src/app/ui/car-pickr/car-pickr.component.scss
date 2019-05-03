@@ -1,3 +1,19 @@
 .car-picker-field {
   width: 85%;
 }
+
+#collectionOfCar {
+  margin-right: 5px;
+  color: chartreuse;
+}
+
+.addBtnOcc {
+  position: initial;
+  margin-right: 3rem;
+  border: 1px solid lightblue;
+}
+
+.addBtnOcc:hover {
+  cursor: pointer;
+  background-color: blue;
+}

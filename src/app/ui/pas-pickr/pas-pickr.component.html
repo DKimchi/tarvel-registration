@@ -1,23 +1,49 @@
 <mat-toolbar class="pasPickrToolbar">
-  <mat-toolbar-row class="pasPickrToolbar"
-    >בחר שם {{ displayName }}</mat-toolbar-row
-  >
+  <mat-toolbar-row class="pasPickrToolbar">
+    <div>בחר שם {{ displayName }}</div>
+  </mat-toolbar-row>
 </mat-toolbar>
-<form class="example-form">
-  <mat-form-field class="example-full-width">
-    <input
-      type="text"
-      placeholder="שם נוסע"
-      aria-label="conCar"
-      matInput
-      [formControl]="myControl"
-      [matAutocomplete]="auto"
-    />
-    <mat-autocomplete #auto="matAutocomplete"> </mat-autocomplete>
-  </mat-form-field>
-</form>
 
-<mat-nav-list *ngFor="let option of (filteredOptions | async)">
+<mat-grid-list id="endTrip" cols="8" rowHeight="3.8rem">
+  <mat-grid-tile class="sound" colspan="4">
+    <form class="example-form">
+      <mat-form-field class="example-full-width">
+        <input
+          type="text"
+          placeholder="שם נוסע"
+          aria-label="conCar"
+          matInput
+          [formControl]="myControl"
+          [matAutocomplete]="auto"
+        />
+        <mat-autocomplete #auto="matAutocomplete"> </mat-autocomplete>
+      </mat-form-field>
+    </form>
+  </mat-grid-tile>
+  <mat-grid-tile colspan="2">
+    <div class="btnsDetails">
+      <button mat-mini-fab color="warn">
+        <mat-icon aria-label="Example icon-button with a heart icon"
+          >close</mat-icon
+        >
+      </button>
+      <br />
+
+      אפס שם ויעד חיוב
+    </div>
+  </mat-grid-tile>
+  <mat-grid-tile colspan="2">
+    <div class="btnsDetails">
+      <button mat-mini-fab color="primary" (click)="choosePas(option)">
+        <mat-icon aria-label="Example icon-button with a heart icon"
+          >account_circle</mat-icon
+        ></button
+      ><br />
+      מלא פרטים אישיים
+    </div>
+  </mat-grid-tile>
+</mat-grid-list>
+<mat-nav-list *ngFor="let option of filteredOptions | async">
   <mat-option (click)="choosePas(option)" [value]="option">
     {{ option }}
   </mat-option>

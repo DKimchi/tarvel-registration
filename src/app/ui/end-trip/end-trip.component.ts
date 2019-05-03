@@ -4,6 +4,8 @@ import { CarDataService } from 'src/app/services/car-data.service';
 import { DataFBService } from 'src/app/services/data-fb.service';
 import { tripModule } from 'src/app/models/trip-module';
 import { carModule } from 'src/app/models/car-module';
+import { copyStyles } from '@angular/animations/browser/src/util';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-end-trip',
@@ -11,7 +13,9 @@ import { carModule } from 'src/app/models/car-module';
   styleUrls: ['./end-trip.component.scss']
 })
 export class EndTripComponent implements OnInit {
+  isOccCarReturn = false;
   soundNo = true;
+  collectionOfCar: string;
   endKM: number = null;
   // : Observable<any>;
   carData: carModule;
@@ -27,12 +31,6 @@ export class EndTripComponent implements OnInit {
     carNumber: '',
     collectionOfCar: '',
     numberOfPas: 1,
-    occasional: {
-      startDateInFleet: null,
-      endDateInFleet: null,
-      startKMinFleet: null,
-      endKMinFleet: null
-    },
     driver: {
       name: '',
       bill: {
@@ -99,6 +97,7 @@ export class EndTripComponent implements OnInit {
   ngOnInit() {
     this.carDataService.currentCarData.subscribe(val => {
       this.carData = val;
+      this.collectionOfCar = val.collectionOfCar;
     });
   }
 
@@ -106,7 +105,49 @@ export class EndTripComponent implements OnInit {
     this.endKM = Number(e.target.value);
   }
 
-  setCircleOfBelonging() {
+  async setCircleOfBelonging() {
+    for (let index = 1; index <= 7; index++) {
+      let pas = '';
+      if (index === 1) {
+        pas = 'driver';
+      } else {
+        pas = 'pas' + index;
+      }
+      if (this.carData['currentTrip'][pas].name !== '') {
+        const pasName = this.carData['currentTrip'][pas].name;
+        await this.dataFBService
+          .getPasCircleOfBelonging(pasName)
+          .toPromise()
+          .then(CircleOfBelonging => {
+            if (CircleOfBelonging[0]) {
+              this.carData['currentTrip'][pas]['circleOfBelonging'] =
+                CircleOfBelonging[0];
+            } else {
+              this.carData['currentTrip'][pas]['circleOfBelonging'] =
+                'מעגל שייכות לא הוגדר';
+            }
+            console.log(
+              'מעגל שייכות',
+              this.carData['currentTrip'][pas]['circleOfBelonging']
+            );
+          })
+          // TODO: להוריד את הבןסול לוג
+          .catch(err => {
+            this.carData['currentTrip'][pas]['circleOfBelonging'] =
+              'מעגל שייכות לא הוגדר';
+            console.log(err);
+          });
+      }
+    }
+  }
+
+  returnOccCar() {
+    this.isOccCarReturn = true;
+    console.log('החזרה רכב');
+    this.endTrip();
+  }
+
+  setPaidByOrganization() {
     for (let index = 1; index <= 7; index++) {
       let pas = '';
       if (index === 1) {
@@ -116,14 +157,24 @@ export class EndTripComponent implements OnInit {
       }
       const selectedPaidByOrganization = this.carData['currentTrip'][pas][
         'bill'
-      ]['nameOfBill'].split('-');
+      ]['nameOfBill'].split(' - ');
       this.carData['currentTrip'][pas]['bill']['paidByOrganization'] =
         selectedPaidByOrganization[0];
+      console.log(
+        'משולם ע"י',
+        this.carData['currentTrip'][pas]['bill']['paidByOrganization']
+      );
     }
-    this.endTrip();
   }
 
-  endTrip() {
+  test() {
+    console.log(this.carData.name);
+  }
+  // TODO: למחוק פינקציה test
+
+  async endTrip() {
+    await this.setCircleOfBelonging();
+    await this.setPaidByOrganization();
     this.endTripData.dateAndTime = new Date();
     this.endTripData = {
       dateAndTime: new Date(),
@@ -137,12 +188,6 @@ export class EndTripComponent implements OnInit {
       carNumber: this.carData.carNumber,
       collectionOfCar: this.carData.collectionOfCar,
       numberOfPas: 1,
-      occasional: {
-        startDateInFleet: new Date(),
-        endDateInFleet: new Date(),
-        startKMinFleet: null,
-        endKMinFleet: null
-      },
       driver: {
         name: this.carData['currentTrip']['driver']['name'],
         bill: {
@@ -154,7 +199,9 @@ export class EndTripComponent implements OnInit {
             'nameOfBill'
           ]
         },
-        circleOfBelonging: 'ניסיון'
+        circleOfBelonging: this.carData['currentTrip']['driver'][
+          'circleOfBelonging'
+        ]
       },
       pas2: {
         name: this.carData['currentTrip']['pas2']['name'],
@@ -164,7 +211,9 @@ export class EndTripComponent implements OnInit {
           ],
           nameOfBill: this.carData['currentTrip']['pas2']['bill']['nameOfBill']
         },
-        circleOfBelonging: 'ניסיון 2'
+        circleOfBelonging: this.carData['currentTrip']['pas2'][
+          'circleOfBelonging'
+        ]
       },
       pas3: {
         name: this.carData['currentTrip']['pas3']['name'],
@@ -174,7 +223,9 @@ export class EndTripComponent implements OnInit {
           ],
           nameOfBill: this.carData['currentTrip']['pas3']['bill']['nameOfBill']
         },
-        circleOfBelonging: 'ניסיון 3'
+        circleOfBelonging: this.carData['currentTrip']['pas3'][
+          'circleOfBelonging'
+        ]
       },
       pas4: {
         name: this.carData['currentTrip']['pas4']['name'],
@@ -184,7 +235,9 @@ export class EndTripComponent implements OnInit {
           ],
           nameOfBill: this.carData['currentTrip']['pas4']['bill']['nameOfBill']
         },
-        circleOfBelonging: 'ניסיון 4'
+        circleOfBelonging: this.carData['currentTrip']['pas4'][
+          'circleOfBelonging'
+        ]
       },
       pas5: {
         name: this.carData['currentTrip']['pas5']['name'],
@@ -194,7 +247,9 @@ export class EndTripComponent implements OnInit {
           ],
           nameOfBill: this.carData['currentTrip']['pas5']['bill']['nameOfBill']
         },
-        circleOfBelonging: 'ניסיון 5'
+        circleOfBelonging: this.carData['currentTrip']['pas5'][
+          'circleOfBelonging'
+        ]
       },
       pas6: {
         name: this.carData['currentTrip']['pas6']['name'],
@@ -204,7 +259,9 @@ export class EndTripComponent implements OnInit {
           ],
           nameOfBill: this.carData['currentTrip']['pas6']['bill']['nameOfBill']
         },
-        circleOfBelonging: ''
+        circleOfBelonging: this.carData['currentTrip']['pas6'][
+          'circleOfBelonging'
+        ]
       },
       pas7: {
         name: this.carData['currentTrip']['pas7']['name'],
@@ -214,7 +271,9 @@ export class EndTripComponent implements OnInit {
           ],
           nameOfBill: this.carData['currentTrip']['pas7']['bill']['nameOfBill']
         },
-        circleOfBelonging: ''
+        circleOfBelonging: this.carData['currentTrip']['pas7'][
+          'circleOfBelonging'
+        ]
       }
     };
     if (this.endTripData.carName === '') {
@@ -367,21 +426,13 @@ export class EndTripComponent implements OnInit {
     }
   }
 
-  test() {
-    this.dataFBService.updataLastTripnoCar(
-      this.carData.collectionOfCar,
-      this.carData.name,
-      this.endTripData
-    );
-    this.dataFBService.setTripToDB(this.endTripData);
-  }
-
   soundNoButClick() {
     this.soundNo = !this.soundNo;
     // TODO: לשים קולות לסגרית פפתיח של נסיעה
   }
 
   registrationToDB() {
+    console.log(this.endTripData);
     if (
       this.carData.lastTrip['endKM'] &&
       this.endTripData.startKM !== this.carData.lastTrip['endKM']
@@ -389,34 +440,22 @@ export class EndTripComponent implements OnInit {
       const differenceBetweenTrips =
         this.endTripData.startKM - this.carData.lastTrip['endKM'];
       console.log(differenceBetweenTrips);
+      console.log(this.endTripData);
       if (differenceBetweenTrips <= 30 && differenceBetweenTrips > 0) {
         let lastTripDB;
         this.dataFBService
           .getLastTrip(this.carData.lastTrip['dateAndTime'])
           .subscribe(data => {
             lastTripDB = data[0];
-
+            console.log(this.endTripData);
+            console.log(lastTripDB);
             lastTripDB['endKM'] += Math.ceil(differenceBetweenTrips / 2);
             this.endTripData['startKM'] -= Math.floor(
               differenceBetweenTrips / 2
             );
             console.log(lastTripDB['endKM'], this.endTripData['startKM']);
             this.dataFBService.fiXLastTripnoDB(lastTripDB['id'], lastTripDB);
-            this.dataFBService.setTripToDB(this.endTripData);
-            this.dataFBService.updataLastTripnoCar(
-              this.endTripData.collectionOfCar,
-              this.endTripData.carName,
-              this.endTripData
-            );
-            this.dataFBService.resetCurrentTripnoCar(
-              this.endTripData.collectionOfCar,
-              this.endTripData.carName,
-              this.endTripData['endKM']
-            );
-            this.resetEndTripData();
-            this.carDataService.resetCarData();
-
-            console.log('סוף התהליך', this.carData);
+            this.closeRegistrationTrip();
           });
       } else {
         const tempEndTrip = {
@@ -496,38 +535,11 @@ export class EndTripComponent implements OnInit {
           }
         };
         this.dataFBService.setTripToDB(tempEndTrip);
-        this.dataFBService.setTripToDB(this.endTripData);
-        this.dataFBService.updataLastTripnoCar(
-          this.carData.collectionOfCar,
-          this.carData.name,
-          this.endTripData
-        );
-        this.dataFBService.resetCurrentTripnoCar(
-          this.carData.collectionOfCar,
-          this.carData.name,
-          this.endTripData['endKM']
-        );
-
-        this.resetEndTripData();
-        this.carDataService.resetCarData();
-        console.log('tempEndTrip', tempEndTrip);
+        this.closeRegistrationTrip();
       }
     } else {
-      this.dataFBService.setTripToDB(this.endTripData);
-      this.dataFBService.updataLastTripnoCar(
-        this.endTripData.collectionOfCar,
-        this.endTripData.carName,
-        this.endTripData
-      );
-      this.dataFBService.resetCurrentTripnoCar(
-        this.endTripData.collectionOfCar,
-        this.endTripData.carName,
-        this.endTripData['endKM']
-      );
-      this.resetEndTripData();
-      this.carDataService.resetCarData();
+      this.closeRegistrationTrip();
     }
-    console.log('סוף התהליך', this.carData);
   }
 
   resetEndTripData() {
@@ -543,12 +555,6 @@ export class EndTripComponent implements OnInit {
       carNumber: '',
       collectionOfCar: '',
       numberOfPas: 1,
-      occasional: {
-        startDateInFleet: null,
-        endDateInFleet: null,
-        startKMinFleet: null,
-        endKMinFleet: null
-      },
       driver: {
         name: '',
         bill: {
@@ -606,5 +612,41 @@ export class EndTripComponent implements OnInit {
         circleOfBelonging: ''
       }
     };
+  }
+
+  closeRegistrationTrip() {
+    this.dataFBService.setTripToDB(this.endTripData);
+    this.dataFBService.updataLastTripnoCar(
+      this.endTripData.collectionOfCar,
+      this.endTripData.carName,
+      this.endTripData
+    );
+    this.dataFBService.resetCurrentTripnoCar(
+      this.endTripData.collectionOfCar,
+      this.endTripData.carName,
+      this.endTripData['endKM']
+    );
+    if (this.isOccCarReturn == true) {
+      const carName = this.carData.name;
+      const displayCarName = this.carData.displayName;
+      console.log('שמירה של הרכב', this.carData);
+      this.isOccCarReturn = false;
+      this.carDataService.currentCarData.subscribe(val => {
+        this.carData = val;
+      });
+      console.log('שמירה של הרכב', this.carData);
+      this.dataFBService.saveOccCarDetails(this.carData);
+      this.resetEndTripData();
+      this.carDataService.resetCarData();
+      console.log('שמירה של הרכב', this.carData);
+      this.dataFBService.removeCarFromCarNames(displayCarName, 'משעול-מזדמן');
+      this.dataFBService.updataCarData('משעול-מזדמן', carName, this.carData);
+      console.log('סוף התהליך', this.carData);
+    } else {
+      this.resetEndTripData();
+      this.carDataService.resetCarData();
+      console.log('סוף התהליך', this.carData);
+      // }
+    }
   }
 }

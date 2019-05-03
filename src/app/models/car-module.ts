@@ -3,6 +3,7 @@ import { tripModule } from './trip-module';
 // tslint:disable-next-line:class-name
 export interface carModule {
   name: string;
+  displayName?: string;
   typeOfCar: string;
   typename: string;
   responsible: string;
@@ -21,5 +22,11 @@ export interface carModule {
     tel: string;
   };
   permissibletoDrive: string;
-  startKMinFleet: number;
+  startKMinFleet?: number;
+  occasional?: {
+    startDateInFleet: Date;
+    endDateInFleet: Date;
+    startKMinFleet: number;
+    endKMinFleet: number;
+  };
 }

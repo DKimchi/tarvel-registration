@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-car-pickr',
@@ -27,6 +28,7 @@ export class CarPickrComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<CarPickrComponent>,
+    private router: Router,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dataFBService: DataFBService
   ) {
@@ -69,5 +71,11 @@ export class CarPickrComponent implements OnInit {
     return this.options.filter(option =>
       option.toLowerCase().startsWith(filterValue)
     );
+  }
+
+  openAddOccCar() {
+    this.dialogRef.close();
+    console.log('רכב מזדמן');
+    this.router.navigate(['/add-occ-car']);
   }
 }

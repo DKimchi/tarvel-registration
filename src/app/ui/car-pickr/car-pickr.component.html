@@ -1,5 +1,16 @@
 <mat-toolbar color="primary" class="carPickrToolbar">
-  <mat-toolbar-row>בחר רכב </mat-toolbar-row>
+  <mat-toolbar-row>
+    בחר רכב -
+    <strong id="collectionOfCar"> {{ collectionOfCar }}</strong>
+    <mat-icon
+      *ngIf="collectionOfCar === 'משעול-מזדמן'"
+      (click)="openAddOccCar()"
+      class="addBtnOcc"
+      aria-hidden="false"
+      aria-label="הוסף רכב מזדמן"
+      >add</mat-icon
+    >
+  </mat-toolbar-row>
 </mat-toolbar>
 <form class="example-form" id="form_top">
   <mat-grid-list cols="2" rowHeight="2:1">
@@ -37,7 +48,7 @@
   <!-- TODO: לעשות את הבחירה מתוך התפריט -->
 </form>
 
-<mat-nav-list *ngFor="let option of (filteredOptions | async)">
+<mat-nav-list *ngFor="let option of filteredOptions | async">
   <mat-option (click)="chooseCar(option)" [value]="option">
     {{ option }}
   </mat-option>

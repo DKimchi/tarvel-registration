@@ -1,36 +1,80 @@
-<mat-grid-list id="endTrip" cols="8" rowHeight="2rem">
-  <mat-grid-tile class="sound" colspan="1">
-    <button mat-icon-button color="primary" (click)="soundNoButClick()">
-      <mat-icon>{{ soundNo ? 'volume_up' : 'volume_off' }}</mat-icon>
-    </button>
-  </mat-grid-tile>
-  <mat-grid-tile id="labelendKM" colspan="2">
-    <label for="endKM">ק"מ סיום:</label>
-  </mat-grid-tile>
-  <mat-grid-tile colspan="5">
-    <div class="endKM" id="divendkm">
-      <mat-form-field class="endKM" appearance="fill">
-        <mat-label class="endKM">ק"מ סיום - חובה</mat-label>
-        <input
-          class="endKM"
-          matInput
-          type="number"
-          placeholder='ק"מ סיום'
-          (input)="changeEndKM($event)"
-          [(ngModel)]="this.endKM"
-          [disabled]="!this.carDataService.isCarSelected"
-        />
-      </mat-form-field>
-    </div>
-  </mat-grid-tile>
-</mat-grid-list>
+<div *ngIf="collectionOfCar === 'משעול-מזדמן'; then occCar; else conCar">
+  <!-- template will replace this div -->
+</div>
+<ng-template #occCar>
+  <mat-grid-list id="endTrip" cols="11" rowHeight="2rem">
+    <mat-grid-tile class="returnOccCarBtn" colspan="2">
+      <button
+        (click)="returnOccCar()"
+        class="addBtnOcc"
+        aria-hidden="false"
+        aria-label="החזרה של רכב מזדמן"
+      >
+        החזרה
+      </button>
+    </mat-grid-tile>
+    <mat-grid-tile class="sound" colspan="1">
+      <button mat-icon-button color="primary" (click)="soundNoButClick()">
+        <mat-icon>{{ soundNo ? 'volume_up' : 'volume_off' }}</mat-icon>
+      </button>
+    </mat-grid-tile>
+    <mat-grid-tile id="labelendKM" colspan="3">
+      <label for="endKM">ק"מ סיום:</label>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="5">
+      <div class="endKM" id="divendkm">
+        <mat-form-field class="endKM" appearance="fill">
+          <mat-label class="endKM">ק"מ סיום - חובה</mat-label>
+          <input
+            class="endKM"
+            matInput
+            type="number"
+            placeholder='ק"מ סיום'
+            (input)="changeEndKM($event)"
+            [(ngModel)]="this.endKM"
+            [disabled]="!this.carDataService.isCarSelected"
+          />
+        </mat-form-field>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+</ng-template>
+
+<ng-template #conCar>
+  <mat-grid-list id="endTrip" cols="8" rowHeight="2rem">
+    <mat-grid-tile class="sound" colspan="1">
+      <button mat-icon-button color="primary" (click)="soundNoButClick()">
+        <mat-icon>{{ soundNo ? 'volume_up' : 'volume_off' }}</mat-icon>
+      </button>
+    </mat-grid-tile>
+    <mat-grid-tile id="labelendKM" colspan="2">
+      <label for="endKM">ק"מ סיום:</label>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="5">
+      <div class="endKM" id="divendkm">
+        <mat-form-field class="endKM" appearance="fill">
+          <mat-label class="endKM">ק"מ סיום - חובה</mat-label>
+          <input
+            class="endKM"
+            matInput
+            type="number"
+            placeholder='ק"מ סיום'
+            (input)="changeEndKM($event)"
+            [(ngModel)]="this.endKM"
+            [disabled]="!this.carDataService.isCarSelected"
+          />
+        </mat-form-field>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+</ng-template>
 
 <div id="divEndTripBtns">
   <button
     class="endTripBtn"
     mat-raised-button
     id="firstEndTripBtn"
-    (click)="setCircleOfBelonging()"
+    (click)="endTrip()"
     [disabled]="!this.carDataService.isCarSelected"
   >
     סגור נסיעה

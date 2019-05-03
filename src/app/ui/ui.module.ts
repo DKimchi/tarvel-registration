@@ -31,6 +31,7 @@ import { BiilPickrComponent } from './biil-pickr/biil-pickr.component';
 import { NewConstTripComponent } from './new-const-trip/new-const-trip.component';
 import { DeleteConstTripComponent } from './delete-const-trip/delete-const-trip.component';
 import { AddCarDetailComponent } from './add-car-detail/add-car-detail.component';
+import { AddOccCarComponent } from './add-occ-car/add-occ-car.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { AddCarDetailComponent } from './add-car-detail/add-car-detail.component
     BiilPickrComponent,
     NewConstTripComponent,
     DeleteConstTripComponent,
-    AddCarDetailComponent
+    AddCarDetailComponent,
+    AddOccCarComponent
   ],
   imports: [
     CommonModule,
@@ -73,6 +75,7 @@ import { AddCarDetailComponent } from './add-car-detail/add-car-detail.component
     PasPickrComponent,
     BiilPickrComponent,
     DeleteConstTripComponent
-  ]
+  ],
+  exports: [AddOccCarComponent]
 })
 export class UIModule {}

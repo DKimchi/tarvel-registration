@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 
-import { AngularFirestore } from '@angular/fire/firestore';
+import {
+  AngularFirestore,
+  AngularFirestoreDocument
+} from '@angular/fire/firestore';
 import { BehaviorSubject } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 
@@ -40,7 +43,7 @@ export class DataFBService {
               const id = a.payload.doc.id;
               return { id, ...data };
             } else {
-              return 'vmklfdsaffd';
+              return 'לא נמצא משתמש';
             }
           })
         )
@@ -93,8 +96,8 @@ export class DataFBService {
       .update({
         lastTrip: lastTrip
       })
-      .then(function() {
-        console.log('lastTrip successfully updated!');
+      .then(val => {
+        console.log('lastTrip successfully updated!', val);
       });
     // TODO:להוריד את הלוג
   }
@@ -105,6 +108,7 @@ export class DataFBService {
         ref.where('dateAndTime', '==', lastTripDate)
       )
       .snapshotChanges()
+      .pipe(take(1))
       .pipe(
         map(actions =>
           actions.map(a => {
@@ -113,8 +117,7 @@ export class DataFBService {
             return { id, ...data };
           })
         )
-      )
-      .pipe(take(1));
+      );
   }
 
   fiXLastTripnoDB(id: string, lastTrip: tripModule) {
@@ -159,6 +162,21 @@ export class DataFBService {
         console.error('Error adding document: ', error);
       });
     // TODO:לטפל תטעות ולהוריד את קונסול לוג
+  }
+
+  getPasCircleOfBelonging(pasName: string) {
+    return this.afs
+      .collection('users', ref => ref.where('displayName', '==', pasName))
+      .snapshotChanges()
+      .pipe(take(1))
+      .pipe(
+        map(actions =>
+          actions.map(a => {
+            const data = a.payload.doc.data();
+            return data['circleOfBelonging'];
+          })
+        )
+      );
   }
 
   resetCurrentTripnoCar(
@@ -229,9 +247,93 @@ export class DataFBService {
           startKM: startKM
         }
       })
-      .then(() => {
-        console.log('Document successfully updated!');
+      .then(val => {
+        console.log('Document successfully updated!', val);
       });
     // TODO: להוריד את הקונסול לוג
+  }
+
+  saveOccCarDetails(occCarDetails: carModule) {
+    occCarDetails.occasional.endDateInFleet = new Date();
+    occCarDetails.occasional.endKMinFleet = occCarDetails.lastTrip['endKM'];
+    this.afs
+      .collection(`/משעול-מזדמן/${occCarDetails.name}/oldOccCar`)
+      .add(occCarDetails)
+      .then(function(docRef) {
+        console.log('Document written with ID: ', docRef.id);
+      })
+      .catch(function(error) {
+        console.error('Error adding document: ', error);
+      });
+  }
+
+  removeCarFromCarNames(carName: string, collectionOfCar: string) {
+    let names = [];
+    const carNamesRef: AngularFirestoreDocument = this.afs.doc(
+      `${collectionOfCar}/carNames`
+    );
+    carNamesRef
+      .get()
+      .toPromise()
+      .then(val => {
+        names = val.data().carNames;
+        for (var i = 0; i < names.length; i++) {
+          if (names[i] == carName) {
+            names.splice(i, 1);
+            i--;
+          }
+        }
+        names.sort();
+        carNamesRef.set({ carNames: names });
+      });
+    // TODO: לתפוס תעות בהבטחה
+  }
+
+  addCarToCarNames(carName: string, collectionOfCar: string) {
+    let names = [];
+    const carNamesRef: AngularFirestoreDocument = this.afs.doc(
+      `${collectionOfCar}/carNames`
+    );
+    carNamesRef
+      .get()
+      .toPromise()
+      .then(val => {
+        names = val.data().carNames;
+        if (!names.includes(carName)) {
+          names.push(carName);
+          names.sort();
+          carNamesRef.set({ carNames: names });
+        }
+      });
+    // TODO: לתפוס תעות בהבטחה
+  }
+  addOccCarToCarNames(name: string, displayName: string) {
+    let names = [];
+    const carNamesRef: AngularFirestoreDocument = this.afs.doc(
+      `משעול-מזדמן/carNames`
+    );
+    carNamesRef
+      .get()
+      .toPromise()
+      .then(val => {
+        names = val.data().carNames;
+        console.log(names);
+        const arrOccCarName = [];
+        for (let i = 0; i < names.length; i++) {
+          const element = names[i].split(':');
+          arrOccCarName.push(element[0]);
+        }
+        console.log(arrOccCarName);
+        if (!arrOccCarName.includes(name)) {
+          names.push(displayName);
+        } else {
+          const index = arrOccCarName.findIndex(carName => carName === name);
+          names[index] = displayName;
+        }
+        console.log(names);
+        names.sort();
+        carNamesRef.set({ carNames: names });
+      });
+    // TODO: לתפוס תעות בהבטחה
   }
 }
