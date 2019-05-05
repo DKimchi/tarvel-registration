@@ -216,6 +216,9 @@ export class AddOccCarComponent implements OnInit {
       this.occcardata.collectionOfCar = 'משעול-מזדמן';
       this.occcardata.name = `רכב מזדמן ${
         this.newOccCarData.value.occCarNumber
+      }`;
+      this.occcardata.displayName = `רכב מזדמן ${
+        this.newOccCarData.value.occCarNumber
       }: ${this.newOccCarData.value.typeName} - ${displayCarNumber}`;
       this.occcardata.carNumber = this.newOccCarData.value.carNumber;
       this.occcardata.code = this.newOccCarData.value.code;

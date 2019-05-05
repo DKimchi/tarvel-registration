@@ -9,4 +9,8 @@ export interface User {
   circleOfBelonging?: string;
   constTrips?: Array<object>;
   children?: Array<string>;
+  carOpen?: {
+    collectionOfCar: string;
+    name: string;
+  };
 }

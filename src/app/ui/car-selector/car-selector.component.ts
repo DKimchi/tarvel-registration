@@ -14,6 +14,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { elementStart } from '@angular/core/src/render3';
 import { take } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
+import { User } from 'src/app/models/user-module';
 
 @Component({
   selector: 'app-car-selector',
@@ -21,6 +22,7 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./car-selector.component.scss']
 })
 export class CarSelectorComponent implements OnInit {
+  userData: User;
   carNames: string[];
   listOfCollection: Array<string>;
   collectionOfCar: string = 'משעול-קבוע';
@@ -36,7 +38,6 @@ export class CarSelectorComponent implements OnInit {
   ) {
     this.auth.user$.subscribe(val => {
       this.collectionOfCar = val.defaultCollectionOfCar;
-      console.log(val);
     });
   }
 
@@ -45,11 +46,13 @@ export class CarSelectorComponent implements OnInit {
       this.listOfCollection = val['carCollection'];
       this.generalData = val;
     });
+
     this.carDataService.currentCarData.pipe(take(1)).subscribe(val => {
       this.carData = val;
       this.collectionOfCar = this.carData.collectionOfCar;
       console.log(this.collectionOfCar);
       console.log(this.carData.name);
+
       if (this.carData.name !== '') {
         this.carDataService.getDataFormFB(
           this.collectionOfCar,

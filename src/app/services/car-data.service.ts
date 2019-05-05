@@ -232,15 +232,14 @@ export class CarDataService {
   }
 
   public updateOccCarData(Car: carModule) {
-    const occCarNumber = Car.name.split(':');
     // Sets user data to firestore on login
     const carRef: AngularFirestoreDocument<carModule> = this.afs.doc(
-      `${Car.collectionOfCar}/${occCarNumber[0]}`
+      `${Car.collectionOfCar}/${Car.name}`
     );
 
     const data = {
-      name: occCarNumber[0],
-      displayName: Car.name,
+      name: Car.name,
+      displayName: Car.displayName,
       typeOfCar: Car.typeOfCar,
       typename: Car.typename,
       responsible: Car.responsible,
@@ -265,7 +264,7 @@ export class CarDataService {
         endKMinFleet: Car.occasional.endKMinFleet
       }
     };
-    this.dataService.addOccCarToCarNames(occCarNumber[0], Car.name);
+    this.dataService.addOccCarToCarNames(Car.name, Car.displayName);
     return carRef.set(data);
   }
 
