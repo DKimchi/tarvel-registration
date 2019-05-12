@@ -10,10 +10,10 @@ import { DataFBService } from 'src/app/services/data-fb.service';
 
 @Component({
   selector: 'app-biil-pickr',
-  templateUrl: './biil-pickr.component.html',
-  styleUrls: ['./biil-pickr.component.scss']
+  templateUrl: './bill-pickr.component.html',
+  styleUrls: ['./bill-pickr.component.scss']
 })
-export class BiilPickrComponent implements OnInit {
+export class BillPickrComponent implements OnInit {
   carData: carModule;
   fullBillList = true;
   disabledBillList = false;
@@ -24,7 +24,7 @@ export class BiilPickrComponent implements OnInit {
   filteredOptions: Observable<string[]>;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-    public dialogRef: MatDialogRef<BiilPickrComponent>,
+    public dialogRef: MatDialogRef<BillPickrComponent>,
     public carDataService: CarDataService,
     public dataFBService: DataFBService
   ) {}

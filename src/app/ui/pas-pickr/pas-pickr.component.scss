@@ -7,10 +7,18 @@
   padding-right: 16px;
 }
 
+.openConstTrip {
+  background-color: rgb(235, 184, 184);
+  margin-right: 10px;
+}
+
 .btnsDetails {
   display: grid;
   font-size: 0.5rem;
   color: black;
   justify-items: center;
   align-items: center;
+}
+.ToolbarPasName {
+  color: rgb(36, 48, 218);
 }

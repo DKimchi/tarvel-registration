@@ -3,7 +3,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { DataFBService } from 'src/app/services/data-fb.service';
 import { PasPickrComponent } from '../pas-pickr/pas-pickr.component';
-import { BiilPickrComponent } from '../biil-pickr/biil-pickr.component';
+import { BillPickrComponent } from '../bill-pickr/bill-pickr.component';
 import { take, switchMap, map, elementAt } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
@@ -94,9 +94,7 @@ export class NewConstTripComponent implements OnInit {
     public auth: AuthService,
     private snackBar: MatSnackBar,
     public dataFBService: DataFBService,
-    private router: Router,
-    private activatedroute: ActivatedRoute,
-    private afs: AngularFirestore
+    private router: Router
   ) {
     // const url = this.router.url.slice(16);
     // this.nameConstTripURL = decodeURIComponent(url);
@@ -106,7 +104,6 @@ export class NewConstTripComponent implements OnInit {
     this.dataFBService.getGeneralDataFormFB().subscribe(val => {
       this.pasNames = val['pasNames'].split(',');
       this.billNames['general'] = val['billNames'].split(',');
-      this.pasNames.unshift('אפס שם');
     });
     const url = this.router.url.slice(16);
     const name = decodeURIComponent(url);
@@ -170,7 +167,7 @@ export class NewConstTripComponent implements OnInit {
   }
 
   openDialogPasBill(billSelected: string) {
-    const dialogPasBill = this.dialogPasPickr.open(BiilPickrComponent, {
+    const dialogPasBill = this.dialogPasPickr.open(BillPickrComponent, {
       maxWidth: 400,
       panelClass: 'custom-dialog',
       data: {

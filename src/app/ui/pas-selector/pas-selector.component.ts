@@ -1,4 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Injectable,
+  Input,
+  SimpleChanges,
+  OnChanges,
+  EventEmitter,
+  Output
+} from '@angular/core';
 
 import { MatDialog } from '@angular/material';
 
@@ -6,14 +15,14 @@ import { carModule } from 'src/app/models/car-module';
 import { CarDataService } from 'src/app/services/car-data.service';
 import { DataFBService } from 'src/app/services/data-fb.service';
 import { PasPickrComponent } from '../pas-pickr/pas-pickr.component';
-import { BiilPickrComponent } from '../biil-pickr/biil-pickr.component';
+import { BillPickrComponent } from '../bill-pickr/bill-pickr.component';
 
 @Component({
   selector: 'app-pas-selector',
   templateUrl: './pas-selector.component.html',
   styleUrls: ['./pas-selector.component.scss']
 })
-export class PasSelectorComponent implements OnInit {
+export class PasSelectorComponent implements OnInit, OnChanges {
   carData: carModule;
   pasNames: string[];
   billNames: {
@@ -40,17 +49,32 @@ export class PasSelectorComponent implements OnInit {
     public carDataService: CarDataService,
     public dataFBService: DataFBService
   ) {}
+  @Output() openConstTrips: EventEmitter<boolean> = new EventEmitter();
+  @Input() driveNameChange: string;
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes);
+    console.log(this.carDataService.pasTextName.driver);
+  }
 
   ngOnInit() {
     this.carDataService.currentCarData.subscribe(val => {
       this.carData = val;
     });
+
+    this.carDataService.change.subscribe(newCarChoose => {
+      if (this.carData['currentTrip']['driver']['name'] === '') {
+        this.openDialogPasNames('driver');
+      }
+    });
+
     this.dataFBService.getGeneralDataFormFB().subscribe(val => {
       this.pasNames = val['pasNames'].split(',');
       this.billNames['general'] = val['billNames'].split(',');
       //TODO: להוריד את האפס שם ולצור דרך אחרת לאפס את השם ויעד חיוב
     });
   }
+
   getNames() {
     console.log(this.pasNames);
     console.log(this.billNames);
@@ -62,6 +86,7 @@ export class PasSelectorComponent implements OnInit {
       panelClass: 'custom-dialog',
       data: {
         pasNames: this.pasNames,
+        pasName: this.carData.currentTrip[psaSelected]['name'],
         psaSelected
       },
       autoFocus: true
@@ -81,6 +106,9 @@ export class PasSelectorComponent implements OnInit {
         } else {
           this.carData['currentTrip'][psaSelected]['name'] = selected;
         }
+        this.carDataService.startTripBtnText = 'התחלת נסיעה';
+        this.carDataService.changeTextName();
+
         // TODO: לסדר איפוס של המשתנה
       } else {
         console.log(selected);
@@ -90,7 +118,7 @@ export class PasSelectorComponent implements OnInit {
   }
 
   async openDialogPasBill(billSelected: string) {
-    const dialogPasBill = await this.dialogPasPickr.open(BiilPickrComponent, {
+    const dialogPasBill = await this.dialogPasPickr.open(BillPickrComponent, {
       maxWidth: 400,
       panelClass: 'custom-dialog',
       data: {
@@ -113,6 +141,8 @@ export class PasSelectorComponent implements OnInit {
             'nameOfBill'
           ] = selected;
         }
+        this.carDataService.startTripBtnText = 'התחלת נסיעה';
+        this.carDataService.changeTextName();
       } else {
         console.log(selected);
         // TODO: מה עושים שלא בוחרים במשהו

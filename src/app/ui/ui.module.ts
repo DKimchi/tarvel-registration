@@ -27,7 +27,7 @@ import { EndTripComponent } from './end-trip/end-trip.component';
 import { StartKmComponent } from './start-km/start-km.component';
 import { CarPickrComponent } from './car-pickr/car-pickr.component';
 import { PasPickrComponent } from './pas-pickr/pas-pickr.component';
-import { BiilPickrComponent } from './biil-pickr/biil-pickr.component';
+import { BillPickrComponent } from './bill-pickr/bill-pickr.component';
 import { NewConstTripComponent } from './new-const-trip/new-const-trip.component';
 import { DeleteConstTripComponent } from './delete-const-trip/delete-const-trip.component';
 import { AddCarDetailComponent } from './add-car-detail/add-car-detail.component';
@@ -41,8 +41,8 @@ import { AddOccCarComponent } from './add-occ-car/add-occ-car.component';
     EndTripComponent,
     StartKmComponent,
     CarPickrComponent,
+    BillPickrComponent,
     PasPickrComponent,
-    BiilPickrComponent,
     NewConstTripComponent,
     DeleteConstTripComponent,
     AddCarDetailComponent,
@@ -72,8 +72,8 @@ import { AddOccCarComponent } from './add-occ-car/add-occ-car.component';
   ],
   entryComponents: [
     CarPickrComponent,
+    BillPickrComponent,
     PasPickrComponent,
-    BiilPickrComponent,
     DeleteConstTripComponent
   ],
   exports: [AddOccCarComponent]

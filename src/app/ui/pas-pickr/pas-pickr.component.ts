@@ -15,6 +15,7 @@ export class PasPickrComponent implements OnInit {
   myControl = new FormControl();
   psaSelected = this.data.psaSelected;
   displayName: string;
+  pasName = this.data.pasName;
   options: string[] = this.data.pasNames;
   filteredOptions: Observable<string[]>;
   constructor(
@@ -65,5 +66,9 @@ export class PasPickrComponent implements OnInit {
     return this.options.filter(option =>
       option.toLowerCase().startsWith(filterValue)
     );
+  }
+
+  openConstTrip() {
+    this.dialogRef.close('constTrip');
   }
 }

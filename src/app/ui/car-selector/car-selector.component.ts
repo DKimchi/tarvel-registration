@@ -15,6 +15,8 @@ import { elementStart } from '@angular/core/src/render3';
 import { take } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
 import { User } from 'src/app/models/user-module';
+import { PasPickrComponent } from '../pas-pickr/pas-pickr.component';
+import { async } from '@firebase/util';
 
 @Component({
   selector: 'app-car-selector',
@@ -23,6 +25,26 @@ import { User } from 'src/app/models/user-module';
 })
 export class CarSelectorComponent implements OnInit {
   userData: User;
+  pasNames: string[];
+  billNames: {
+    driver: [];
+    pas2: [];
+    pas3: [];
+    pas4: [];
+    pas5: [];
+    pas6: [];
+    pas7: [];
+    general: [];
+  } = {
+    driver: null,
+    pas2: null,
+    pas3: null,
+    pas4: null,
+    pas5: null,
+    pas6: null,
+    pas7: null,
+    general: null
+  };
   carNames: string[];
   listOfCollection: Array<string>;
   collectionOfCar: string = 'משעול-קבוע';
@@ -45,6 +67,11 @@ export class CarSelectorComponent implements OnInit {
     this.dataFBService.getGeneralDataFormFB().subscribe(val => {
       this.listOfCollection = val['carCollection'];
       this.generalData = val;
+    });
+    this.dataFBService.getGeneralDataFormFB().subscribe(val => {
+      this.pasNames = val['pasNames'].split(',');
+      this.billNames['general'] = val['billNames'].split(',');
+      //TODO: להוריד את האפס שם ולצור דרך אחרת לאפס את השם ויעד חיוב
     });
 
     this.carDataService.currentCarData.pipe(take(1)).subscribe(val => {
@@ -96,45 +123,39 @@ export class CarSelectorComponent implements OnInit {
       autoFocus: false
       // TODO: חזרה אחורה בטלפון תסגור את הדיאלוג
     });
-    dialogRef.afterClosed().subscribe(selected => {
+    dialogRef.afterClosed().subscribe(async selected => {
       if (selected) {
         const carNameInDB = selected.carName.split(':');
         console.log(carNameInDB);
         this.collectionOfCar = selected.carCollection;
-        this.carDataService.getDataFormFB(
+        await this.carDataService.getDataFormFB(
           selected.carCollection,
           carNameInDB[0]
         );
-        this.carDataService.currentCarData.subscribe(val => {
+        this.carDataService.currentCarData.subscribe(async val => {
           this.carData = val;
+          let isDisplayName;
           if (this.carData.displayName) {
-            if (this.carData['code']) {
-              this.selectCarBtnText =
-                this.carData['displayName'] + ': קוד ' + this.carData['code'];
-            } else if (this.carData['displayName']) {
-              this.selectCarBtnText = this.carData['displayName'];
-            } else if (this.carData['displayName'] === '') {
-              this.selectCarBtnText = 'בחר רכב';
-            } else {
-              this.selectCarBtnText = 'רכב לא במערכת';
-              // TODO: להפנות למקום משכניסים את הרכבים.
-            }
+            isDisplayName = 'displayName';
           } else {
-            if (this.carData['code']) {
-              this.selectCarBtnText =
-                this.carData['name'] + ': קוד ' + this.carData['code'];
-            } else if (this.carData['name']) {
-              this.selectCarBtnText = this.carData['name'];
-            } else if (this.carData['name'] === '') {
-              this.selectCarBtnText = 'בחר רכב';
-            } else {
-              this.selectCarBtnText = 'רכב לא במערכת';
-              // TODO: להפנות למקום משכניסים את הרכבים.
-            }
+            isDisplayName = 'name';
+          }
+          if (this.carData['code']) {
+            this.selectCarBtnText =
+              this.carData[isDisplayName] + ': קוד ' + this.carData['code'];
+          } else if (this.carData[isDisplayName]) {
+            this.selectCarBtnText = this.carData[isDisplayName] + ': אין קוד';
+          } else if (this.carData[isDisplayName] === '') {
+            this.selectCarBtnText = 'בחר רכב';
+          } else {
+            this.selectCarBtnText = 'רכב לא במערכת';
+            // TODO: להפנות למקום משכניסים את הרכבים.
           }
         });
+        this.carDataService.carChosen = true;
       } else {
         console.log(selected);
+        // TODO: לתבל בבעיות שאין רכב.
       }
     });
   }

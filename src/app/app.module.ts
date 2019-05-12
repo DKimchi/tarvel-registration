@@ -21,6 +21,7 @@ import { CarDataService } from './services/car-data.service';
 import { AuthService } from './services/auth.service';
 import { UIModule } from './ui/ui.module';
 import 'hammerjs';
+import { PasSelectorComponent } from './ui/pas-selector/pas-selector.component';
 
 @NgModule({
   declarations: [AppComponent],
@@ -37,7 +38,7 @@ import 'hammerjs';
     UIModule,
     MatSelectModule
   ],
-  providers: [DataFBService, CarDataService, AuthService],
+  providers: [DataFBService, CarDataService, AuthService, PasSelectorComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

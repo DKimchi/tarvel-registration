@@ -1,13 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 
 import { CarDataService } from 'src/app/services/car-data.service';
 import { DataFBService } from 'src/app/services/data-fb.service';
 import { carModule } from 'src/app/models/car-module';
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/models/user-module';
-import { take } from 'rxjs/operators';
+import { take, tap, takeUntil } from 'rxjs/operators';
 import { DeleteConstTripComponent } from '../delete-const-trip/delete-const-trip.component';
 import { MatDialog } from '@angular/material';
+import { PasSelectorComponent } from '../pas-selector/pas-selector.component';
 
 @Component({
   selector: 'app-main-from',
@@ -15,16 +16,17 @@ import { MatDialog } from '@angular/material';
   styleUrls: ['./main-from.component.scss']
 })
 export class MainFromComponent implements OnInit {
-  startTripBtnText = 'התחלת נסיעה';
   carData: carModule;
   user: User;
+  openConstTrips = false;
   dateLastTrip;
   constTrips: Array<object>;
   constructor(
     private dialogDel: MatDialog,
     public dataFBService: DataFBService,
     public carDataService: CarDataService,
-    private auth: AuthService
+    private auth: AuthService,
+    private pasSelect: PasSelectorComponent
   ) {}
 
   ngOnInit() {
@@ -34,6 +36,14 @@ export class MainFromComponent implements OnInit {
     this.auth.user$.subscribe(val => {
       this.user = val;
       this.constTrips = val.constTrips;
+    });
+    this.pasSelect.openConstTrips.pipe(
+      tap(constTrip => {
+        console.log(constTrip);
+      })
+    );
+    this.carDataService.change.subscribe(newCarChoose => {
+      console.log(newCarChoose);
     });
   }
 
@@ -46,6 +56,8 @@ export class MainFromComponent implements OnInit {
         // TODO: להוסיף התראה על חסר ק"מ פתיחה
       } else {
         this.dataFBService.updataCarData(collectionOfCar, name, this.carData);
+        this.carDataService.startTripBtnText =
+          'נסיעה החלה - לחץ כדי לשנות פרטים';
       }
     } else {
       console.log('לא נבחר רכב');
@@ -69,6 +81,7 @@ export class MainFromComponent implements OnInit {
       this.carData['currentTrip'][pasNumber]['bill']['paidByOrganization'] =
         constTrip[pasNumber].bill.paidByOrganization;
     }
+    this.carDataService.changeTextName();
     this.startCurrentTrip();
   }
 

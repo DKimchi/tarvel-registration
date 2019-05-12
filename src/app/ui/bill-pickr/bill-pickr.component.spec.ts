@@ -1,20 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BiilPickrComponent } from './biil-pickr.component';
+import { BillPickrComponent } from './bill-pickr.component';
 
 describe('BiilPickrComponent', () => {
-  let component: BiilPickrComponent;
-  let fixture: ComponentFixture<BiilPickrComponent>;
+  let component: BillPickrComponent;
+  let fixture: ComponentFixture<BillPickrComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BiilPickrComponent ]
-    })
-    .compileComponents();
+      declarations: [BillPickrComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BiilPickrComponent);
+    fixture = TestBed.createComponent(BillPickrComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

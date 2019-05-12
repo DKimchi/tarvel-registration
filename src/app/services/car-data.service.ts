@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Output, EventEmitter } from '@angular/core';
 import { BehaviorSubject, Subscription } from 'rxjs';
 
 import { carModule } from '../models/car-module';
@@ -9,11 +9,33 @@ import {
 } from '@angular/fire/firestore';
 import { CastExpr } from '@angular/compiler';
 import { element } from '@angular/core/src/render3';
+import { PasSelectorComponent } from '../ui/pas-selector/pas-selector.component';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CarDataService {
+  carChosen = false;
+  constTrip = false;
+  pasTextName = {
+    driver: 'מנוטרל',
+    pas2: 'מנוטרל',
+    pas3: 'מנוטרל',
+    pas4: 'מנוטרל',
+    pas5: 'מנוטרל',
+    pas6: 'מנוטרל',
+    pas7: 'מנוטרל'
+  };
+  pasTextBill = {
+    driver: 'מנוטרל',
+    pas2: 'מנוטרל',
+    pas3: 'מנוטרל',
+    pas4: 'מנוטרל',
+    pas5: 'מנוטרל',
+    pas6: 'מנוטרל',
+    pas7: 'מנוטרל'
+  };
+  startTripBtnText = 'התחלת נסיעה';
   isCarSelected = false;
   carData: carModule = {
     name: '',
@@ -172,28 +194,38 @@ export class CarDataService {
   currentCarData = this.carDataSource.asObservable();
 
   private subscribe: Subscription;
+  @Output() change: EventEmitter<boolean> = new EventEmitter();
   constructor(
     public dataService: DataFBService,
     private afs: AngularFirestore
   ) {}
 
   getDataFormFB(collectionOfCar: string, carName: string) {
-    this.dataService.checkIfCarExists(collectionOfCar, carName).then(val => {
-      let carSelected;
-      if (val) {
-        this.isCarSelected = true;
-        this.subscribe = this.dataService
-          .getCarDoc(collectionOfCar, carName)
-          .subscribe(val => {
-            carSelected = val;
-            this.dataForCarSelected(carSelected);
-            console.log('קיים');
-          });
-      } else {
-        this.resetCarData();
-        console.log('לא קיים');
-      }
-    });
+    this.dataService
+      .checkIfCarExists(collectionOfCar, carName)
+      .then(async val => {
+        let carSelected;
+        if (val) {
+          this.isCarSelected = true;
+          this.subscribe = await this.dataService
+            .getCarDoc(collectionOfCar, carName)
+            .subscribe(val => {
+              carSelected = val;
+              this.dataForCarSelected(carSelected);
+              this.carData = carSelected;
+              console.log('קיים', carSelected);
+              console.log('האם נבחר רכב', this.carChosen);
+              if (this.carChosen) {
+                this.carChosen = false;
+                this.changeTextName();
+                this.change.emit(true);
+              }
+            });
+        } else {
+          this.resetCarData();
+          console.log('לא קיים');
+        }
+      });
   }
 
   dataForCarSelected(carData: carModule) {
@@ -229,6 +261,63 @@ export class CarDataService {
     };
     this.dataService.addCarToCarNames(Car.name, Car.collectionOfCar);
     return carRef.set(data, { merge: true });
+  }
+
+  changeTextName() {
+    if (this.isCarSelected) {
+      console.log(this.carData);
+      if (this.carData.currentTrip['driver'].name) {
+        if (this.carData.currentTrip['driver'].name === 'constTrip') {
+          this.constTrip = true;
+        } else {
+          this.pasTextName.driver = this.carData['currentTrip']['driver'][
+            'name'
+          ];
+        }
+      } else {
+        this.pasTextName.driver = 'שם נהג - חובה';
+      }
+      if (this.carData.currentTrip['driver']['bill']['nameOfBill']) {
+        this.pasTextBill.driver = this.carData['currentTrip']['driver']['bill'][
+          'nameOfBill'
+        ];
+      } else {
+        this.pasTextBill.driver = 'יעד חיוב נהג - חובה';
+      }
+
+      for (let i = 2; i < 8; i++) {
+        const pasNumber = 'pas' + i;
+        if (this.carData['currentTrip'][pasNumber]['name'])
+          this.pasTextName[pasNumber] = this.carData['currentTrip'][pasNumber][
+            'name'
+          ];
+        else this.pasTextName[pasNumber] = `שם נוסע ${i}`;
+        if (this.carData['currentTrip'][pasNumber]['bill']['nameOfBill'])
+          this.pasTextBill[pasNumber] = this.carData['currentTrip'][pasNumber][
+            'bill'
+          ]['nameOfBill'];
+        else this.pasTextBill[pasNumber] = `יעד חיוב נוסע ${i}`;
+      }
+    } else {
+      this.pasTextName = {
+        driver: 'מנוטרל',
+        pas2: 'מנוטרל',
+        pas3: 'מנוטרל',
+        pas4: 'מנוטרל',
+        pas5: 'מנוטרל',
+        pas6: 'מנוטרל',
+        pas7: 'מנוטרל'
+      };
+      this.pasTextBill = {
+        driver: 'מנוטרל',
+        pas2: 'מנוטרל',
+        pas3: 'מנוטרל',
+        pas4: 'מנוטרל',
+        pas5: 'מנוטרל',
+        pas6: 'מנוטרל',
+        pas7: 'מנוטרל'
+      };
+    }
   }
 
   public updateOccCarData(Car: carModule) {
@@ -423,6 +512,7 @@ export class CarDataService {
         endKMinFleet: null
       }
     };
+    this.changeTextName();
     this.dataForCarSelected(carData);
     this.subscribe.unsubscribe();
   }

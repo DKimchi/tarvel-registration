@@ -35,9 +35,13 @@
           נסיעות קבועות
         </button>
 
-        <app-start-km></app-start-km>
+        <app-start-km
+          [startKM]="carData['currentTrip']['startKM']"
+        ></app-start-km>
       </div>
-      <app-pas-selector></app-pas-selector>
+      <app-pas-selector
+        [driveNameChange]="carDataService.pasTextName.driver"
+      ></app-pas-selector>
       <button
         mat-raised-button
         color="primary"
@@ -45,12 +49,17 @@
         (click)="startCurrentTrip()"
         [disabled]="!this.carDataService.isCarSelected"
       >
-        {{ startTripBtnText }}
+        {{ this.carDataService.startTripBtnText }}
       </button>
       <app-end-trip id="endTrip"></app-end-trip>
     </mat-sidenav-content>
 
-    <mat-sidenav class="sidenav" #sidenavConstTrips mode="over">
+    <mat-sidenav
+      class="sidenav"
+      #sidenavConstTrips
+      mode="over"
+      [(opened)]="this.carDataService.constTrip"
+    >
       <mat-toolbar color="accent">
         <mat-toolbar-row>
           <span>נסיעות קבועות</span>

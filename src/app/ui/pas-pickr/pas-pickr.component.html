@@ -1,6 +1,22 @@
 <mat-toolbar class="pasPickrToolbar">
   <mat-toolbar-row class="pasPickrToolbar">
-    <div>בחר שם {{ displayName }}</div>
+    <div>
+      בחר שם {{ displayName }} -
+      <strong class="ToolbarPasName"
+        >{{ pasName ? pasName : 'לא ניבחר' }}
+      </strong>
+      <button
+        mat-button
+        color="accent"
+        *ngIf="displayName === 'נהג'"
+        (click)="openConstTrip()"
+        class="openConstTrip"
+        aria-hidden="false"
+        aria-label="כפתור נסיעות קבועות"
+      >
+        ניסעות קבועות
+      </button>
+    </div>
   </mat-toolbar-row>
 </mat-toolbar>
 
@@ -42,7 +58,7 @@
         >
       </button>
       <br />
-      אפס שם ויעד חיוב
+      {{ pasName ? ' אפס שם ויעד חיוב' : 'אין נוסעים נוספים' }}
     </div>
   </mat-grid-tile>
 </mat-grid-list>
