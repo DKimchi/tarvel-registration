@@ -17,6 +17,7 @@ import { FormControl } from '@angular/forms';
 import { User } from 'src/app/models/user-module';
 import { PasPickrComponent } from '../pas-pickr/pas-pickr.component';
 import { async } from '@firebase/util';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-car-selector',
@@ -56,7 +57,8 @@ export class CarSelectorComponent implements OnInit {
     public auth: AuthService,
     public dialog: MatDialog,
     public dataFBService: DataFBService,
-    public carDataService: CarDataService
+    public carDataService: CarDataService,
+    private router: Router
   ) {
     this.auth.user$.subscribe(val => {
       this.collectionOfCar = val.defaultCollectionOfCar;
@@ -125,34 +127,40 @@ export class CarSelectorComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(async selected => {
       if (selected) {
-        const carNameInDB = selected.carName.split(':');
-        console.log(carNameInDB);
-        this.collectionOfCar = selected.carCollection;
-        await this.carDataService.getDataFormFB(
-          selected.carCollection,
-          carNameInDB[0]
-        );
-        this.carDataService.currentCarData.subscribe(async val => {
-          this.carData = val;
-          let isDisplayName;
-          if (this.carData.displayName) {
-            isDisplayName = 'displayName';
-          } else {
-            isDisplayName = 'name';
-          }
-          if (this.carData['code']) {
-            this.selectCarBtnText =
-              this.carData[isDisplayName] + ': קוד ' + this.carData['code'];
-          } else if (this.carData[isDisplayName]) {
-            this.selectCarBtnText = this.carData[isDisplayName] + ': אין קוד';
-          } else if (this.carData[isDisplayName] === '') {
-            this.selectCarBtnText = 'בחר רכב';
-          } else {
-            this.selectCarBtnText = 'רכב לא במערכת';
-            // TODO: להפנות למקום משכניסים את הרכבים.
-          }
-        });
-        this.carDataService.carChosen = true;
+        if (selected === 'openAddOccCar') {
+          // this.carDataService.resetCarData();
+          console.log('רכב מזדמן');
+          this.router.navigate(['/add-occ-car']);
+        } else {
+          const carNameInDB = selected.carName.split(':');
+          console.log(carNameInDB);
+          this.collectionOfCar = selected.carCollection;
+          await this.carDataService.getDataFormFB(
+            selected.carCollection,
+            carNameInDB[0]
+          );
+          this.carDataService.currentCarData.subscribe(async val => {
+            this.carData = val;
+            let isDisplayName;
+            if (this.carData.displayName) {
+              isDisplayName = 'displayName';
+            } else {
+              isDisplayName = 'name';
+            }
+            if (this.carData['code']) {
+              this.selectCarBtnText =
+                this.carData[isDisplayName] + ': קוד ' + this.carData['code'];
+            } else if (this.carData[isDisplayName]) {
+              this.selectCarBtnText = this.carData[isDisplayName] + ': אין קוד';
+            } else if (this.carData[isDisplayName] === '') {
+              this.selectCarBtnText = 'בחר רכב';
+            } else {
+              this.selectCarBtnText = 'רכב לא במערכת';
+              // TODO: להפנות למקום משכניסים את הרכבים.
+            }
+          });
+          this.carDataService.carChosen = true;
+        }
       } else {
         console.log(selected);
         // TODO: לתבל בבעיות שאין רכב.

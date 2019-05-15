@@ -269,6 +269,7 @@ export class CarDataService {
       if (this.carData.currentTrip['driver'].name) {
         if (this.carData.currentTrip['driver'].name === 'constTrip') {
           this.constTrip = true;
+          this.carData.currentTrip['driver'].name === '';
         } else {
           this.pasTextName.driver = this.carData['currentTrip']['driver'][
             'name'
@@ -357,7 +358,7 @@ export class CarDataService {
     return carRef.set(data);
   }
 
-  resetCarData() {
+  async resetCarData() {
     this.isCarSelected = false;
     const carData: carModule = {
       name: '',
@@ -513,7 +514,7 @@ export class CarDataService {
       }
     };
     this.changeTextName();
-    this.dataForCarSelected(carData);
+    await this.dataForCarSelected(carData);
     this.subscribe.unsubscribe();
   }
 }

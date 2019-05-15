@@ -161,7 +161,8 @@ export class AddOccCarComponent implements OnInit {
       endDateInFleet: null,
       startKMinFleet: null,
       endKMinFleet: null
-    }
+    },
+    startKMinFleet: null
   };
 
   newOccCarData = this.fb.group({
@@ -229,12 +230,23 @@ export class AddOccCarComponent implements OnInit {
       this.occcardata.currentTrip[
         'startKM'
       ] = this.newOccCarData.value.startKMinFleet;
+      this.occcardata.startKMinFleet = this.newOccCarData.value.startKMinFleet;
       this.occcardata.occasional['startDateInFleet'] = new Date();
       this.occcardata.lastTrip.dateAndTime = new Date();
-      console.log(this.newOccCarData);
+      this.occcardata.currentTrip['driver']['name'] = '';
+      //   name: '',
+      //     bill: {
+      //     paidByOrganization: '',
+      //       nameOfBill: ''
+      //   },
+      //   circleOfBelonging: ''
+      // },
+      console.log(this.occcardata);
 
       this.carDataService.updateOccCarData(this.occcardata);
       this.carDataService.dataForCarSelected(this.occcardata);
+      this.carDataService.changeTextName();
+      this.carDataService.carChosen = true;
       this.router.navigate(['/main-from']);
     }
   }

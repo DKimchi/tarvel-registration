@@ -5,27 +5,17 @@
       <strong class="ToolbarPasName"
         >{{ pasName ? pasName : 'לא ניבחר' }}
       </strong>
-      <button
-        mat-button
-        color="accent"
-        *ngIf="displayName === 'נהג'"
-        (click)="openConstTrip()"
-        class="openConstTrip"
-        aria-hidden="false"
-        aria-label="כפתור נסיעות קבועות"
-      >
-        ניסעות קבועות
-      </button>
     </div>
   </mat-toolbar-row>
 </mat-toolbar>
 
-<mat-grid-list id="endTrip" cols="8" rowHeight="3.8rem">
-  <mat-grid-tile colspan="4">
+<mat-grid-list id="endTrip" cols="11" rowHeight="3.8rem">
+  <mat-grid-tile colspan="5">
     <form class="example-form">
-      <mat-form-field class="example-full-width">
+      <mat-form-field id="enterName" class="example-full-width">
         <input
           type="text"
+          id="enterName"
           placeholder="שם נוסע"
           aria-label="conCar"
           matInput
@@ -49,6 +39,19 @@
       ><br />
       מלא פרטים אישיים
     </div>
+  </mat-grid-tile>
+  <mat-grid-tile colspan="2">
+    <button
+      mat-stroked-button
+      color="accent"
+      *ngIf="displayName === 'נהג'"
+      (click)="openConstTrip()"
+      aria-hidden="false"
+      id="openConstTrip"
+      aria-label="כפתור נסיעות קבועות"
+    >
+      ניסעות<br />קבועות
+    </button>
   </mat-grid-tile>
   <mat-grid-tile colspan="2">
     <div class="btnsDetails">

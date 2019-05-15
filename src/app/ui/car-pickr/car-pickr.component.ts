@@ -28,7 +28,7 @@ export class CarPickrComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<CarPickrComponent>,
-    private router: Router,
+
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dataFBService: DataFBService
   ) {
@@ -74,8 +74,6 @@ export class CarPickrComponent implements OnInit {
   }
 
   openAddOccCar() {
-    this.dialogRef.close();
-    console.log('רכב מזדמן');
-    this.router.navigate(['/add-occ-car']);
+    this.dialogRef.close('openAddOccCar');
   }
 }

@@ -16,6 +16,7 @@ export class AddCarDetailComponent implements OnInit {
   collectionOfCarFromDB: [];
   cardata: carModule = {
     name: '',
+    displayName: '',
     typeOfCar: '',
     typename: '',
     responsible: '',

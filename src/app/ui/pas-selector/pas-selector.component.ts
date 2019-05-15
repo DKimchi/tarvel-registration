@@ -104,7 +104,12 @@ export class PasSelectorComponent implements OnInit, OnChanges {
           ] = '';
           this.carData['currentTrip'][psaSelected]['circleOfBelonging'] = '';
         } else {
-          this.carData['currentTrip'][psaSelected]['name'] = selected;
+          if (selected !== 'constTrip') {
+            this.carData['currentTrip'][psaSelected]['name'] = selected;
+            this.openDialogPasBill(psaSelected);
+          } else {
+            this.carDataService.constTrip = true;
+          }
         }
         this.carDataService.startTripBtnText = 'התחלת נסיעה';
         this.carDataService.changeTextName();
@@ -140,6 +145,32 @@ export class PasSelectorComponent implements OnInit, OnChanges {
           this.carData['currentTrip'][billSelected]['bill'][
             'nameOfBill'
           ] = selected;
+          let pasNumber = billSelected.split('pas');
+          const numberOfPas = parseInt(pasNumber[1], 10) + 1;
+          if (pasNumber[0] === 'driver') {
+            pasNumber[1] = '2';
+          } else {
+            if (!this.carData.sevenPasCar) {
+              if (numberOfPas < 6) {
+                pasNumber[1] = numberOfPas.toString();
+              } else {
+                pasNumber[1] = '';
+              }
+            } else {
+              if (numberOfPas > 7) {
+                pasNumber[1] = '';
+              } else {
+                pasNumber[1] = numberOfPas.toString();
+              }
+            }
+          }
+          pasNumber[0] = 'pas';
+          if (pasNumber[1] !== '') {
+            const newPasName = pasNumber[0] + pasNumber[1];
+            if (this.carData['currentTrip'][newPasName]['name'] === '') {
+              this.openDialogPasNames(newPasName);
+            }
+          }
         }
         this.carDataService.startTripBtnText = 'התחלת נסיעה';
         this.carDataService.changeTextName();

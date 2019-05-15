@@ -91,6 +91,7 @@
                 aria-hidden="false"
                 aria-label="עריכה של נסיעה קבוע"
                 (click)="sidenavConstTrips.toggle()"
+                (click)="this.carDataService.constTrip = false"
                 >edit</mat-icon
               >
               <mat-icon
@@ -112,6 +113,7 @@
         <mat-toolbar-row>
           <span>פרטי רכב</span>
           <mat-icon
+            *ngIf="carData.collectionOfCar !== 'משעול-מזדמן'"
             routerLink="/add-car-detail"
             class="addBtn"
             aria-hidden="false"

@@ -7,11 +7,12 @@
   padding-right: 16px;
 }
 
-.openConstTrip {
-  background-color: rgb(235, 184, 184);
-  margin-right: 10px;
+#openConstTrip {
+  font-size: 0.7rem;
 }
-
+#enterName {
+  right: 10px;
+}
 .btnsDetails {
   display: grid;
   font-size: 0.5rem;
