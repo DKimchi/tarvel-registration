@@ -6,6 +6,8 @@ import { tripModule } from 'src/app/models/trip-module';
 import { carModule } from 'src/app/models/car-module';
 import { copyStyles } from '@angular/animations/browser/src/util';
 import { take } from 'rxjs/operators';
+import { MatSnackBar, MatDialog } from '@angular/material';
+import { DialogMessageComponent } from '../dialog-message/dialog-message.component';
 
 @Component({
   selector: 'app-end-trip',
@@ -90,8 +92,10 @@ export class EndTripComponent implements OnInit {
   };
 
   constructor(
+    private dialogMessage: MatDialog,
     public carDataService: CarDataService,
-    public dataFBService: DataFBService
+    public dataFBService: DataFBService,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit() {
@@ -277,112 +281,168 @@ export class EndTripComponent implements OnInit {
       }
     };
     if (this.endTripData.carName === '') {
+      this.snackBar.open('לא נבחר רכב', '', {
+        verticalPosition: 'top',
+        duration: 2000
+      });
       console.log('לא נבחר רכב');
-      alert('לא נבחר רכב');
       // TODO: לדסר הודעה על אי בחירת רכב.
     } else if (this.endTripData.startKM == null) {
+      this.snackBar.open('חסר ק"מ פתיחה', '', {
+        verticalPosition: 'top',
+        duration: 2000
+      });
       console.log('חסר ק"מ פתיחה');
-      alert('חסר ק"מ פתיחה');
+
       // TODO: לדסר הודעה על אי בחירת רכב.
     } else if (this.endTripData.endKM == null) {
+      this.snackBar.open('חסר ק"מ סיום', '', {
+        verticalPosition: 'top',
+        duration: 2000
+      });
       console.log('חסר ק"מ סיום');
-      alert('חסר ק"מ סיום');
       // TODO: לדסר הודעה על אי בחירת רכב.
     } else if (this.endTripData.driver['name'] === '') {
+      this.snackBar.open('לא נבחר שם נהג', '', {
+        verticalPosition: 'top',
+        duration: 2000
+      });
       console.log('לא נחבר שם נהג');
-      alert('לא נבחר שם נהג');
       // TODO: לדסר הודעה על אי בחירת רכב.
     } else if (this.endTripData.driver['bill']['nameOfBill'] === '') {
+      this.snackBar.open('לא נבחר חשבון נהג', '', {
+        verticalPosition: 'top',
+        duration: 2000
+      });
       console.log('לא נבחר חשבון נהג');
-      alert('לא נבחר חשבון נהג');
       // TODO: לדסר הודעה על אי בחירת רכב.
     } else if (this.endTripData.startKM > this.endTripData.endKM) {
+      this.snackBar.open('ק"מ פתיחה לא יכול להיות יותר מק"מ סיום', '', {
+        verticalPosition: 'top',
+        duration: 2000
+      });
       console.log('ק"מ פתיחה לא יכול להיות יותר מק"מ סיום');
-      alert('ק"מ פתיחה לא יכול להיות יותר מק"מ סיום');
       // TODO: לדסר הודעה על אי בחירת רכב.
     } else if (
       this.endTripData.pas2['name'] === '' &&
       this.endTripData.pas2['bill']['nameOfBill'] !== ''
     ) {
+      this.snackBar.open('חסר שם לנוסע 2', '', {
+        verticalPosition: 'top',
+        duration: 2000
+      });
       console.log('חסר שם לנוסע 2');
-      alert('חסר שם לנוסע 2');
       // TODO: לדסר הודעה על אי בחירת רכב.
     } else if (
       this.endTripData.pas2['bill']['nameOfBill'] === '' &&
       this.endTripData.pas2['name'] !== ''
     ) {
+      this.snackBar.open('חסר יעד חיוב לנוסע 2', '', {
+        verticalPosition: 'top',
+        duration: 2000
+      });
       console.log('חסר יעד חיוב לנוסע 2');
-      alert('חסר יעד חיוב לנוסע 2');
       // TODO: לדסר הודעה על אי בחירת רכב.
     } else if (
       this.endTripData.pas3['name'] === '' &&
       this.endTripData.pas3['bill']['nameOfBill'] !== ''
     ) {
+      this.snackBar.open('חסר שם לנוסע 3', '', {
+        verticalPosition: 'top',
+        duration: 2000
+      });
       console.log('חסר שם לנוסע 3');
-      alert('חסר שם לנוסע 3');
       // TODO: לדסר הודעה על אי בחירת רכב.
     } else if (
       this.endTripData.pas3['bill']['nameOfBill'] === '' &&
       this.endTripData.pas3['name'] !== ''
     ) {
+      this.snackBar.open('חסר יעד חיוב לנוסע 3', '', {
+        verticalPosition: 'top',
+        duration: 2000
+      });
       console.log('חסר יעד חיוב לנוסע 3');
-      alert('חסר יעד חיוב לנוסע 3');
       // TODO: לדסר הודעה על אי בחירת רכב.
     } else if (
       this.endTripData.pas4['name'] === '' &&
       this.endTripData.pas4['bill']['nameOfBill'] !== ''
     ) {
+      this.snackBar.open('חסר שם לנוסע 4', '', {
+        verticalPosition: 'top',
+        duration: 2000
+      });
       console.log('חסר שם לנוסע 4');
-      alert('חסר שם לנוסע 4');
+
       // TODO: לדסר הודעה על אי בחירת רכב.
     } else if (
       this.endTripData.pas4['bill']['nameOfBill'] === '' &&
       this.endTripData.pas4['name'] !== ''
     ) {
+      this.snackBar.open('חסר יעד חיוב לנוסע 4', '', {
+        verticalPosition: 'top',
+        duration: 2000
+      });
       console.log('חסר יעד חיוב לנוסע 4');
-      alert('חסר יעד חיוב לנוסע 4');
       // TODO: לדסר הודעה על אי בחירת רכב.
     } else if (
       this.endTripData.pas5['name'] === '' &&
       this.endTripData.pas5['bill']['nameOfBill'] !== ''
     ) {
+      this.snackBar.open('חסר שם לנוסע 5', '', {
+        verticalPosition: 'top',
+        duration: 2000
+      });
       console.log('חסר שם לנוסע 5');
-      alert('חסר שם לנוסע 5');
       // TODO: לדסר הודעה על אי בחירת רכב.
     } else if (
       this.endTripData.pas5['bill']['nameOfBill'] === '' &&
       this.endTripData.pas5['name'] !== ''
     ) {
+      this.snackBar.open('חסר יעד חיוב לנוסע 5', '', {
+        verticalPosition: 'top',
+        duration: 2000
+      });
       console.log('חסר יעד חיוב לנוסע 5');
-      alert('חסר יעד חיוב לנוסע 5');
       // TODO: לדסר הודעה על אי בחירת רכב.
     } else if (
       this.endTripData.pas6['name'] === '' &&
       this.endTripData.pas6['bill']['nameOfBill'] !== ''
     ) {
+      this.snackBar.open('חסר שם לנוסע 6', '', {
+        verticalPosition: 'top',
+        duration: 2000
+      });
       console.log('חסר שם לנוסע 6');
-      alert('חסר שם לנוסע 6');
       // TODO: לדסר הודעה על אי בחירת רכב.
     } else if (
       this.endTripData.pas6['bill']['nameOfBill'] === '' &&
       this.endTripData.pas6['name'] !== ''
     ) {
+      this.snackBar.open('חסר יעד חיוב לנוסע 6', '', {
+        verticalPosition: 'top',
+        duration: 2000
+      });
       console.log('חסר יעד חיוב לנוסע 6');
-      alert('חסר יעד חיוב לנוסע 6');
       // TODO: לדסר הודעה על אי בחירת רכב.
     } else if (
       this.endTripData.pas7['name'] === '' &&
       this.endTripData.pas7['bill']['nameOfBill'] !== ''
     ) {
+      this.snackBar.open('חסר שם לנוסע 7', '', {
+        verticalPosition: 'top',
+        duration: 2000
+      });
       console.log('חסר שם לנוסע 7');
-      alert('חסר שם לנוסע 7');
       // TODO: לדסר הודעה על אי בחירת רכב.
     } else if (
       this.endTripData.pas7['bill']['nameOfBill'] === '' &&
       this.endTripData.pas7['name'] !== ''
     ) {
+      this.snackBar.open('חסר יעד חיוב לנוסע 7', '', {
+        verticalPosition: 'top',
+        duration: 2000
+      });
       console.log('חסר יעד חיוב לנוסע 7');
-      alert('חסר יעד חיוב לנוסע 7');
       // TODO: לדסר הודעה על אי בחירת רכב.
     } else {
       if (
@@ -421,8 +481,35 @@ export class EndTripComponent implements OnInit {
       ) {
         this.endTripData.numberOfPas += 1;
       }
+      const tripKM = this.endTripData.endKM - this.endTripData.startKM;
+      let messageName: string;
+      if (tripKM < 500) {
+        messageName = 'confirmedTrip';
+      } else {
+        messageName = 'confirmedLongTrip';
+      }
+      const dialogPasName = this.dialogMessage.open(DialogMessageComponent, {
+        maxWidth: 400,
+        data: {
+          endTripData: this.endTripData,
+          messageName: messageName,
+          tripKM: tripKM
+        },
+        autoFocus: false
 
-      this.registrationToDB();
+        // TODO: חזרה אחורה בטלפון תסגור את הדיאלוג
+      });
+
+      dialogPasName.afterClosed().subscribe(confirmTrip => {
+        if (confirmTrip) {
+          this.registrationToDB();
+        } else {
+          this.snackBar.open('רישום נסיעה בוטל', '', {
+            verticalPosition: 'top',
+            duration: 2000
+          });
+        }
+      });
     }
   }
 

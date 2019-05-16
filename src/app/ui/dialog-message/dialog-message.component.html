@@ -1,0 +1,52 @@
+<div [ngSwitch]="messageName">
+  <ng-container *ngSwitchCase="'confirmedTrip'">
+    <h3>
+      רישום נסיעה - <strong>{{ endTripData.carName }}</strong>
+    </h3>
+    <p>
+      האם לרשום נסיעה באורך <strong>{{ tripKM }}</strong> ק"מ
+      <strong>ב{{ endTripData.carName }}</strong
+      >?
+    </p>
+    <div class="btnMessage">
+      <button
+        class="btnCancel"
+        mat-stroked-button
+        color="warn"
+        (click)="cancel()"
+      >
+        לא
+      </button>
+      <button mat-stroked-button color="primary" (click)="registrationTrip()">
+        כן
+      </button>
+    </div>
+  </ng-container>
+  <ng-container *ngSwitchCase="'confirmedLongTrip'">
+    <h2>אזהרה - נסיעה ארוכה מהרגיל</h2>
+    <h3>
+      רישום נסיעה - <strong>{{ endTripData.carName }}</strong>
+    </h3>
+    <p>
+      האם לרשום נסיעה באורכה במיוחד של <strong>{{ tripKM }}</strong> ק"מ
+      <strong>ב{{ endTripData.carName }}</strong
+      >?
+    </p>
+    <div class="btnMessage">
+      <button
+        class="btnCancel"
+        mat-stroked-button
+        color="warn"
+        (click)="cancel()"
+      >
+        לא
+      </button>
+      <button mat-stroked-button color="primary" (click)="registrationTrip()">
+        כן
+      </button>
+    </div>
+  </ng-container>
+  <ng-container *ngSwitchDefault>
+    לא נבחר שום מסר
+  </ng-container>
+</div>

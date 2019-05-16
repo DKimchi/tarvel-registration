@@ -139,6 +139,64 @@
       {{ carDataService.pasTextBill.pas5 }}
     </button>
   </mat-grid-tile>
+  <div *ngIf="this.carData.sevenPasCar">
+    <mat-grid-tile [colspan]="3">
+      <label for="labelCarDriverName">שם נוסע 6:</label>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="6">
+      <button
+        mat-raised-button
+        class="btnPas"
+        id="btnPas6Name"
+        (click)="openDialogPasNames('pas6')"
+        [disabled]="!this.carDataService.isCarSelected"
+      >
+        {{ carDataService.pasTextName.pas6 }}
+      </button>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="3">
+      <label for="labelCarDriverName">יעד חיוב נוסע 6:</label>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="6">
+      <button
+        mat-raised-button
+        class="btnPas btnbill"
+        id="btnPas6Bill"
+        (click)="openDialogPasBill('pas6')"
+        [disabled]="!this.carDataService.isCarSelected"
+      >
+        {{ carDataService.pasTextBill.pas6 }}
+      </button>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="3">
+      <label for="labelCarDriverName">שם נוסע 7:</label>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="6">
+      <button
+        mat-raised-button
+        class="btnPas"
+        id="btnPas7Name"
+        (click)="openDialogPasNames('pas7')"
+        [disabled]="!this.carDataService.isCarSelected"
+      >
+        {{ carDataService.pasTextName.pas7 }}
+      </button>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="3">
+      <label for="labelCarDriverName">יעד חיוב נוסע 7:</label>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="6">
+      <button
+        mat-raised-button
+        class="btnPas btnbill "
+        id="btnPas7Bill"
+        (click)="openDialogPasBill('pas7')"
+        [disabled]="!this.carDataService.isCarSelected"
+      >
+        {{ carDataService.pasTextBill.pas7 }}
+      </button>
+    </mat-grid-tile>
+  </div>
 </mat-grid-list>
 
 <!-- TODO:להסיף את נוסעים 6 ו7 -->

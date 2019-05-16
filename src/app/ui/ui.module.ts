@@ -32,6 +32,7 @@ import { NewConstTripComponent } from './new-const-trip/new-const-trip.component
 import { DeleteConstTripComponent } from './delete-const-trip/delete-const-trip.component';
 import { AddCarDetailComponent } from './add-car-detail/add-car-detail.component';
 import { AddOccCarComponent } from './add-occ-car/add-occ-car.component';
+import { DialogMessageComponent } from './dialog-message/dialog-message.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { AddOccCarComponent } from './add-occ-car/add-occ-car.component';
     NewConstTripComponent,
     DeleteConstTripComponent,
     AddCarDetailComponent,
-    AddOccCarComponent
+    AddOccCarComponent,
+    DialogMessageComponent
   ],
   imports: [
     CommonModule,
@@ -74,7 +76,8 @@ import { AddOccCarComponent } from './add-occ-car/add-occ-car.component';
     CarPickrComponent,
     BillPickrComponent,
     PasPickrComponent,
-    DeleteConstTripComponent
+    DeleteConstTripComponent,
+    DialogMessageComponent
   ],
   exports: [AddOccCarComponent]
 })
