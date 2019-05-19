@@ -29,10 +29,9 @@
     <mat-grid-tile>
       <mat-form-field class="car-picker-field">
         <mat-select
-          (change)="getCarNames()"
           placeholder="אשכול רכבים"
           [(ngModel)]="collectionOfCar"
-          (ngModelChange)="getCarNames($event)"
+          (ngModelChange)="getCarNames()"
           name="collectionOfCar"
         >
           <mat-option
@@ -47,7 +46,6 @@
   </mat-grid-list>
   <!-- TODO: לעשות את הבחירה מתוך התפריט -->
 </form>
-
 <mat-nav-list *ngFor="let option of filteredOptions | async">
   <mat-option (click)="chooseCar(option)" [value]="option">
     {{ option }}

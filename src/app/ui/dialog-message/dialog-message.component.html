@@ -46,6 +46,28 @@
       </button>
     </div>
   </ng-container>
+  <ng-container *ngSwitchCase="'returnOccCar'">
+    <h2>החזרת רכב לחברת השכרה</h2>
+    <h3>
+      החזרה של <strong>{{ endTripData.carName }}</strong>
+    </h3>
+    <p>
+      להוציא את <strong>{{ data.displayName }}</strong> מאפליקצית רישום נסיעות?
+    </p>
+    <div class="btnMessage">
+      <button
+        class="btnCancel"
+        mat-stroked-button
+        color="warn"
+        (click)="cancel()"
+      >
+        לא
+      </button>
+      <button mat-stroked-button color="primary" (click)="registrationTrip()">
+        כן
+      </button>
+    </div>
+  </ng-container>
   <ng-container *ngSwitchDefault>
     לא נבחר שום מסר
   </ng-container>

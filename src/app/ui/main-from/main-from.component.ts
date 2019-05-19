@@ -7,7 +7,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/models/user-module';
 import { take, tap, takeUntil } from 'rxjs/operators';
 import { DeleteConstTripComponent } from '../delete-const-trip/delete-const-trip.component';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import { PasSelectorComponent } from '../pas-selector/pas-selector.component';
 
 @Component({
@@ -26,7 +26,8 @@ export class MainFromComponent implements OnInit {
     public dataFBService: DataFBService,
     public carDataService: CarDataService,
     private auth: AuthService,
-    private pasSelect: PasSelectorComponent
+    private pasSelect: PasSelectorComponent,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit() {
@@ -52,6 +53,10 @@ export class MainFromComponent implements OnInit {
     console.log(collectionOfCar, name);
     if (collectionOfCar !== '' && name !== '') {
       if (this.carData.currentTrip['startKM'] === null) {
+        this.snackBar.open('חסר ק"מ פתיחה', '', {
+          verticalPosition: 'top',
+          duration: 2000
+        });
         console.log('חסר ק"מ פתיחה');
         // TODO: להוסיף התראה על חסר ק"מ פתיחה
       } else {

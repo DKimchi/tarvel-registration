@@ -1,4 +1,4 @@
-<div *ngIf="(auth.user$ | async) as user">
+<div *ngIf="auth.user$ | async as user">
   <div class="div-card-firstTime">
     <mat-card>
       <mat-card-header class="card-from">
@@ -131,6 +131,14 @@
             </button>
           </div>
         </form>
+        <button
+          mat-stroked-button
+          color="warn"
+          (click)="auth.signOut()"
+          id="logout"
+        >
+          התנתק
+        </button>
       </mat-card-content>
     </mat-card>
   </div>

@@ -21,7 +21,7 @@ export class PasPickrComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<PasPickrComponent>,
-    private auth: AuthService
+    public auth: AuthService
   ) {}
 
   choosePas(event: any): void {

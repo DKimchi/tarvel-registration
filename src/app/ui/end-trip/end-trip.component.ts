@@ -714,21 +714,52 @@ export class EndTripComponent implements OnInit {
       this.endTripData['endKM']
     );
     if (this.isOccCarReturn == true) {
-      const carName = this.carData.name;
-      const displayCarName = this.carData.displayName;
-      console.log('שמירה של הרכב', this.carData);
-      this.isOccCarReturn = false;
-      this.carDataService.currentCarData.subscribe(val => {
-        this.carData = val;
+      const dialogPasName = this.dialogMessage.open(DialogMessageComponent, {
+        maxWidth: 400,
+        data: {
+          endTripData: this.endTripData,
+          messageName: 'returnOccCar',
+          displayName: this.carData.displayName
+        },
+        autoFocus: false
+
+        // TODO: חזרה אחורה בטלפון תסגור את הדיאלוג
       });
-      console.log('שמירה של הרכב', this.carData);
-      this.dataFBService.saveOccCarDetails(this.carData);
-      this.resetEndTripData();
-      this.carDataService.resetCarData();
-      console.log('שמירה של הרכב', this.carData);
-      this.dataFBService.removeCarFromCarNames(displayCarName, 'משעול-מזדמן');
-      this.dataFBService.updataCarData('משעול-מזדמן', carName, this.carData);
-      console.log('סוף התהליך', this.carData);
+
+      dialogPasName.afterClosed().subscribe(confirmTrip => {
+        if (confirmTrip) {
+          const carName = this.carData.name;
+          const displayCarName = this.carData.displayName;
+          console.log('שמירה של הרכב', this.carData);
+          this.isOccCarReturn = false;
+          this.carDataService.currentCarData.subscribe(val => {
+            this.carData = val;
+          });
+          console.log('שמירה של הרכב', this.carData);
+          this.dataFBService.saveOccCarDetails(this.carData);
+          this.resetEndTripData();
+          this.carDataService.resetCarData();
+          console.log('שמירה של הרכב', this.carData);
+          this.dataFBService.removeCarFromCarNames(
+            displayCarName,
+            'משעול-מזדמן'
+          );
+          this.dataFBService.updataCarData(
+            'משעול-מזדמן',
+            carName,
+            this.carData
+          );
+          console.log('סוף התהליך', this.carData);
+        } else {
+          this.snackBar.open('רכב לא חזר להשכרה', '', {
+            verticalPosition: 'top',
+            duration: 2000
+          });
+          this.resetEndTripData();
+          this.carDataService.resetCarData();
+          console.log('סוף התהליך', this.carData);
+        }
+      });
     } else {
       this.resetEndTripData();
       this.carDataService.resetCarData();
