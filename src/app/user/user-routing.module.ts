@@ -7,7 +7,12 @@ import { ProfileGuard } from './profile/profile.guard';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'profile', component: ProfileComponent, canActivate: [ProfileGuard] }
+  {
+    path: 'profile',
+    component: ProfileComponent,
+    canActivate: [ProfileGuard],
+    children: [{ path: ':firstTime', component: ProfileComponent }]
+  }
 ];
 
 @NgModule({

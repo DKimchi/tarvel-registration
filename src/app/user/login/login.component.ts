@@ -57,7 +57,7 @@ export class LoginComponent implements OnInit {
         .pipe(take(1))
         .subscribe(result => {
           if (result) {
-            this.router.navigate(['/profile']);
+            this.router.navigate(['/profile/firstTime']);
           } else {
             this.router.navigate(['/main-from']);
           }

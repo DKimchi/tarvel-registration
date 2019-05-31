@@ -3,7 +3,7 @@
     <mat-card>
       <mat-card-header class="card-from">
         <mat-card-title
-          >שלום, {{ user.displayName }}<br />ברוך הבא לאפליקצית רישום
+          >שלום, {{ user.displayName }}<br />ברוך הבא לאפליקציית רישום
           נסיעות</mat-card-title
         >
         <mat-card-subtitle>שאלון פרטים אישיים</mat-card-subtitle>
@@ -16,7 +16,21 @@
                 <mat-label class="inputLabel" for="displayName"
                   >שם פרטי + שם משפחה:
                 </mat-label>
-                <input #name matInput formControlName="displayName" required />
+                <input
+                  #name
+                  matInput
+                  formControlName="displayName"
+                  required
+                  [matAutocomplete]="auto"
+                />
+                <mat-autocomplete #auto="matAutocomplete">
+                  <mat-option
+                    *ngFor="let option of filteredOptions | async"
+                    [value]="option"
+                  >
+                    {{ option }}
+                  </mat-option>
+                </mat-autocomplete>
               </mat-form-field>
             </mat-grid-tile>
             <mat-grid-tile colspan="2">
@@ -105,7 +119,7 @@
                 #tooltipMainBills="matTooltip"
                 matSuffix
                 (click)="tooltipMainBills.toggle()"
-                matTooltip="בחירה ביעדי חיוב בשימוש הכי תדיר אלידך"
+                matTooltip="בחירה ביעדי חיוב בשימוש הכי תדיר שלך"
                 >help_outline</mat-icon
               >
             </mat-grid-tile>
@@ -131,15 +145,12 @@
             </button>
           </div>
         </form>
-        <button
-          mat-stroked-button
-          color="warn"
-          (click)="auth.signOut()"
-          id="logout"
-        >
+        <button mat-stroked-button color="warn" (click)="test()" id="logout">
           התנתק
         </button>
       </mat-card-content>
     </mat-card>
   </div>
 </div>
+
+<!-- (click)="auth.signOut()" -->

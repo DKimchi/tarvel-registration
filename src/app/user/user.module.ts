@@ -10,6 +10,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 import { MatIconModule } from '@angular/material/icon';
 import { UserRoutingModule } from './user-routing.module';
@@ -35,7 +36,8 @@ import { ProfileComponent } from './profile/profile.component';
     MatTooltipModule,
     MatSelectModule,
     MatButtonModule,
-    NgxAuthFirebaseUIModule
+    NgxAuthFirebaseUIModule,
+    MatAutocompleteModule
   ],
   exports: [LoginComponent],
   entryComponents: [LoginComponent, LoginDialogComponent, ProfileComponent]
