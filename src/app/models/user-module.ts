@@ -13,4 +13,5 @@ export interface User {
     collectionOfCar: string;
     name: string;
   };
+  canEditCar: boolean;
 }

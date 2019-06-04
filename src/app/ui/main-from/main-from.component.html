@@ -54,6 +54,7 @@
       <app-end-trip id="endTrip"></app-end-trip>
     </mat-sidenav-content>
 
+    <!--חלון צד לנסיעות קבועות  -->
     <mat-sidenav
       class="sidenav"
       #sidenavConstTrips
@@ -108,12 +109,14 @@
         </mat-list-item>
       </mat-list>
     </mat-sidenav>
+
+    <!-- חלון צד לפרטי רכב -->
     <mat-sidenav class="sidenav" #sidenavCarDetails mode="over" position="end">
       <mat-toolbar color="primary">
         <mat-toolbar-row>
           <span>פרטי רכב</span>
           <mat-icon
-            *ngIf="carData.collectionOfCar !== 'משעול-מזדמן'"
+            *ngIf="user.canEditCar === true"
             routerLink="/add-car-detail"
             class="addBtn"
             aria-hidden="false"
@@ -146,7 +149,7 @@
           <div matLine>
             <div matLine><b>שם נהג:</b> {{ carData.lastTrip.driver.name }}</div>
             <div matLine>
-              <b>תאריך נסיעה:</b>
+              <b>נסגרה בתאריך:</b>
               {{ dateLastTrip }}
             </div>
             <div matLine>

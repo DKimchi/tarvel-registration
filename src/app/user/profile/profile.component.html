@@ -145,7 +145,12 @@
             </button>
           </div>
         </form>
-        <button mat-stroked-button color="warn" (click)="test()" id="logout">
+        <button
+          mat-stroked-button
+          color="warn"
+          (click)="auth.signOut()"
+          id="logout"
+        >
           התנתק
         </button>
       </mat-card-content>

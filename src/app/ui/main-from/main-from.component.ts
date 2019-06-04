@@ -38,14 +38,6 @@ export class MainFromComponent implements OnInit {
       this.user = val;
       this.constTrips = val.constTrips;
     });
-    this.pasSelect.openConstTrips.pipe(
-      tap(constTrip => {
-        console.log(constTrip);
-      })
-    );
-    this.carDataService.change.subscribe(newCarChoose => {
-      console.log(newCarChoose);
-    });
   }
 
   startCurrentTrip() {

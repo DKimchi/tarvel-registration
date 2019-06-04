@@ -164,6 +164,7 @@ export class ProfileComponent implements OnInit {
       val.circleOfBelonging = this.initialData.value.circleOfBelonging;
       val.mainBills = this.initialData.value.mainBills;
       this.isFirstTime ? (val.constTrips = []) : val.constTrips;
+      this.isFirstTime ? (val.canEditCar = false) : val.canEditCar;
       this.auth.updateUserData(val);
       this.router.navigate(['/main-from']);
     });

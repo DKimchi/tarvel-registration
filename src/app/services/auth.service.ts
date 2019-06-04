@@ -58,7 +58,8 @@ export class AuthService {
       defaultCollectionOfCar: user.defaultCollectionOfCar,
       mainBills: user.mainBills,
       circleOfBelonging: user.circleOfBelonging,
-      constTrips: user.constTrips
+      constTrips: user.constTrips,
+      canEditCar: user.canEditCar
     };
 
     return userRef.set(data, { merge: true });
