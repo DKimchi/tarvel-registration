@@ -8,6 +8,8 @@ import { take, switchMap, map, elementAt } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { carModule } from 'src/app/models/car-module';
+import { CarDataService } from 'src/app/services/car-data.service';
 
 @Component({
   selector: 'app-new-const-trip',
@@ -17,6 +19,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 export class NewConstTripComponent implements OnInit {
   // tslint:disable-next-line:ban-types
   indexConstTrip = -1;
+  carData: carModule;
   billNames: {
     driver: [];
     pas2: [];
@@ -94,7 +97,8 @@ export class NewConstTripComponent implements OnInit {
     public auth: AuthService,
     private snackBar: MatSnackBar,
     public dataFBService: DataFBService,
-    private router: Router
+    private router: Router,
+    public carDataService: CarDataService
   ) {
     // const url = this.router.url.slice(16);
     // this.nameConstTripURL = decodeURIComponent(url);
@@ -104,6 +108,9 @@ export class NewConstTripComponent implements OnInit {
     this.dataFBService.getGeneralDataFormFB().subscribe(val => {
       this.pasNames = val['pasNames'].split(',');
       this.billNames['general'] = val['billNames'].split(',');
+    });
+    this.carDataService.currentCarData.subscribe(val => {
+      this.carData = val;
     });
     const url = this.router.url.slice(16);
     const name = decodeURIComponent(url);
@@ -157,6 +164,7 @@ export class NewConstTripComponent implements OnInit {
           this.constTrip[psaSelected]['name'] = '';
         } else {
           this.constTrip[psaSelected]['name'] = selected;
+          this.openDialogPasBill(psaSelected);
         }
         // TODO: לסדר איפוס של המשתנה
       } else {
@@ -193,6 +201,32 @@ export class NewConstTripComponent implements OnInit {
             this.constTrip[billSelected]['bill'][
               'paidByOrganization'
             ] = selected;
+          }
+          let pasNumber = billSelected.split('pas');
+          const numberOfPas = parseInt(pasNumber[1], 10) + 1;
+          if (pasNumber[0] === 'driver') {
+            pasNumber[1] = '2';
+          } else {
+            if (!this.carData.sevenPasCar) {
+              if (numberOfPas < 6) {
+                pasNumber[1] = numberOfPas.toString();
+              } else {
+                pasNumber[1] = '';
+              }
+            } else {
+              if (numberOfPas > 7) {
+                pasNumber[1] = '';
+              } else {
+                pasNumber[1] = numberOfPas.toString();
+              }
+            }
+          }
+          pasNumber[0] = 'pas';
+          if (pasNumber[1] !== '') {
+            const newPasName = pasNumber[0] + pasNumber[1];
+            if (this.carData['currentTrip'][newPasName]['name'] === '') {
+              this.openDialogPasNames(newPasName);
+            }
           }
         }
       } else {

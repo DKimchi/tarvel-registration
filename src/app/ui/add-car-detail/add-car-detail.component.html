@@ -117,9 +117,21 @@
           <mat-grid-tile [colspan]="7" [rowspan]="1">
             <mat-form-field class="input">
               <mat-label class="inputLabel" for="carPayBy"
-                >משלם על הרכב</mat-label
+                >תאגיד המשלם על הרכב</mat-label
               >
-              <input #carPayBy matInput formControlName="carPayBy" required />
+              <mat-select
+                placeholder="תאגיד המשלם על הרכב"
+                formControlName="carPayBy"
+                required
+              >
+                <mat-option>--</mat-option>
+                <mat-option
+                  *ngFor="let corporation of payingCorporationsForCars"
+                  [value]="corporation"
+                >
+                  {{ corporation }}
+                </mat-option>
+              </mat-select>
             </mat-form-field>
           </mat-grid-tile>
           <mat-grid-tile [colspan]="2" [rowspan]="1">

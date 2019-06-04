@@ -178,14 +178,79 @@
             }}
           </button>
         </mat-grid-tile>
-
-        <!-- TODO:להסיף את נוסעים 6 ו7 -->
+        <div *ngIf="this.carData.sevenPasCar">
+          <mat-grid-tile [colspan]="3">
+            <label for="labelCarDriverName">שם נוסע 6:</label>
+          </mat-grid-tile>
+          <mat-grid-tile [colspan]="6">
+            <button
+              mat-raised-button
+              class="btnPas"
+              id="btnPas6Name"
+              (click)="openDialogPasNames('pas6')"
+              [disabled]="!this.carDataService.isCarSelected"
+            >
+              {{ constTrip.pas6.name ? constTrip.pas6.name : 'שם נוסע 6' }}
+            </button>
+          </mat-grid-tile>
+          <mat-grid-tile [colspan]="3">
+            <label for="labelCarDriverName">יעד חיוב נוסע 6:</label>
+          </mat-grid-tile>
+          <mat-grid-tile [colspan]="6">
+            <button
+              mat-raised-button
+              class="btnPas btnbill"
+              id="btnPas6Bill"
+              (click)="openDialogPasBill('pas6')"
+              [disabled]="!this.carDataService.isCarSelected"
+            >
+              {{
+                constTrip.pas6.bill.nameOfBill
+                  ? constTrip.pas6.bill.nameOfBill
+                  : 'יעד חיוב נוסע 6'
+              }}
+            </button>
+          </mat-grid-tile>
+          <mat-grid-tile [colspan]="3">
+            <label for="labelCarDriverName">שם נוסע 7:</label>
+          </mat-grid-tile>
+          <mat-grid-tile [colspan]="6">
+            <button
+              mat-raised-button
+              class="btnPas"
+              id="btnPas7Name"
+              (click)="openDialogPasNames('pas7')"
+              [disabled]="!this.carDataService.isCarSelected"
+            >
+              {{ constTrip.pas7.name ? constTrip.pas7.name : 'שם נוסע 7' }}
+            </button>
+          </mat-grid-tile>
+          <mat-grid-tile [colspan]="3">
+            <label for="labelCarDriverName">יעד חיוב נוסע 7:</label>
+          </mat-grid-tile>
+          <mat-grid-tile [colspan]="6">
+            <button
+              mat-raised-button
+              class="btnPas btnbill "
+              id="btnPas7Bill"
+              (click)="openDialogPasBill('pas7')"
+              [disabled]="!this.carDataService.isCarSelected"
+            >
+              {{
+                constTrip.pas7.bill.nameOfBill
+                  ? constTrip.pas7.bill.nameOfBill
+                  : 'יעד חיוב נוסע 7'
+              }}
+            </button>
+          </mat-grid-tile>
+        </div>
       </mat-grid-list>
       <div id="registrationButton">
         <button mat-stroked-button (click)="saveConstTrip()" id="singUpBtn">
           שמור נסיעה קבועה
         </button>
       </div>
+      <!-- TODO: להוסיף כפתור יציאה בלי לשמור נסיעה קבוע. -->
     </mat-card-content>
   </mat-card>
 </div>

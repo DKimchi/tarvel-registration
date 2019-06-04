@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./add-car-detail.component.scss']
 })
 export class AddCarDetailComponent implements OnInit {
+  payingCorporationsForCars = [];
   collectionOfCarFromDB: [];
   cardata: carModule = {
     name: '',
@@ -196,6 +197,7 @@ export class AddCarDetailComponent implements OnInit {
       .pipe(take(1))
       .subscribe(val => {
         this.collectionOfCarFromDB = val['carCollection'];
+        this.payingCorporationsForCars = val['payingCorporationsForCars'];
       });
   }
 

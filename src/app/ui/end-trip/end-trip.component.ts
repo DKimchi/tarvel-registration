@@ -15,6 +15,7 @@ import { DialogMessageComponent } from '../dialog-message/dialog-message.compone
   styleUrls: ['./end-trip.component.scss']
 })
 export class EndTripComponent implements OnInit {
+  isContinuedTrip = false;
   isOccCarReturn = false;
   soundNo = true;
   collectionOfCar: string;
@@ -174,6 +175,11 @@ export class EndTripComponent implements OnInit {
   test() {
     console.log(this.carData.name);
   }
+
+  closeAndContinuedTrip() {
+    this.isContinuedTrip = true;
+    this.endTrip();
+  }
   // TODO: למחוק פינקציה test
 
   async endTrip() {
@@ -285,14 +291,13 @@ export class EndTripComponent implements OnInit {
         verticalPosition: 'top',
         duration: 2000
       });
-      console.log('לא נבחר רכב');
+
       // TODO: לדסר הודעה על אי בחירת רכב.
     } else if (this.endTripData.startKM == null) {
       this.snackBar.open('חסר ק"מ פתיחה', '', {
         verticalPosition: 'top',
         duration: 2000
       });
-      console.log('חסר ק"מ פתיחה');
 
       // TODO: לדסר הודעה על אי בחירת רכב.
     } else if (this.endTripData.endKM == null) {
@@ -300,28 +305,24 @@ export class EndTripComponent implements OnInit {
         verticalPosition: 'top',
         duration: 2000
       });
-      console.log('חסר ק"מ סיום');
       // TODO: לדסר הודעה על אי בחירת רכב.
     } else if (this.endTripData.driver['name'] === '') {
       this.snackBar.open('לא נבחר שם נהג', '', {
         verticalPosition: 'top',
         duration: 2000
       });
-      console.log('לא נחבר שם נהג');
       // TODO: לדסר הודעה על אי בחירת רכב.
     } else if (this.endTripData.driver['bill']['nameOfBill'] === '') {
       this.snackBar.open('לא נבחר חשבון נהג', '', {
         verticalPosition: 'top',
         duration: 2000
       });
-      console.log('לא נבחר חשבון נהג');
       // TODO: לדסר הודעה על אי בחירת רכב.
     } else if (this.endTripData.startKM > this.endTripData.endKM) {
       this.snackBar.open('ק"מ פתיחה לא יכול להיות יותר מק"מ סיום', '', {
         verticalPosition: 'top',
         duration: 2000
       });
-      console.log('ק"מ פתיחה לא יכול להיות יותר מק"מ סיום');
       // TODO: לדסר הודעה על אי בחירת רכב.
     } else if (
       this.endTripData.pas2['name'] === '' &&
@@ -331,7 +332,6 @@ export class EndTripComponent implements OnInit {
         verticalPosition: 'top',
         duration: 2000
       });
-      console.log('חסר שם לנוסע 2');
       // TODO: לדסר הודעה על אי בחירת רכב.
     } else if (
       this.endTripData.pas2['bill']['nameOfBill'] === '' &&
@@ -341,7 +341,6 @@ export class EndTripComponent implements OnInit {
         verticalPosition: 'top',
         duration: 2000
       });
-      console.log('חסר יעד חיוב לנוסע 2');
       // TODO: לדסר הודעה על אי בחירת רכב.
     } else if (
       this.endTripData.pas3['name'] === '' &&
@@ -351,7 +350,6 @@ export class EndTripComponent implements OnInit {
         verticalPosition: 'top',
         duration: 2000
       });
-      console.log('חסר שם לנוסע 3');
       // TODO: לדסר הודעה על אי בחירת רכב.
     } else if (
       this.endTripData.pas3['bill']['nameOfBill'] === '' &&
@@ -361,7 +359,6 @@ export class EndTripComponent implements OnInit {
         verticalPosition: 'top',
         duration: 2000
       });
-      console.log('חסר יעד חיוב לנוסע 3');
       // TODO: לדסר הודעה על אי בחירת רכב.
     } else if (
       this.endTripData.pas4['name'] === '' &&
@@ -371,8 +368,6 @@ export class EndTripComponent implements OnInit {
         verticalPosition: 'top',
         duration: 2000
       });
-      console.log('חסר שם לנוסע 4');
-
       // TODO: לדסר הודעה על אי בחירת רכב.
     } else if (
       this.endTripData.pas4['bill']['nameOfBill'] === '' &&
@@ -382,7 +377,6 @@ export class EndTripComponent implements OnInit {
         verticalPosition: 'top',
         duration: 2000
       });
-      console.log('חסר יעד חיוב לנוסע 4');
       // TODO: לדסר הודעה על אי בחירת רכב.
     } else if (
       this.endTripData.pas5['name'] === '' &&
@@ -392,7 +386,6 @@ export class EndTripComponent implements OnInit {
         verticalPosition: 'top',
         duration: 2000
       });
-      console.log('חסר שם לנוסע 5');
       // TODO: לדסר הודעה על אי בחירת רכב.
     } else if (
       this.endTripData.pas5['bill']['nameOfBill'] === '' &&
@@ -402,7 +395,6 @@ export class EndTripComponent implements OnInit {
         verticalPosition: 'top',
         duration: 2000
       });
-      console.log('חסר יעד חיוב לנוסע 5');
       // TODO: לדסר הודעה על אי בחירת רכב.
     } else if (
       this.endTripData.pas6['name'] === '' &&
@@ -412,7 +404,6 @@ export class EndTripComponent implements OnInit {
         verticalPosition: 'top',
         duration: 2000
       });
-      console.log('חסר שם לנוסע 6');
       // TODO: לדסר הודעה על אי בחירת רכב.
     } else if (
       this.endTripData.pas6['bill']['nameOfBill'] === '' &&
@@ -422,7 +413,6 @@ export class EndTripComponent implements OnInit {
         verticalPosition: 'top',
         duration: 2000
       });
-      console.log('חסר יעד חיוב לנוסע 6');
       // TODO: לדסר הודעה על אי בחירת רכב.
     } else if (
       this.endTripData.pas7['name'] === '' &&
@@ -432,7 +422,6 @@ export class EndTripComponent implements OnInit {
         verticalPosition: 'top',
         duration: 2000
       });
-      console.log('חסר שם לנוסע 7');
       // TODO: לדסר הודעה על אי בחירת רכב.
     } else if (
       this.endTripData.pas7['bill']['nameOfBill'] === '' &&
@@ -442,7 +431,6 @@ export class EndTripComponent implements OnInit {
         verticalPosition: 'top',
         duration: 2000
       });
-      console.log('חסר יעד חיוב לנוסע 7');
       // TODO: לדסר הודעה על אי בחירת רכב.
     } else {
       if (
@@ -504,6 +492,7 @@ export class EndTripComponent implements OnInit {
         if (confirmTrip) {
           this.registrationToDB();
         } else {
+          this.resetEndTripData();
           this.snackBar.open('רישום נסיעה בוטל', '', {
             verticalPosition: 'top',
             duration: 2000
@@ -519,28 +508,22 @@ export class EndTripComponent implements OnInit {
   }
 
   registrationToDB() {
-    console.log(this.endTripData);
     if (
       this.carData.lastTrip['endKM'] &&
       this.endTripData.startKM !== this.carData.lastTrip['endKM']
     ) {
       const differenceBetweenTrips =
         this.endTripData.startKM - this.carData.lastTrip['endKM'];
-      console.log(differenceBetweenTrips);
-      console.log(this.endTripData);
       if (differenceBetweenTrips <= 30 && differenceBetweenTrips > 0) {
         let lastTripDB;
         this.dataFBService
           .getLastTrip(this.carData.lastTrip['dateAndTime'])
           .subscribe(data => {
             lastTripDB = data[0];
-            console.log(this.endTripData);
-            console.log(lastTripDB);
             lastTripDB['endKM'] += Math.ceil(differenceBetweenTrips / 2);
             this.endTripData['startKM'] -= Math.floor(
               differenceBetweenTrips / 2
             );
-            console.log(lastTripDB['endKM'], this.endTripData['startKM']);
             this.dataFBService.fiXLastTripnoDB(lastTripDB['id'], lastTripDB);
             this.closeRegistrationTrip();
           });
@@ -702,69 +685,83 @@ export class EndTripComponent implements OnInit {
   }
 
   closeRegistrationTrip() {
+    this.snackBar.open('נסיעה נרשמה', '', {
+      verticalPosition: 'top',
+      duration: 3000
+    });
     this.dataFBService.setTripToDB(this.endTripData);
     this.dataFBService.updataLastTripnoCar(
       this.endTripData.collectionOfCar,
       this.endTripData.carName,
       this.endTripData
     );
-    this.dataFBService.resetCurrentTripnoCar(
-      this.endTripData.collectionOfCar,
-      this.endTripData.carName,
-      this.endTripData['endKM']
-    );
-    if (this.isOccCarReturn == true) {
-      const dialogPasName = this.dialogMessage.open(DialogMessageComponent, {
-        maxWidth: 400,
-        data: {
-          endTripData: this.endTripData,
-          messageName: 'returnOccCar',
-          displayName: this.carData.displayName
-        },
-        autoFocus: false
-
-        // TODO: חזרה אחורה בטלפון תסגור את הדיאלוג
-      });
-
-      dialogPasName.afterClosed().subscribe(confirmTrip => {
-        if (confirmTrip) {
-          const carName = this.carData.name;
-          const displayCarName = this.carData.displayName;
-          console.log('שמירה של הרכב', this.carData);
-          this.isOccCarReturn = false;
-          this.carDataService.currentCarData.subscribe(val => {
-            this.carData = val;
-          });
-          console.log('שמירה של הרכב', this.carData);
-          this.dataFBService.saveOccCarDetails(this.carData);
-          this.resetEndTripData();
-          this.carDataService.resetCarData();
-          console.log('שמירה של הרכב', this.carData);
-          this.dataFBService.removeCarFromCarNames(
-            displayCarName,
-            'משעול-מזדמן'
-          );
-          this.dataFBService.updataCarData(
-            'משעול-מזדמן',
-            carName,
-            this.carData
-          );
-          console.log('סוף התהליך', this.carData);
-        } else {
-          this.snackBar.open('רכב לא חזר להשכרה', '', {
-            verticalPosition: 'top',
-            duration: 2000
-          });
-          this.resetEndTripData();
-          this.carDataService.resetCarData();
-          console.log('סוף התהליך', this.carData);
-        }
-      });
-    } else {
+    if (this.isContinuedTrip) {
+      this.dataFBService.updateContinuedCurrentTripNoCar(
+        this.endTripData.collectionOfCar,
+        this.endTripData.carName,
+        this.endTripData
+      );
+      this.isContinuedTrip = false;
       this.resetEndTripData();
-      this.carDataService.resetCarData();
-      console.log('סוף התהליך', this.carData);
-      // }
+    } else {
+      this.dataFBService.resetCurrentTripnoCar(
+        this.endTripData.collectionOfCar,
+        this.endTripData.carName,
+        this.endTripData['endKM']
+      );
+      if (this.isOccCarReturn == true) {
+        const dialogPasName = this.dialogMessage.open(DialogMessageComponent, {
+          maxWidth: 400,
+          data: {
+            endTripData: this.endTripData,
+            messageName: 'returnOccCar',
+            displayName: this.carData.displayName
+          },
+          autoFocus: false
+
+          // TODO: חזרה אחורה בטלפון תסגור את הדיאלוג
+        });
+
+        dialogPasName.afterClosed().subscribe(confirmTrip => {
+          if (confirmTrip) {
+            const carName = this.carData.name;
+            const displayCarName = this.carData.displayName;
+            console.log('שמירה של הרכב', this.carData);
+            this.isOccCarReturn = false;
+            this.carDataService.currentCarData.subscribe(val => {
+              this.carData = val;
+            });
+            console.log('שמירה של הרכב', this.carData);
+            this.dataFBService.saveOccCarDetails(this.carData);
+            this.resetEndTripData();
+            this.carDataService.resetCarData();
+            console.log('שמירה של הרכב', this.carData);
+            this.dataFBService.removeCarFromCarNames(
+              displayCarName,
+              'משעול-מזדמן'
+            );
+            this.dataFBService.updataCarData(
+              'משעול-מזדמן',
+              carName,
+              this.carData
+            );
+            console.log('סוף התהליך', this.carData);
+          } else {
+            this.snackBar.open('רכב לא חזר להשכרה', '', {
+              verticalPosition: 'top',
+              duration: 2000
+            });
+            this.resetEndTripData();
+            this.carDataService.resetCarData();
+            console.log('סוף התהליך', this.carData);
+          }
+        });
+      } else {
+        this.resetEndTripData();
+        this.carDataService.resetCarData();
+        console.log('סוף התהליך', this.carData);
+        // }
+      }
     }
   }
 }

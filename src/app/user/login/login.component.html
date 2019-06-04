@@ -1,9 +1,9 @@
-<div *ngIf="(auth.user$ | async); then authenticated; else guest">
+<div *ngIf="auth.user$ | async; then authenticated; else guest">
   <!-- template will replace this div -->
 </div>
 
 <ng-template #authenticated>
-  <div *ngIf="(auth.user$ | async) as user">
+  <div *ngIf="auth.user$ | async as user">
     <div class="div-card-firstTime">
       <mat-card>
         <mat-card-header class="card-from">
@@ -23,7 +23,7 @@
   <div class="div-card">
     <mat-card class="card-from">
       <mat-card-header class="title-open-from">
-        <mat-card-title>בוכים הבאים לאתר רישום נסיעות </mat-card-title>
+        <mat-card-title>ברוכים הבאים לאתר רישום נסיעות </mat-card-title>
         <mat-card-subtitle
           >אתר לרישום נסיעת של קבוצות הבחירה של מחנות העולים</mat-card-subtitle
         >

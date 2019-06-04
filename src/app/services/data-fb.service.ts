@@ -178,6 +178,73 @@ export class DataFBService {
         )
       );
   }
+  updateContinuedCurrentTripNoCar(
+    collectionName: string,
+    carName: string,
+    newCurrentTrip: tripModule
+  ) {
+    this.afs.doc(collectionName + '/' + carName).update({
+      currentTrip: {
+        driver: {
+          name: newCurrentTrip.driver.name,
+          bill: {
+            paidByOrganization: newCurrentTrip.driver.bill.paidByOrganization,
+            nameOfBill: newCurrentTrip.driver.bill.nameOfBill
+          },
+          circleOfBelonging: newCurrentTrip.driver.circleOfBelonging
+        },
+        pas2: {
+          name: newCurrentTrip.pas2.name,
+          bill: {
+            paidByOrganization: newCurrentTrip.pas2.bill.paidByOrganization,
+            nameOfBill: newCurrentTrip.pas2.bill.nameOfBill
+          },
+          circleOfBelonging: newCurrentTrip.pas2.circleOfBelonging
+        },
+        pas3: {
+          name: newCurrentTrip.pas3.name,
+          bill: {
+            paidByOrganization: newCurrentTrip.pas3.bill.paidByOrganization,
+            nameOfBill: newCurrentTrip.pas3.bill.nameOfBill
+          },
+          circleOfBelonging: newCurrentTrip.pas3.circleOfBelonging
+        },
+        pas4: {
+          name: newCurrentTrip.pas4.name,
+          bill: {
+            paidByOrganization: newCurrentTrip.pas4.bill.paidByOrganization,
+            nameOfBill: newCurrentTrip.pas4.bill.nameOfBill
+          },
+          circleOfBelonging: newCurrentTrip.pas4.circleOfBelonging
+        },
+        pas5: {
+          name: newCurrentTrip.pas5.name,
+          bill: {
+            paidByOrganization: newCurrentTrip.pas5.bill.paidByOrganization,
+            nameOfBill: newCurrentTrip.pas5.bill.nameOfBill
+          },
+          circleOfBelonging: newCurrentTrip.pas5.circleOfBelonging
+        },
+        pas6: {
+          name: newCurrentTrip.pas6.name,
+          bill: {
+            paidByOrganization: newCurrentTrip.pas6.bill.paidByOrganization,
+            nameOfBill: newCurrentTrip.pas6.bill.nameOfBill
+          },
+          circleOfBelonging: newCurrentTrip.pas6.circleOfBelonging
+        },
+        pas7: {
+          name: newCurrentTrip.pas7.name,
+          bill: {
+            paidByOrganization: newCurrentTrip.pas7.bill.paidByOrganization,
+            nameOfBill: newCurrentTrip.pas7.bill.nameOfBill
+          },
+          circleOfBelonging: newCurrentTrip.pas7.circleOfBelonging
+        },
+        startKM: newCurrentTrip.endKM
+      }
+    });
+  }
 
   resetCurrentTripnoCar(
     collectionName: string,
