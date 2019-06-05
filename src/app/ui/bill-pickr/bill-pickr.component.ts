@@ -71,7 +71,7 @@ export class BillPickrComponent implements OnInit {
     const filterValue = value.toLowerCase();
 
     return this.options.filter(option =>
-      option.toLowerCase().startsWith(filterValue)
+      option.toLowerCase().includes(filterValue)
     );
   }
 

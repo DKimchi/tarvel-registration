@@ -3,16 +3,22 @@
     <mat-card class="main-card">
       <mat-card-header>
         <mat-card-title>
-          הכנסת רכב מזדמן
-          <mat-form-field id="occCarNumber">
-            <input
-              matInput
-              #occCarNumber
-              type="number"
-              formControlName="occCarNumber"
-              required
-            />
-          </mat-form-field>
+          <mat-grid-list cols="9" rowHeight="4rem" gutterSize="2px">
+            <mat-grid-tile [colspan]="6" [rowspan]="1">
+              הכנסת רכב מזדמן
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="3" [rowspan]="1">
+              <mat-form-field id="occCarNumber">
+                <input
+                  matInput
+                  #occCarNumber
+                  type="number"
+                  formControlName="occCarNumber"
+                  required
+                />
+              </mat-form-field>
+            </mat-grid-tile>
+          </mat-grid-list>
         </mat-card-title>
         <mat-card-subtitle
           >שאלון להכנסת פרטים של רכב מזדמן במשעול</mat-card-subtitle
