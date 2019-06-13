@@ -689,7 +689,7 @@ export class EndTripComponent implements OnInit {
   }
 
   closeRegistrationTrip() {
-    this.snackBar.open('נסיעה נרשמה', '', {
+    this.snackBar.open(`נסיעה נרשמה ב${this.endTripData.carName}`, '', {
       verticalPosition: 'top',
       duration: 3000
     });
@@ -706,6 +706,65 @@ export class EndTripComponent implements OnInit {
         this.endTripData
       );
       this.isContinuedTrip = false;
+      this.carData.currentTrip = {
+        driver: {
+          name: this.endTripData.driver.name,
+          bill: {
+            paidByOrganization: this.endTripData.driver.bill.paidByOrganization,
+            nameOfBill: this.endTripData.driver.bill.nameOfBill
+          },
+          circleOfBelonging: this.endTripData.driver.circleOfBelonging
+        },
+        pas2: {
+          name: this.endTripData.pas2.name,
+          bill: {
+            paidByOrganization: this.endTripData.pas2.bill.paidByOrganization,
+            nameOfBill: this.endTripData.pas2.bill.nameOfBill
+          },
+          circleOfBelonging: this.endTripData.pas2.circleOfBelonging
+        },
+        pas3: {
+          name: this.endTripData.pas3.name,
+          bill: {
+            paidByOrganization: this.endTripData.pas3.bill.paidByOrganization,
+            nameOfBill: this.endTripData.pas3.bill.nameOfBill
+          },
+          circleOfBelonging: this.endTripData.pas3.circleOfBelonging
+        },
+        pas4: {
+          name: this.endTripData.pas4.name,
+          bill: {
+            paidByOrganization: this.endTripData.pas4.bill.paidByOrganization,
+            nameOfBill: this.endTripData.pas4.bill.nameOfBill
+          },
+          circleOfBelonging: this.endTripData.pas4.circleOfBelonging
+        },
+        pas5: {
+          name: this.endTripData.pas5.name,
+          bill: {
+            paidByOrganization: this.endTripData.pas5.bill.paidByOrganization,
+            nameOfBill: this.endTripData.pas5.bill.nameOfBill
+          },
+          circleOfBelonging: this.endTripData.pas5.circleOfBelonging
+        },
+        pas6: {
+          name: this.endTripData.pas6.name,
+          bill: {
+            paidByOrganization: this.endTripData.pas6.bill.paidByOrganization,
+            nameOfBill: this.endTripData.pas6.bill.nameOfBill
+          },
+          circleOfBelonging: this.endTripData.pas6.circleOfBelonging
+        },
+        pas7: {
+          name: this.endTripData.pas7.name,
+          bill: {
+            paidByOrganization: this.endTripData.pas7.bill.paidByOrganization,
+            nameOfBill: this.endTripData.pas7.bill.nameOfBill
+          },
+          circleOfBelonging: this.endTripData.pas7.circleOfBelonging
+        },
+        startKM: this.endTripData.endKM
+      };
       this.resetEndTripData();
     } else {
       this.dataFBService.resetCurrentTripnoCar(
