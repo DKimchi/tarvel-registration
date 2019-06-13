@@ -63,7 +63,12 @@
     >
       <mat-toolbar color="accent">
         <mat-toolbar-row>
-          <span>נסיעות קבועות</span>
+          <mat-icon
+            svgIcon="cancel_outline"
+            (click)="sidenavConstTrips.toggle()"
+            class="closedBTN"
+          ></mat-icon>
+          <span class="sideTitle">נסיעות קבועות</span>
           <mat-icon
             routerLink="/new-const-trip"
             id="addConstTrip"
@@ -114,7 +119,12 @@
     <mat-sidenav class="sidenav" #sidenavCarDetails mode="over" position="end">
       <mat-toolbar color="primary">
         <mat-toolbar-row>
-          <span>פרטי רכב</span>
+          <mat-icon
+            svgIcon="cancel_outline"
+            (click)="sidenavCarDetails.toggle()"
+            class="closedBTN"
+          ></mat-icon>
+          <span class="sideTitle">פרטי רכב</span>
           <mat-icon
             *ngIf="user?.canEditCar === true"
             routerLink="/add-car-detail"

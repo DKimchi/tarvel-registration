@@ -7,9 +7,10 @@ import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/models/user-module';
 import { take, tap, takeUntil, map } from 'rxjs/operators';
 import { DeleteConstTripComponent } from '../delete-const-trip/delete-const-trip.component';
-import { MatDialog, MatSnackBar } from '@angular/material';
+import { MatDialog, MatSnackBar, MatIconRegistry } from '@angular/material';
 import { PasSelectorComponent } from '../pas-selector/pas-selector.component';
 import { DialogMessageComponent } from '../dialog-message/dialog-message.component';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-main-from',
@@ -28,8 +29,17 @@ export class MainFromComponent implements OnInit {
     public carDataService: CarDataService,
     private auth: AuthService,
     private pasSelect: PasSelectorComponent,
-    private snackBar: MatSnackBar
-  ) {}
+    private snackBar: MatSnackBar,
+    iconRegistry: MatIconRegistry,
+    sanitizer: DomSanitizer
+  ) {
+    iconRegistry.addSvgIcon(
+      'cancel_outline',
+      sanitizer.bypassSecurityTrustResourceUrl(
+        'assets/icons/outline-cancel-24px.svg'
+      )
+    );
+  }
 
   ngOnInit() {
     this.carDataService.currentCarData.subscribe(val => {
