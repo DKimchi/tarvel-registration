@@ -33,6 +33,7 @@ import { DeleteConstTripComponent } from './delete-const-trip/delete-const-trip.
 import { AddCarDetailComponent } from './add-car-detail/add-car-detail.component';
 import { AddOccCarComponent } from './add-occ-car/add-occ-car.component';
 import { DialogMessageComponent } from './dialog-message/dialog-message.component';
+import { AddRepCarComponent } from './add-rep-car/add-rep-car.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { DialogMessageComponent } from './dialog-message/dialog-message.componen
     DeleteConstTripComponent,
     AddCarDetailComponent,
     AddOccCarComponent,
-    DialogMessageComponent
+    DialogMessageComponent,
+    AddRepCarComponent
   ],
   imports: [
     CommonModule,

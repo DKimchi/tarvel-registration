@@ -13,6 +13,7 @@ import { CarDataService } from 'src/app/services/car-data.service';
 export class AddOccCarComponent implements OnInit {
   occCarNumber: number;
   occcardata: carModule = {
+    whereToRegister: '',
     name: '',
     typeOfCar: '',
     typename: '',
@@ -20,6 +21,7 @@ export class AddOccCarComponent implements OnInit {
     carPayBy: 'משעול',
     lastRegister: '',
     lastTrip: {
+      whereToRegister: '',
       carName: '',
       monthBill: '',
       dateAndTime: null,

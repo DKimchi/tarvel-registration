@@ -131,7 +131,24 @@
           <div matLine>
             {{ carData.name }}
           </div>
-          <button>הכנסת רכב חלופי</button>
+          <div [ngSwitch]="carData.collectionOfCar">
+            <div *ngSwitchCase="'משעול-מזדמן'"></div>
+            <button
+              *ngSwitchCase="'חלופים'"
+              (click)="removeRepCar()"
+              (click)="sidenavCarDetails.close()"
+              [disabled]="!this.carDataService.isCarSelected"
+            >
+              הוצא רכב חלופי
+            </button>
+            <button
+              *ngSwitchDefault
+              [routerLink]="['/add-rep-car', carData.name]"
+              [disabled]="!this.carDataService.isCarSelected"
+            >
+              הכנסת רכב חלופי
+            </button>
+          </div>
         </mat-list-item>
         <mat-list-item>
           <h4 matLine><b>מספר רכב:</b></h4>

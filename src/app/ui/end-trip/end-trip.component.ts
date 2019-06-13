@@ -24,6 +24,7 @@ export class EndTripComponent implements OnInit {
   carData: carModule;
 
   endTripData: tripModule = {
+    whereToRegister: '',
     carName: '',
     monthBill: '',
     dateAndTime: new Date(),
@@ -187,6 +188,7 @@ export class EndTripComponent implements OnInit {
     await this.setPaidByOrganization();
     this.endTripData.dateAndTime = new Date();
     this.endTripData = {
+      whereToRegister: this.carData['whereToRegister'],
       dateAndTime: new Date(),
       carName: this.carData['name'],
       monthBill: `${this.endTripData.dateAndTime.getMonth() +
@@ -530,6 +532,7 @@ export class EndTripComponent implements OnInit {
       } else {
         const tempEndTrip = {
           // TODO: לסדר שני חלקים של גורם חיוב.
+          whereToRegister: this.endTripData['whereToRegister'],
           dateAndTime: this.endTripData['dateAndTime'],
           carName: this.carData['name'],
           monthBill: `${this.endTripData.dateAndTime.getMonth() +
@@ -615,6 +618,7 @@ export class EndTripComponent implements OnInit {
   resetEndTripData() {
     this.endKM = null;
     this.endTripData = {
+      whereToRegister: '',
       dateAndTime: null,
       carName: '',
       monthBill: '',

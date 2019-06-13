@@ -13,9 +13,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./add-car-detail.component.scss']
 })
 export class AddCarDetailComponent implements OnInit {
+  placesToRegisterCars = [];
   payingCorporationsForCars = [];
   collectionOfCarFromDB: [];
   cardata: carModule = {
+    whereToRegister: '',
     name: '',
     displayName: '',
     typeOfCar: '',
@@ -24,6 +26,7 @@ export class AddCarDetailComponent implements OnInit {
     carPayBy: '',
     lastRegister: '',
     lastTrip: {
+      whereToRegister: '',
       carName: '',
       monthBill: '',
       dateAndTime: null,
@@ -163,6 +166,7 @@ export class AddCarDetailComponent implements OnInit {
     startKMinFleet: null
   };
   newCarData = this.fb.group({
+    whereToRegister: ['', Validators.required],
     name: ['', Validators.required],
     typeOfCar: ['', Validators.required],
     typeName: ['', Validators.required],
@@ -198,11 +202,13 @@ export class AddCarDetailComponent implements OnInit {
       .subscribe(val => {
         this.collectionOfCarFromDB = val['carCollection'];
         this.payingCorporationsForCars = val['payingCorporationsForCars'];
+        this.placesToRegisterCars = val['placesToRegisterCars'];
       });
   }
 
   getCarData() {
     this.newCarData.patchValue({
+      whereToRegister: this.cardata.whereToRegister,
       name: this.cardata.name,
       typeOfCar: this.cardata.typeOfCar,
       typeName: this.cardata.typename,
@@ -223,6 +229,7 @@ export class AddCarDetailComponent implements OnInit {
   onSubmit() {
     if (this.newCarData.status === 'VALID') {
       const carDetails: carModule = {
+        whereToRegister: this.newCarData.value.whereToRegister,
         name: this.newCarData.value.name,
         typeOfCar: this.newCarData.value['typeOfCar'],
         typename: this.newCarData.value['typeName'],

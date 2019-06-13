@@ -70,8 +70,21 @@ export class DataFBService {
           return true;
         }
       });
-    console.log(gatCarData);
     return gatCarData;
+  }
+
+  async getRepCarDoc(collectionName: string, carName: string) {
+    let docData;
+    await this.afs
+      .collection(`${collectionName}/${carName}/repCarCollection`)
+      .ref.where('replacement.active', '==', true)
+      .get()
+      .then(val => {
+        val.forEach(doc => {
+          docData = doc.data();
+        });
+      });
+    return docData;
   }
 
   getCarDoc(collectionName: string, carName: string) {
@@ -374,6 +387,7 @@ export class DataFBService {
       });
     // TODO: לתפוס תעות בהבטחה
   }
+
   addOccCarToCarNames(name: string, displayName: string) {
     let names = [];
     const carNamesRef: AngularFirestoreDocument = this.afs.doc(
@@ -384,13 +398,11 @@ export class DataFBService {
       .toPromise()
       .then(val => {
         names = val.data().carNames;
-        console.log(names);
         const arrOccCarName = [];
         for (let i = 0; i < names.length; i++) {
           const element = names[i].split(':');
           arrOccCarName.push(element[0]);
         }
-        console.log(arrOccCarName);
         if (!arrOccCarName.includes(name)) {
           names.push(displayName);
         } else {
@@ -402,5 +414,45 @@ export class DataFBService {
         carNamesRef.set({ carNames: names });
       });
     // TODO: לתפוס תעות בהבטחה
+  }
+
+  addRepCarToCarNames(
+    collectionOfCar: string,
+    displayRpeCarName: string,
+    replacingCar: string
+  ) {
+    let names = [];
+    const carNamesRef: AngularFirestoreDocument = this.afs.doc(
+      `${collectionOfCar}/carNames`
+    );
+    carNamesRef
+      .get()
+      .toPromise()
+      .then(val => {
+        names = val.data().carNames;
+        const index = names.findIndex(carName => carName === replacingCar);
+        names[index] = displayRpeCarName;
+        console.log(names);
+        carNamesRef.set({ carNames: names });
+      });
+    // TODO: לתפוס תעות בהבטחה
+  }
+
+  saveRepCarInConsCar(collectionTOSaveIn: string, carData: carModule) {
+    this.afs
+      .collection(collectionTOSaveIn)
+      .doc(`${carData.replacement.endDateInFleet}`)
+      .set(carData)
+      .then(function(docRef) {
+        console.log('Document written with ID: ');
+      })
+      .catch(function(error) {
+        console.error('Error adding document: ', error);
+      });
+    this.addRepCarToCarNames(
+      carData.replacement.replacingCarCollection,
+      carData.replacement.replacingCar,
+      carData.displayName
+    );
   }
 }

@@ -10,6 +10,7 @@ import {
 import { CastExpr } from '@angular/compiler';
 import { element } from '@angular/core/src/render3';
 import { PasSelectorComponent } from '../ui/pas-selector/pas-selector.component';
+import { take } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -38,6 +39,7 @@ export class CarDataService {
   startTripBtnText = 'התחלת נסיעה';
   isCarSelected = false;
   carData: carModule = {
+    whereToRegister: '',
     name: '',
     displayName: '',
     typeOfCar: '',
@@ -46,6 +48,7 @@ export class CarDataService {
     carPayBy: '',
     lastRegister: '',
     lastTrip: {
+      whereToRegister: '',
       carName: '',
       monthBill: '',
       dateAndTime: new Date(),
@@ -209,12 +212,11 @@ export class CarDataService {
           this.isCarSelected = true;
           this.subscribe = await this.dataService
             .getCarDoc(collectionOfCar, carName)
+            .pipe(take(1))
             .subscribe(val => {
               carSelected = val;
               this.dataForCarSelected(carSelected);
               this.carData = carSelected;
-              console.log('קיים', carSelected);
-              console.log('האם נבחר רכב', this.carChosen);
               if (this.carChosen) {
                 this.carChosen = false;
                 this.changeTextName();
@@ -224,6 +226,35 @@ export class CarDataService {
         } else {
           this.resetCarData();
           console.log('לא קיים');
+          // TODO: לתפוס רכב לא קיים
+        }
+      });
+  }
+
+  getDataForRepCarFormFB(collectionOfCar: string, carName: string) {
+    this.dataService
+      .checkIfCarExists(collectionOfCar, carName)
+      .then(async val => {
+        let carSelected;
+        if (val) {
+          this.isCarSelected = true;
+          this.subscribe = await this.dataService
+            .getCarDoc(collectionOfCar, carName)
+            .pipe(take(1))
+            .subscribe(val => {
+              carSelected = val;
+              this.dataForCarSelected(carSelected);
+              this.carData = carSelected;
+              if (this.carChosen) {
+                this.carChosen = false;
+                this.changeTextName();
+                this.change.emit(true);
+              }
+            });
+        } else {
+          this.resetCarData();
+          console.log('לא קיים');
+          // TODO: לתפוס רכב לא קיים
         }
       });
   }
@@ -239,6 +270,7 @@ export class CarDataService {
     );
 
     const data = {
+      whereToRegister: Car.whereToRegister,
       name: Car.name,
       typeOfCar: Car.typeOfCar,
       typename: Car.typename,
@@ -265,7 +297,6 @@ export class CarDataService {
 
   changeTextName() {
     if (this.isCarSelected) {
-      console.log(this.carData);
       if (this.carData.currentTrip['driver'].name) {
         if (this.carData.currentTrip['driver'].name === 'constTrip') {
           this.constTrip = true;
@@ -328,6 +359,7 @@ export class CarDataService {
     );
 
     const data = {
+      whereToRegister: Car.whereToRegister,
       name: Car.name,
       displayName: Car.displayName,
       typeOfCar: Car.typeOfCar,
@@ -358,9 +390,24 @@ export class CarDataService {
     return carRef.set(data);
   }
 
+  public updateRepCarData(Car: carModule) {
+    // Sets user data to firestore on login
+    const carRef: AngularFirestoreDocument<carModule> = this.afs.doc(
+      `${Car.collectionOfCar}/${Car.name}`
+    );
+
+    this.dataService.addRepCarToCarNames(
+      Car.replacement.replacingCarCollection,
+      Car.displayName,
+      Car.replacement.replacingCar
+    );
+    return carRef.set(Car);
+  }
+
   async resetCarData() {
     this.isCarSelected = false;
     const carData: carModule = {
+      whereToRegister: '',
       name: '',
       displayName: '',
       typeOfCar: '',
@@ -369,6 +416,7 @@ export class CarDataService {
       carPayBy: '',
       lastRegister: '',
       lastTrip: {
+        whereToRegister: '',
         carName: '',
         monthBill: '',
         dateAndTime: null,
@@ -516,5 +564,19 @@ export class CarDataService {
     this.changeTextName();
     await this.dataForCarSelected(carData);
     this.subscribe.unsubscribe();
+  }
+
+  removeRepCar() {
+    this.carData.replacement.active = false;
+    this.carData.replacement.endDateInFleet = new Date();
+    this.carData.replacement.endKMinFleet = this.carData.currentTrip['startKM'];
+    this.carData.collectionOfCar = `${
+      this.carData.replacement.replacingCarCollection
+    }/${this.carData.replacement.replacingCar}/repCarCollection`;
+    this.dataService.saveRepCarInConsCar(
+      this.carData.collectionOfCar,
+      this.carData
+    );
+    this.resetCarData();
   }
 }

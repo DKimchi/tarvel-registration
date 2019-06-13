@@ -5,10 +5,11 @@ import { DataFBService } from 'src/app/services/data-fb.service';
 import { carModule } from 'src/app/models/car-module';
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/models/user-module';
-import { take, tap, takeUntil } from 'rxjs/operators';
+import { take, tap, takeUntil, map } from 'rxjs/operators';
 import { DeleteConstTripComponent } from '../delete-const-trip/delete-const-trip.component';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { PasSelectorComponent } from '../pas-selector/pas-selector.component';
+import { DialogMessageComponent } from '../dialog-message/dialog-message.component';
 
 @Component({
   selector: 'app-main-from',
@@ -109,5 +110,27 @@ export class MainFromComponent implements OnInit {
         minute: '2-digit'
       });
     }
+  }
+
+  removeRepCar() {
+    const dialogRemoveRepCar = this.dialogDel.open(DialogMessageComponent, {
+      maxWidth: 400,
+      data: {
+        endTripData: '',
+        messageName: 'returnRepCar',
+        displayName: this.carData.displayName
+      },
+      autoFocus: false
+
+      // TODO: חזרה אחורה בטלפון תסגור את הדיאלוג
+    });
+    dialogRemoveRepCar
+      .afterClosed()
+      .pipe(take(1))
+      .subscribe(val => {
+        if (val) {
+          this.carDataService.removeRepCar();
+        }
+      });
   }
 }

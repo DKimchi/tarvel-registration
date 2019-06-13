@@ -1,0 +1,31 @@
+.main-card {
+  max-width: 400px;
+  // width: 100%;
+  width: 21rem;
+}
+
+.main-div {
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  left: 50%;
+  transform: translate(-50%);
+}
+
+#singUpBtn {
+  width: -webkit-fill-available;
+  margin-top: 1.3rem;
+}
+
+mat-card-header {
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+}
+
+#occCarNumber {
+  width: 2.5rem;
+  font-size: large;
+  text-align: center;
+  // border: 1px solid black;
+}

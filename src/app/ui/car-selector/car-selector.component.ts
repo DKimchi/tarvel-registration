@@ -128,17 +128,20 @@ export class CarSelectorComponent implements OnInit {
     dialogRef.afterClosed().subscribe(async selected => {
       if (selected) {
         if (selected === 'openAddOccCar') {
-          // this.carDataService.resetCarData();
-          console.log('רכב מזדמן');
           this.router.navigate(['/add-occ-car']);
         } else {
+          let carReplaced: string;
           const carNameInDB = selected.carName.split(':');
-          console.log(carNameInDB);
-          this.collectionOfCar = selected.carCollection;
-          await this.carDataService.getDataFormFB(
-            selected.carCollection,
-            carNameInDB[0]
-          );
+          if (carNameInDB[0].includes('רכב חלופי')) {
+            carReplaced = carNameInDB[0].slice(11);
+            this.carDataService.getDataFormFB('חלופים', carNameInDB[0]);
+          } else {
+            this.collectionOfCar = selected.carCollection;
+            await this.carDataService.getDataFormFB(
+              selected.carCollection,
+              carNameInDB[0]
+            );
+          }
           this.carDataService.currentCarData.subscribe(async val => {
             this.carData = val;
             let isDisplayName;
