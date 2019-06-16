@@ -133,6 +133,7 @@ export class PasSelectorComponent implements OnInit, OnChanges {
     dialogPasBill.afterClosed().subscribe(selected => {
       if (selected) {
         if (selected === 'אפס יעד חיוב') {
+          this.carData['currentTrip'][billSelected]['name'] = '';
           this.carData['currentTrip'][billSelected]['bill']['nameOfBill'] = '';
           this.carData['currentTrip'][billSelected]['bill'][
             'paidByOrganization'

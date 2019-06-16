@@ -1,5 +1,10 @@
 <mat-toolbar class="pasPickrToolbar">
   <mat-toolbar-row class="pasPickrToolbar">
+    <mat-icon
+      svgIcon="cancel_outline"
+      (click)="closedPasPickr()"
+      class="closedBTN"
+    ></mat-icon>
     <div>
       בחר שם {{ displayName }} -
       <strong class="ToolbarPasName"
@@ -50,18 +55,27 @@
       id="openConstTrip"
       aria-label="כפתור נסיעות קבועות"
     >
-      ניסעות<br />קבועות
+      נסיעות<br />קבועות
     </button>
   </mat-grid-tile>
   <mat-grid-tile colspan="2">
     <div class="btnsDetails">
-      <button mat-mini-fab color="warn" (click)="choosePas('אפס שם')">
-        <mat-icon aria-label="Example icon-button with a heart icon"
-          >close</mat-icon
-        >
+      <button
+        mat-button
+        color="warn"
+        *ngIf="pasName !== ''"
+        (click)="choosePas('אפס שם')"
+      >
+        אפס שם <br />ויעד חיוב
       </button>
-      <br />
-      {{ pasName ? ' אפס שם ויעד חיוב' : 'אין נוסעים נוספים' }}
+      <button
+        mat-button
+        color="warn"
+        *ngIf="pasName === ''"
+        (click)="choosePas('אפס שם')"
+      >
+        אין נוסעים <br />נוספים
+      </button>
     </div>
   </mat-grid-tile>
 </mat-grid-list>

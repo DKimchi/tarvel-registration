@@ -71,4 +71,8 @@ export class PasPickrComponent implements OnInit {
   openConstTrip() {
     this.dialogRef.close('constTrip');
   }
+
+  closedPasPickr() {
+    this.dialogRef.close();
+  }
 }
