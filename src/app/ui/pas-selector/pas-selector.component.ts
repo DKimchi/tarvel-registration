@@ -16,6 +16,7 @@ import { CarDataService } from 'src/app/services/car-data.service';
 import { DataFBService } from 'src/app/services/data-fb.service';
 import { PasPickrComponent } from '../pas-pickr/pas-pickr.component';
 import { BillPickrComponent } from '../bill-pickr/bill-pickr.component';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-pas-selector',
@@ -73,11 +74,6 @@ export class PasSelectorComponent implements OnInit, OnChanges {
       this.billNames['general'] = val['billNames'].split(',');
       //TODO: להוריד את האפס שם ולצור דרך אחרת לאפס את השם ויעד חיוב
     });
-  }
-
-  getNames() {
-    console.log(this.pasNames);
-    console.log(this.billNames);
   }
 
   openDialogPasNames(psaSelected: string) {

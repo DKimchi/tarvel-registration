@@ -130,10 +130,8 @@ export class CarSelectorComponent implements OnInit {
         if (selected === 'openAddOccCar') {
           this.router.navigate(['/add-occ-car']);
         } else {
-          let carReplaced: string;
           const carNameInDB = selected.carName.split(':');
           if (carNameInDB[0].includes('רכב חלופי')) {
-            carReplaced = carNameInDB[0].slice(11);
             this.carDataService.getDataFormFB('חלופים', carNameInDB[0]);
           } else {
             this.collectionOfCar = selected.carCollection;
@@ -142,20 +140,14 @@ export class CarSelectorComponent implements OnInit {
               carNameInDB[0]
             );
           }
-          this.carDataService.currentCarData.subscribe(async val => {
+          this.carDataService.currentCarData.subscribe(val => {
             this.carData = val;
-            let isDisplayName;
-            if (this.carData.displayName) {
-              isDisplayName = 'displayName';
-            } else {
-              isDisplayName = 'name';
-            }
             if (this.carData['code']) {
               this.selectCarBtnText =
-                this.carData[isDisplayName] + ': קוד ' + this.carData['code'];
-            } else if (this.carData[isDisplayName]) {
-              this.selectCarBtnText = this.carData[isDisplayName] + ': אין קוד';
-            } else if (this.carData[isDisplayName] === '') {
+                this.carData['name'] + ': קוד ' + this.carData['code'];
+            } else if (this.carData['name']) {
+              this.selectCarBtnText = this.carData['name'] + ': אין קוד';
+            } else if (this.carData['name'] === '') {
               this.selectCarBtnText = 'בחר רכב';
             } else {
               this.selectCarBtnText = 'רכב לא במערכת';

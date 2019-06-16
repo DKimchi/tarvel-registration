@@ -186,7 +186,7 @@ export class AddRepCarComponent implements OnInit {
   });
   constructor(
     private fb: FormBuilder,
-    private carDataService: CarDataService,
+    public carDataService: CarDataService,
     private router: Router
   ) {}
 
