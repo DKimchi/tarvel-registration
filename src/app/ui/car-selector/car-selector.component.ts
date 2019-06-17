@@ -2,7 +2,8 @@ import { Component, OnInit, Inject } from '@angular/core';
 import {
   MatBottomSheet,
   MatBottomSheetRef,
-  MatDialog
+  MatDialog,
+  MatDialogConfig
 } from '@angular/material';
 
 import { CarDataService } from 'src/app/services/car-data.service';
@@ -117,14 +118,12 @@ export class CarSelectorComponent implements OnInit {
   }
 
   openCarPickrDialog() {
-    console.log(this.collectionOfCar);
-    const dialogRef = this.dialog.open(CarPickrComponent, {
-      maxWidth: 400,
-      panelClass: 'custom-dialog',
-      data: this.collectionOfCar,
-      autoFocus: false
-      // TODO: חזרה אחורה בטלפון תסגור את הדיאלוג
-    });
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = { collectionOfCar: `${this.collectionOfCar}` };
+    dialogConfig.maxWidth = 400;
+    dialogConfig.panelClass = 'custom-dialog';
+    dialogConfig.autoFocus = false;
+    const dialogRef = this.dialog.open(CarPickrComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(async selected => {
       if (selected) {
         if (selected === 'openAddOccCar') {

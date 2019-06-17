@@ -17,3 +17,17 @@
   cursor: pointer;
   background-color: blue;
 }
+
+.closedBTN {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+}
+
+.closedBTN:hover {
+  cursor: pointer;
+}
+
+.carPickrToolbar {
+  position: relative;
+}

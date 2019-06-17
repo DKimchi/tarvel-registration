@@ -1,4 +1,432 @@
-<mat-grid-list cols="9" rowHeight="1.75rem" gutterSize="0.5rem">
+<mat-grid-list cols="16" rowHeight="2rem" gutterSize="0.3rem">
+  <mat-grid-tile [colspan]="2"> </mat-grid-tile>
+  <mat-grid-tile [colspan]="6" class="btnPas">
+    שם:
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="8" class="btnPas">
+    יעד חיוב:
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="2">
+    <label for="labelCarDriverName">נהג:</label>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="6">
+    <button
+      mat-raised-button
+      class="btnPas"
+      [ngStyle]="{
+        'background-color':
+          carDataService.pasTextName.driver == 'שם נהג - חובה' ||
+          carDataService.pasTextName.driver == 'מנוטרל'
+            ? 'lightgray'
+            : 'rgb(175, 214, 208)'
+      }"
+      id="btnDriverName"
+      (click)="openDialogPasNames('driver')"
+      [disabled]="!this.carDataService.isCarSelected"
+    >
+      {{ carDataService.pasTextName.driver }}
+    </button>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="8">
+    <button
+      mat-raised-button
+      class="btnPas"
+      [ngStyle]="{
+        'background-color':
+          carDataService.pasTextBill.driver == 'יעד חיוב נהג - חובה' ||
+          carDataService.pasTextBill.driver == 'מנוטרל'
+            ? 'lightgray'
+            : 'rgb(142,175,170)'
+      }"
+      id="btnDriverBill"
+      (click)="openDialogPasBill('driver')"
+      [disabled]="!this.carDataService.isCarSelected"
+    >
+      {{ carDataService.pasTextBill.driver }}
+    </button>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="2">
+    <label for="labelCarDriverName">נוסע 2:</label>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="6">
+    <button
+      mat-raised-button
+      class="btnPas"
+      [ngStyle]="{
+        'background-color':
+          carDataService.pasTextName.pas2 == 'שם נוסע 2' ||
+          carDataService.pasTextName.pas2 == 'מנוטרל'
+            ? 'lightgray'
+            : 'rgb(175, 214, 208)'
+      }"
+      id="btnPas2Name"
+      (click)="openDialogPasNames('pas2')"
+      [disabled]="!this.carDataService.isCarSelected"
+    >
+      {{ carDataService.pasTextName.pas2 }}
+    </button>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="8">
+    <button
+      mat-raised-button
+      class="btnPas"
+      [ngStyle]="{
+        'background-color':
+          carDataService.pasTextBill.pas2 == 'יעד חיוב נוסע 2' ||
+          carDataService.pasTextBill.pas2 == 'מנוטרל'
+            ? 'lightgray'
+            : 'rgb(142,175,170)'
+      }"
+      id="btnPas2Bill"
+      (click)="openDialogPasBill('pas2')"
+      [disabled]="!this.carDataService.isCarSelected"
+    >
+      {{ carDataService.pasTextBill.pas2 }}
+    </button>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="2">
+    <label for="labelCarDriverName">נוסע 3:</label>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="6">
+    <button
+      mat-raised-button
+      class="btnPas"
+      [ngStyle]="{
+        'background-color':
+          carDataService.pasTextName.pas3 == 'שם נוסע 3' ||
+          carDataService.pasTextName.pas3 == 'מנוטרל'
+            ? 'lightgray'
+            : 'rgb(175, 214, 208)'
+      }"
+      id="btnPas3Name"
+      (click)="openDialogPasNames('pas3')"
+      [disabled]="!this.carDataService.isCarSelected"
+    >
+      {{ carDataService.pasTextName.pas3 }}
+    </button>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="8">
+    <button
+      mat-raised-button
+      class="btnPas"
+      [ngStyle]="{
+        'background-color':
+          carDataService.pasTextBill.pas3 == 'יעד חיוב נוסע 3' ||
+          carDataService.pasTextBill.pas3 == 'מנוטרל'
+            ? 'lightgray'
+            : 'rgb(142,175,170)'
+      }"
+      id="btnPas3Bill"
+      (click)="openDialogPasBill('pas3')"
+      [disabled]="!this.carDataService.isCarSelected"
+    >
+      {{ carDataService.pasTextBill.pas3 }}
+    </button>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="2">
+    <label for="labelCarDriverName">נוסע 4:</label>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="6">
+    <button
+      mat-raised-button
+      class="btnPas"
+      [ngStyle]="{
+        'background-color':
+          carDataService.pasTextName.pas4 == 'שם נוסע 4' ||
+          carDataService.pasTextName.pas4 == 'מנוטרל'
+            ? 'lightgray'
+            : 'rgb(175, 214, 208)'
+      }"
+      id="btnPas4Name"
+      (click)="openDialogPasNames('pas4')"
+      [disabled]="!this.carDataService.isCarSelected"
+    >
+      {{ carDataService.pasTextName.pas4 }}
+    </button>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="8">
+    <button
+      mat-raised-button
+      class="btnPas"
+      [ngStyle]="{
+        'background-color':
+          carDataService.pasTextBill.pas4 == 'יעד חיוב נוסע 4' ||
+          carDataService.pasTextBill.pas4 == 'מנוטרל'
+            ? 'lightgray'
+            : 'rgb(142,175,170)'
+      }"
+      id="btnPas4Bill"
+      (click)="openDialogPasBill('pas4')"
+      [disabled]="!this.carDataService.isCarSelected"
+    >
+      {{ carDataService.pasTextBill.pas4 }}
+    </button>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="2">
+    <label for="labelCarDriverName">נוסע 5:</label>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="6">
+    <button
+      mat-raised-button
+      class="btnPas"
+      [ngStyle]="{
+        'background-color':
+          carDataService.pasTextName.pas5 == 'שם נוסע 5' ||
+          carDataService.pasTextName.pas5 == 'מנוטרל'
+            ? 'lightgray'
+            : 'rgb(175, 214, 208)'
+      }"
+      id="btnPas4Name"
+      (click)="openDialogPasNames('pas5')"
+      [disabled]="!this.carDataService.isCarSelected"
+    >
+      {{ carDataService.pasTextName.pas5 }}
+    </button>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="8">
+    <button
+      mat-raised-button
+      class="btnPas"
+      [ngStyle]="{
+        'background-color':
+          carDataService.pasTextBill.pas5 == 'יעד חיוב נוסע 5' ||
+          carDataService.pasTextBill.pas5 == 'מנוטרל'
+            ? 'lightgray'
+            : 'rgb(142,175,170)'
+      }"
+      id="btnPas4Bill"
+      (click)="openDialogPasBill('pas5')"
+      [disabled]="!this.carDataService.isCarSelected"
+    >
+      {{ carDataService.pasTextBill.pas5 }}
+    </button>
+  </mat-grid-tile>
+  <div *ngIf="this.carData.sevenPasCar">
+    <mat-grid-tile [colspan]="2">
+      <label for="labelCarDriverName">נוסע 6:</label>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="6">
+      <button
+        mat-raised-button
+        class="btnPas"
+        [ngStyle]="{
+          'background-color':
+            carDataService.pasTextName.pas6 == 'שם נוסע 6' ||
+            carDataService.pasTextName.pas6 == 'מנוטרל'
+              ? 'lightgray'
+              : 'rgb(175, 214, 208)'
+        }"
+        id="btnPas4Name"
+        (click)="openDialogPasNames('pas6')"
+        [disabled]="!this.carDataService.isCarSelected"
+      >
+        {{ carDataService.pasTextName.pas6 }}
+      </button>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="8">
+      <button
+        mat-raised-button
+        class="btnPas"
+        [ngStyle]="{
+          'background-color':
+            carDataService.pasTextBill.pas6 == 'יעד חיוב נוסע 6' ||
+            carDataService.pasTextBill.pas6 == 'מנוטרל'
+              ? 'lightgray'
+              : 'rgb(142,175,170)'
+        }"
+        id="btnPas4Bill"
+        (click)="openDialogPasBill('pas6')"
+        [disabled]="!this.carDataService.isCarSelected"
+      >
+        {{ carDataService.pasTextBill.pas6 }}
+      </button>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="2">
+      <label for="labelCarDriverName">נוסע 7:</label>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="6">
+      <button
+        mat-raised-button
+        class="btnPas"
+        [ngStyle]="{
+          'background-color':
+            carDataService.pasTextName.pas7 == 'שם נוסע 7' ||
+            carDataService.pasTextName.pas7 == 'מנוטרל'
+              ? 'lightgray'
+              : 'rgb(175, 214, 208)'
+        }"
+        id="btnPas4Name"
+        (click)="openDialogPasNames('pas7')"
+        [disabled]="!this.carDataService.isCarSelected"
+      >
+        {{ carDataService.pasTextName.pas7 }}
+      </button>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="8">
+      <button
+        mat-raised-button
+        class="btnPas"
+        [ngStyle]="{
+          'background-color':
+            carDataService.pasTextBill.pas7 == 'יעד חיוב נוסע 7' ||
+            carDataService.pasTextBill.pas7 == 'מנוטרל'
+              ? 'lightgray'
+              : 'rgb(142,175,170)'
+        }"
+        id="btnPas4Bill"
+        (click)="openDialogPasBill('pas7')"
+        [disabled]="!this.carDataService.isCarSelected"
+      >
+        {{ carDataService.pasTextBill.pas7 }}
+      </button>
+    </mat-grid-tile>
+  </div>
+</mat-grid-list>
+<!-- 
+  
+ 
+  <mat-grid-tile [colspan]="3">
+    <label for="labelCarDriverName">יעד חיוב נוסע 3:</label>
+  </mat-grid-tile>
+  
+  
+  <mat-grid-tile [colspan]="3">
+    <label for="labelCarDriverName">יעד חיוב נוסע 4:</label>
+  </mat-grid-tile>
+  
+  <mat-grid-tile [colspan]="3">
+    <label for="labelCarDriverName">שם נוסע 5:</label>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="6">
+    <button
+      mat-raised-button
+      class="btnPas"
+      [ngStyle]="{
+        'background-color':
+          carDataService.pasTextName.pas5 == 'שם נוסע 5' ||
+          carDataService.pasTextName.pas5 == 'מנוטרל'
+            ? 'lightgray'
+            : 'rgb(175, 214, 208)'
+      }"
+      id="btnPas5Name"
+      (click)="openDialogPasNames('pas5')"
+      [disabled]="!this.carDataService.isCarSelected"
+    >
+      {{ carDataService.pasTextName.pas5 }}
+    </button>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="3">
+    <label for="labelCarDriverName">יעד חיוב נוסע 5:</label>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="6">
+    <button
+      mat-raised-button
+      class="btnPas"
+      [ngStyle]="{
+        'background-color':
+          carDataService.pasTextBill.pas5 == 'יעד חיוב נוסע 5' ||
+          carDataService.pasTextBill.pas5 == 'מנוטרל'
+            ? 'lightgray'
+            : 'rgb(142,175,170)'
+      }"
+      id="btnPas5Bill"
+      (click)="openDialogPasBill('pas5')"
+      [disabled]="!this.carDataService.isCarSelected"
+    >
+      {{ carDataService.pasTextBill.pas5 }}
+    </button>
+  </mat-grid-tile>
+  <div *ngIf="this.carData.sevenPasCar">
+    <mat-grid-tile [colspan]="3">
+      <label for="labelCarDriverName">שם נוסע 6:</label>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="6">
+      <button
+        mat-raised-button
+        class="btnPas"
+        [ngStyle]="{
+          'background-color':
+            carDataService.pasTextName.pas6 == 'שם נוסע 6' ||
+            carDataService.pasTextName.pas6 == 'מנוטרל'
+              ? 'lightgray'
+              : 'rgb(175, 214, 208)'
+        }"
+        id="btnPas6Name"
+        (click)="openDialogPasNames('pas6')"
+        [disabled]="!this.carDataService.isCarSelected"
+      >
+        {{ carDataService.pasTextName.pas6 }}
+      </button>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="3">
+      <label for="labelCarDriverName">יעד חיוב נוסע 6:</label>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="6">
+      <button
+        mat-raised-button
+        class="btnPas"
+        [ngStyle]="{
+          'background-color':
+            carDataService.pasTextBill.pas6 == 'יעד חיוב נוסע 6' ||
+            carDataService.pasTextBill.pas6 == 'מנוטרל'
+              ? 'lightgray'
+              : 'rgb(142,175,170)'
+        }"
+        id="btnPas6Bill"
+        (click)="openDialogPasBill('pas6')"
+        [disabled]="!this.carDataService.isCarSelected"
+      >
+        {{ carDataService.pasTextBill.pas6 }}
+      </button>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="3">
+      <label for="labelCarDriverName">שם נוסע 7:</label>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="6">
+      <button
+        mat-raised-button
+        class="btnPas"
+        [ngStyle]="{
+          'background-color':
+            carDataService.pasTextName.pas7 == 'שם נוסע 7' ||
+            carDataService.pasTextName.pas7 == 'מנוטרל'
+              ? 'lightgray'
+              : 'rgb(175, 214, 208)'
+        }"
+        id="btnPas7Name"
+        (click)="openDialogPasNames('pas7')"
+        [disabled]="!this.carDataService.isCarSelected"
+      >
+        {{ carDataService.pasTextName.pas7 }}
+      </button>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="3">
+      <label for="labelCarDriverName">יעד חיוב נוסע 7:</label>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="6">
+      <button
+        mat-raised-button
+        class="btnPas"
+        [ngStyle]="{
+          'background-color':
+            carDataService.pasTextBill.pas7 == 'יעד חיוב נוסע 7' ||
+            carDataService.pasTextBill.pas7 == 'מנוטרל'
+              ? 'lightgray'
+              : 'rgb(142,175,170)'
+        }"
+        id="btnPas7Bill"
+        (click)="openDialogPasBill('pas7')"
+        [disabled]="!this.carDataService.isCarSelected"
+      >
+        {{ carDataService.pasTextBill.pas7 }}
+      </button>
+    </mat-grid-tile>
+  </div> -->
+<!-- </mat-grid-list> -->
+
+<!-- TODO:להסיף את נוסעים 6 ו7 -->
+
+<!-- <mat-grid-list cols="9" rowHeight="1.75rem" gutterSize="0.5rem">
   <mat-grid-tile [colspan]="3">
     <label for="labelCarDriverName">שם נהג:</label>
   </mat-grid-tile>
@@ -297,4 +725,6 @@
   </div>
 </mat-grid-list>
 
-<!-- TODO:להסיף את נוסעים 6 ו7 -->
+ TODO:להסיף את נוסעים 6 ו7 -->
+<!-- </mat-grid-tile></mat-grid-list
+> -->

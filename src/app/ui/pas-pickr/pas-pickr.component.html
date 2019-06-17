@@ -1,16 +1,16 @@
 <mat-toolbar class="pasPickrToolbar">
   <mat-toolbar-row class="pasPickrToolbar">
-    <mat-icon
-      svgIcon="cancel_outline"
-      (click)="closedPasPickr()"
-      class="closedBTN"
-    ></mat-icon>
     <div>
       בחר שם {{ displayName }} -
       <strong class="ToolbarPasName"
         >{{ pasName ? pasName : 'לא ניבחר' }}
       </strong>
     </div>
+    <mat-icon
+      svgIcon="cancel_outline"
+      (click)="closedPasPickr()"
+      class="closedBTN"
+    ></mat-icon>
   </mat-toolbar-row>
 </mat-toolbar>
 

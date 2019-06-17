@@ -1,5 +1,10 @@
 <mat-toolbar class="billPickrToolbar">
   <mat-toolbar-row>{{ displayName }}</mat-toolbar-row>
+  <mat-icon
+    svgIcon="cancel_outline"
+    (click)="closedBillPickr()"
+    class="closedBTN"
+  ></mat-icon>
 </mat-toolbar>
 <mat-grid-list id="endTrip" cols="8" rowHeight="3.8rem">
   <mat-grid-tile colspan="4">

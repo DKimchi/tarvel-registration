@@ -104,4 +104,8 @@ export class BillPickrComponent implements OnInit {
       this.changeBillList();
     });
   }
+
+  closedBillPickr() {
+    this.dialogRef.close();
+  }
 }

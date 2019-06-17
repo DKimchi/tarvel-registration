@@ -36,7 +36,7 @@ body {
 #headerImage {
   width: 100%;
   margin: auto;
-  height: 5rem;
+  height: 4rem;
 }
 
 #startTripBtn {
@@ -45,8 +45,8 @@ body {
   height: 40px;
   font-size: 1.2rem;
   font-weight: bold;
-  top: 0.5rem;
-  margin-top: 15px;
+  top: 0.3rem;
+  margin-top: 10px;
 }
 
 #endTrip {
@@ -106,6 +106,14 @@ body {
   right: 3px;
 }
 
+.closedBTN:hover {
+  cursor: pointer;
+}
+
 .sideTitle {
   margin-right: 30px;
+}
+
+.sidenavtoolbar {
+  position: relative;
 }

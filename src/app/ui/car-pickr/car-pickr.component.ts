@@ -19,7 +19,7 @@ import { Router } from '@angular/router';
 })
 export class CarPickrComponent implements OnInit {
   listOfCollection: Array<string>;
-  collectionOfCar: string = this.data;
+  collectionOfCar: string = this.data.collectionOfCar;
   // TODO: open  collectionOfCar from uesr Default
   generalData: object;
   myControl = new FormControl();
@@ -75,5 +75,9 @@ export class CarPickrComponent implements OnInit {
 
   openAddOccCar() {
     this.dialogRef.close('openAddOccCar');
+  }
+
+  closedCarPickr() {
+    this.dialogRef.close();
   }
 }
