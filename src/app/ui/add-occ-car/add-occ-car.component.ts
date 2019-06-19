@@ -236,13 +236,6 @@ export class AddOccCarComponent implements OnInit {
       this.occcardata.occasional['startDateInFleet'] = new Date();
       this.occcardata.lastTrip.dateAndTime = new Date();
       this.occcardata.currentTrip['driver']['name'] = '';
-      //   name: '',
-      //     bill: {
-      //     paidByOrganization: '',
-      //       nameOfBill: ''
-      //   },
-      //   circleOfBelonging: ''
-      // },
       console.log(this.occcardata);
 
       this.carDataService.updateOccCarData(this.occcardata);

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
-import { MatDialog, MatSnackBar } from '@angular/material';
+import { MatDialog, MatSnackBar, MatIconRegistry } from '@angular/material';
 import { DataFBService } from 'src/app/services/data-fb.service';
 import { PasPickrComponent } from '../pas-pickr/pas-pickr.component';
 import { BillPickrComponent } from '../bill-pickr/bill-pickr.component';
@@ -10,6 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { carModule } from 'src/app/models/car-module';
 import { CarDataService } from 'src/app/services/car-data.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-new-const-trip',
@@ -98,10 +99,16 @@ export class NewConstTripComponent implements OnInit {
     private snackBar: MatSnackBar,
     public dataFBService: DataFBService,
     private router: Router,
-    public carDataService: CarDataService
+    public carDataService: CarDataService,
+    iconRegistry: MatIconRegistry,
+    sanitizer: DomSanitizer
   ) {
-    // const url = this.router.url.slice(16);
-    // this.nameConstTripURL = decodeURIComponent(url);
+    iconRegistry.addSvgIcon(
+      'cancel_outline',
+      sanitizer.bypassSecurityTrustResourceUrl(
+        'assets/icons/outline-cancel-24px.svg'
+      )
+    );
   }
 
   ngOnInit() {
@@ -243,6 +250,22 @@ export class NewConstTripComponent implements OnInit {
         duration: 3000
       });
     } else {
+      for (let index = 1; index <= 7; index++) {
+        let pas = '';
+        if (index === 1) {
+          pas = 'driver';
+        } else {
+          pas = 'pas' + index;
+        }
+        this.constTrip[pas].name = this.carData.currentTrip[pas]['name'];
+        this.constTrip[pas].bill.nameOfBill = this.carData.currentTrip[pas][
+          'bill'
+        ]['nameOfBill'];
+        this.constTrip[pas].bill.paidByOrganization = this.carData.currentTrip[
+          pas
+        ]['bill']['paidByOrganization'];
+      }
+
       this.auth.user$.pipe(take(1)).subscribe(val => {
         if (this.indexConstTrip !== -1) {
           val.constTrips[this.indexConstTrip] = this.constTrip;
