@@ -1,6 +1,11 @@
 <div class="main-div">
   <form [formGroup]="newOccCarData" (ngSubmit)="onSubmit()">
     <mat-card class="main-card">
+      <mat-icon
+        svgIcon="cancel_outline"
+        routerLink="/"
+        class="closedBTN"
+      ></mat-icon>
       <mat-card-header>
         <mat-card-title>
           <mat-grid-list cols="9" rowHeight="4rem" gutterSize="2px">

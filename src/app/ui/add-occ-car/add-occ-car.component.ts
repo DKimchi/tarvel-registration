@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 
 import { carModule } from 'src/app/models/car-module';
 import { CarDataService } from 'src/app/services/car-data.service';
+import { MatIconRegistry } from '@angular/material';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-add-occ-car',
@@ -185,8 +187,17 @@ export class AddOccCarComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private carDataService: CarDataService,
-    private router: Router
-  ) {}
+    private router: Router,
+    iconRegistry: MatIconRegistry,
+    sanitizer: DomSanitizer
+  ) {
+    iconRegistry.addSvgIcon(
+      'cancel_outline',
+      sanitizer.bypassSecurityTrustResourceUrl(
+        'assets/icons/outline-cancel-24px.svg'
+      )
+    );
+  }
 
   ngOnInit() {}
 

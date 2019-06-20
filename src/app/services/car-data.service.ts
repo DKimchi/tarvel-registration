@@ -386,7 +386,7 @@ export class CarDataService {
         endKMinFleet: Car.occasional.endKMinFleet
       }
     };
-    this.dataService.addOccCarToCarNames(Car.name, Car.displayName);
+    this.dataService.addOccCarToCarNames(Car.displayName);
     return carRef.set(data);
   }
 

@@ -388,7 +388,7 @@ export class DataFBService {
     // TODO: לתפוס תעות בהבטחה
   }
 
-  addOccCarToCarNames(name: string, displayName: string) {
+  addOccCarToCarNames(displayName: string) {
     let names = [];
     const carNamesRef: AngularFirestoreDocument = this.afs.doc(
       `משעול-מזדמן/carNames`
@@ -397,20 +397,22 @@ export class DataFBService {
       .get()
       .toPromise()
       .then(val => {
+        const arrOccCarNumber = [];
         names = val.data().carNames;
-        const arrOccCarName = [];
-        for (let i = 0; i < names.length; i++) {
-          const element = names[i].split(':');
-          arrOccCarName.push(element[0]);
+        names.forEach(val => {
+          arrOccCarNumber.push(parseInt(val.slice(10, val.indexOf(':')), 10));
+        });
+        const newOccCarNumber = parseInt(
+          displayName.slice(10, displayName.indexOf(':')),
+          10
+        );
+        function sortNumber(a, b) {
+          return a - b;
         }
-        if (!arrOccCarName.includes(name)) {
-          names.push(displayName);
-        } else {
-          const index = arrOccCarName.findIndex(carName => carName === name);
-          names[index] = displayName;
-        }
-        console.log(names);
-        names.sort();
+        arrOccCarNumber.push(newOccCarNumber);
+        arrOccCarNumber.sort(sortNumber);
+        const index = arrOccCarNumber.findIndex(val => val === newOccCarNumber);
+        names.splice(index, 0, displayName);
         carNamesRef.set({ carNames: names });
       });
     // TODO: לתפוס תעות בהבטחה
