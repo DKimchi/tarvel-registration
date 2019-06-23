@@ -1,4 +1,13 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnChanges,
+  Inject,
+  SimpleChanges,
+  Input,
+  EventEmitter,
+  Output
+} from '@angular/core';
 import {
   MatBottomSheet,
   MatBottomSheetRef,
@@ -13,19 +22,20 @@ import { carModule } from 'src/app/models/car-module';
 import { CarPickrComponent } from '../car-pickr/car-pickr.component';
 import { AuthService } from 'src/app/services/auth.service';
 import { elementStart } from '@angular/core/src/render3';
-import { take } from 'rxjs/operators';
+import { take, last, takeLast } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
 import { User } from 'src/app/models/user-module';
 import { PasPickrComponent } from '../pas-pickr/pas-pickr.component';
 import { async } from '@firebase/util';
 import { Router } from '@angular/router';
+import { PasSelectorComponent } from '../pas-selector/pas-selector.component';
 
 @Component({
   selector: 'app-car-selector',
   templateUrl: './car-selector.component.html',
   styleUrls: ['./car-selector.component.scss']
 })
-export class CarSelectorComponent implements OnInit {
+export class CarSelectorComponent implements OnInit, OnChanges {
   userData: User;
   pasNames: string[];
   billNames: {
@@ -49,21 +59,27 @@ export class CarSelectorComponent implements OnInit {
   };
   carNames: string[];
   listOfCollection: Array<string>;
+  selectCarBtnText: string;
   collectionOfCar: string = 'משעול-קבוע';
   // TODO: open  collectionOfCar from uesr Default
   generalData: object;
-  selectCarBtnText = 'בחר רכב';
+
   carData: carModule;
   constructor(
     public auth: AuthService,
     public dialog: MatDialog,
     public dataFBService: DataFBService,
     public carDataService: CarDataService,
-    private router: Router
+    private router: Router,
+    public pasSelector: PasSelectorComponent
   ) {
     this.auth.user$.subscribe(val => {
       this.collectionOfCar = val.defaultCollectionOfCar;
     });
+  }
+  @Input() carName: string;
+  ngOnChanges(changes: SimpleChanges): void {
+    this.carDataService.change.emit(true);
   }
 
   ngOnInit() {

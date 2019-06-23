@@ -14,7 +14,7 @@
           ><br />
           עדכון פרטים
         </button>
-        <app-car-selector></app-car-selector>
+        <app-car-selector [carName]="carData['name']"></app-car-selector>
         <button
           class="btnsDetails"
           (click)="getLastTripDate()"
@@ -39,9 +39,7 @@
           [startKM]="carData['currentTrip']['startKM']"
         ></app-start-km>
       </div>
-      <app-pas-selector
-        [driveNameChange]="carDataService.pasTextName.driver"
-      ></app-pas-selector>
+      <app-pas-selector></app-pas-selector>
       <button
         mat-raised-button
         color="primary"

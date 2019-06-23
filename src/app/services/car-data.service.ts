@@ -220,7 +220,7 @@ export class CarDataService {
               if (this.carChosen) {
                 this.carChosen = false;
                 this.changeTextName();
-                this.change.emit(true);
+                // this.change.emit(true);
               }
             });
         } else {
@@ -248,7 +248,7 @@ export class CarDataService {
               if (this.carChosen) {
                 this.carChosen = false;
                 this.changeTextName();
-                this.change.emit(true);
+                // this.change.emit(true);
               }
             });
         } else {

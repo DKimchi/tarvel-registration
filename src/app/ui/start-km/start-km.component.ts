@@ -16,6 +16,7 @@ import { carModule } from 'src/app/models/car-module';
 })
 export class StartKmComponent implements OnInit, OnChanges {
   @Input() startKM: number;
+
   ngOnChanges(changes: SimpleChanges): void {
     console.log(changes);
   }

@@ -236,6 +236,7 @@ export class AddOccCarComponent implements OnInit {
       }: ${this.newOccCarData.value.typeName} - ${displayCarNumber}`;
       this.occcardata.carNumber = this.newOccCarData.value.carNumber;
       this.occcardata.code = this.newOccCarData.value.code;
+      this.occcardata.whereToRegister = 'משעול';
       this.occcardata.typename = this.newOccCarData.value.typeName;
       this.occcardata.occasional[
         'startKMinFleet'

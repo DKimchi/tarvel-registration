@@ -221,7 +221,7 @@ export class AddRepCarComponent implements OnInit {
       }
       this.repCarData = {
         whereToRegister: this.carDataService.carData.whereToRegister,
-        name: `רכב חלופי ל${this.carDataService.carData.name}`,
+        name: `רכב חלופי ${this.carDataService.carData.name}`,
         typeOfCar: this.carDataService.carData.typeOfCar,
         typename: this.newRepCarData.value.typeName,
         responsible: this.carDataService.carData.responsible,
@@ -374,7 +374,7 @@ export class AddRepCarComponent implements OnInit {
           startKMinFleet: this.newRepCarData.value.startKMinFleet,
           endKMinFleet: null
         },
-        displayName: `רכב חלופי ל${this.carDataService.carData.name}: ${
+        displayName: `רכב חלופי ${this.carDataService.carData.name}: ${
           this.newRepCarData.value.typeName
         } - ${displayCarNumber}`
       };

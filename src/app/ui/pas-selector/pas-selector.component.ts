@@ -23,7 +23,7 @@ import { take } from 'rxjs/operators';
   templateUrl: './pas-selector.component.html',
   styleUrls: ['./pas-selector.component.scss']
 })
-export class PasSelectorComponent implements OnInit, OnChanges {
+export class PasSelectorComponent implements OnInit {
   carData: carModule;
   pasNames: string[];
   billNames: {
@@ -51,12 +51,6 @@ export class PasSelectorComponent implements OnInit, OnChanges {
     public dataFBService: DataFBService
   ) {}
   @Output() openConstTrips: EventEmitter<boolean> = new EventEmitter();
-  @Input() driveNameChange: string;
-
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
-    console.log(this.carDataService.pasTextName.driver);
-  }
 
   ngOnInit() {
     this.carDataService.currentCarData.subscribe(val => {
@@ -64,7 +58,10 @@ export class PasSelectorComponent implements OnInit, OnChanges {
     });
 
     this.carDataService.change.subscribe(newCarChoose => {
-      if (this.carData['currentTrip']['driver']['name'] === '') {
+      if (
+        this.carData['currentTrip']['driver']['name'] === '' &&
+        this.carData.name !== ''
+      ) {
         this.openDialogPasNames('driver');
       }
     });
@@ -76,7 +73,7 @@ export class PasSelectorComponent implements OnInit, OnChanges {
     });
   }
 
-  openDialogPasNames(psaSelected: string) {
+  public openDialogPasNames(psaSelected: string) {
     const dialogPasName = this.dialogPasPickr.open(PasPickrComponent, {
       maxWidth: 400,
       panelClass: 'custom-dialog',
