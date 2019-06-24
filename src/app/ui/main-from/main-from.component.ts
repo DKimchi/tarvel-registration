@@ -5,10 +5,9 @@ import { DataFBService } from 'src/app/services/data-fb.service';
 import { carModule } from 'src/app/models/car-module';
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/models/user-module';
-import { take, tap, takeUntil, map } from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 import { DeleteConstTripComponent } from '../delete-const-trip/delete-const-trip.component';
 import { MatDialog, MatSnackBar, MatIconRegistry } from '@angular/material';
-import { PasSelectorComponent } from '../pas-selector/pas-selector.component';
 import { DialogMessageComponent } from '../dialog-message/dialog-message.component';
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -28,7 +27,6 @@ export class MainFromComponent implements OnInit {
     public dataFBService: DataFBService,
     public carDataService: CarDataService,
     private auth: AuthService,
-    private pasSelect: PasSelectorComponent,
     private snackBar: MatSnackBar,
     iconRegistry: MatIconRegistry,
     sanitizer: DomSanitizer

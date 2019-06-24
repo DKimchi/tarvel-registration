@@ -1,161 +1,303 @@
-<div *ngIf="auth.user$ | async as user">
-  <div class="div-card-firstTime">
-    <mat-card>
-      <mat-card-header class="card-from">
-        <mat-card-title
-          >שלום, {{ user.displayName }}<br />ברוך הבא לאפליקציית רישום
-          נסיעות</mat-card-title
-        >
-        <mat-card-subtitle>שאלון פרטים אישיים</mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content>
-        <form [formGroup]="initialData" (ngSubmit)="onSubmit()">
-          <mat-grid-list cols="9" rowHeight="4rem">
-            <mat-grid-tile colspan="7">
-              <mat-form-field class="input">
-                <mat-label class="inputLabel" for="displayName"
-                  >שם פרטי + שם משפחה:
-                </mat-label>
-                <input
-                  #name
-                  matInput
-                  formControlName="displayName"
-                  required
-                  [matAutocomplete]="auto"
-                />
-                <mat-autocomplete #auto="matAutocomplete">
-                  <mat-option
-                    *ngFor="let option of filteredOptions | async"
-                    [value]="option"
-                  >
-                    {{ option }}
-                  </mat-option>
-                </mat-autocomplete>
-              </mat-form-field>
-            </mat-grid-tile>
-            <mat-grid-tile colspan="2">
-              <mat-icon
-                #tooltipName="matTooltip"
-                matSuffix
-                (click)="tooltipName.toggle()"
-                matTooltip="שם אשר יוצג באפליקציה רישום נסיעות"
-                >help_outline</mat-icon
-              >
-            </mat-grid-tile>
-          </mat-grid-list>
-          <br />
-          <mat-grid-list cols="9" rowHeight="4rem">
-            <mat-grid-tile colspan="7">
-              <mat-form-field class="input">
-                <mat-label class="inputLabel" for="defaultCollectionOfCar"
-                  >אשכול רכבים ראשי
-                </mat-label>
-                <mat-select
-                  placeholder="אשכול רכבים ראשי"
-                  formControlName="defaultCollectionOfCar"
-                  required
-                >
-                  <mat-option>--</mat-option>
-                  <mat-option
-                    *ngFor="let carcollection of collectionOfCarFromDB"
-                    [value]="carcollection"
-                  >
-                    {{ carcollection }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </mat-grid-tile>
-            <mat-grid-tile colspan="2">
-              <mat-icon
-                #tooltipCarCollection="matTooltip"
-                matSuffix
-                (click)="tooltipCarCollection.toggle()"
-                matTooltip="אשכול רכבים הוא אוסף רכבים הקשורים למרחב אחד. הראשי הוא אוסף ברירת המחדל האישית שלך."
-                >help_outline</mat-icon
-              >
-            </mat-grid-tile>
-          </mat-grid-list>
-          <br />
-          <mat-grid-list cols="9" rowHeight="4rem">
-            <mat-grid-tile colspan="7">
-              <mat-form-field class="input">
-                <mat-label class="inputLabel" for="circleOfBelonging"
-                  >מעגל שייכות</mat-label
-                >
-                <input matInput formControlName="circleOfBelonging" required />
-              </mat-form-field>
-            </mat-grid-tile>
-            <mat-grid-tile colspan="2">
-              <mat-icon
-                #tooltipCircleOfBelonging="matTooltip"
-                matSuffix
-                (click)="tooltipCircleOfBelonging.toggle()"
-                matTooltip="המעגל החברתי אליו את/ה שייך"
-                >help_outline</mat-icon
-              >
-            </mat-grid-tile>
-          </mat-grid-list>
-          <br />
-          <mat-grid-list cols="9" rowHeight="4rem">
-            <mat-grid-tile colspan="7">
-              <mat-form-field class="input">
-                <mat-select
-                  placeholder="יעדי חיוב עיקריים"
-                  formControlName="mainBills"
-                  multiple
-                  required
-                >
-                  <mat-option
-                    *ngFor="let billname of biilNames"
-                    [value]="billname"
-                  >
-                    {{ billname }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </mat-grid-tile>
-            <mat-grid-tile colspan="2">
-              <mat-icon
-                #tooltipMainBills="matTooltip"
-                matSuffix
-                (click)="tooltipMainBills.toggle()"
-                matTooltip="בחירה ביעדי חיוב בשימוש הכי תדיר שלך"
-                >help_outline</mat-icon
-              >
-            </mat-grid-tile>
-          </mat-grid-list>
-          <div id="mainBillDisplay">
-            <h3>יעדי חיוב עיקריים:</h3>
-            <ol class="mainBillol">
-              <li
-                class="mainBillli"
-                *ngFor="
-                  let mainBill of this.initialData.value.mainBills;
-                  let i = index
-                "
-              >
-                {{ mainBill }}
-              </li>
-            </ol>
-          </div>
-
-          <div id="registrationButton">
-            <button mat-stroked-button type="submit" id="singUpBtn">
-              עדכן פרטים אישיים
-            </button>
-          </div>
-        </form>
-        <button
-          mat-stroked-button
-          color="warn"
-          (click)="auth.signOut()"
-          id="logout"
-        >
-          התנתק
-        </button>
-      </mat-card-content>
-    </mat-card>
-  </div>
+<div *ngIf="ifChild; then child; else user">
+  <!--  template will replace this div  -->
 </div>
+<ng-template #child>
+  <div *ngIf="auth.user$ | async as user">
+    <div class="div-card-firstTime">
+      <mat-card>
+        <mat-card-header class="card-from">
+          <mat-card-title
+            >הכנס של ילדים לרשימת נוסעים<br />ברוך הבא לאפליקציית רישום
+            נסיעות</mat-card-title
+          >
+          <mat-card-subtitle>שאלון פרטים אישיים</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <form [formGroup]="initialData" (ngSubmit)="onSubmit()">
+            <mat-grid-list cols="9" rowHeight="4rem">
+              <mat-grid-tile colspan="7">
+                <mat-form-field class="input">
+                  <mat-label class="inputLabel" for="displayName"
+                    >שם פרטי + שם משפחה:
+                  </mat-label>
+                  <input
+                    #name
+                    matInput
+                    formControlName="displayName"
+                    required
+                    [matAutocomplete]="auto"
+                  />
+                  <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option
+                      *ngFor="let option of filteredOptions | async"
+                      [value]="option"
+                    >
+                      {{ option }}
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile colspan="2">
+                <mat-icon
+                  #tooltipName="matTooltip"
+                  matSuffix
+                  (click)="tooltipName.toggle()"
+                  matTooltip="שם הילד אשר יופיע באתר רישום נסיעות"
+                  >help_outline</mat-icon
+                >
+              </mat-grid-tile>
+            </mat-grid-list>
+            <br />
 
-<!-- (click)="auth.signOut()" -->
+            <mat-grid-list cols="9" rowHeight="4rem">
+              <mat-grid-tile colspan="7">
+                <mat-form-field class="input">
+                  <mat-label class="inputLabel" for="circleOfBelonging"
+                    >מעגל שייכות של הילד</mat-label
+                  >
+                  <input
+                    matInput
+                    formControlName="circleOfBelonging"
+                    required
+                  />
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile colspan="2">
+                <mat-icon
+                  #tooltipCircleOfBelonging="matTooltip"
+                  matSuffix
+                  (click)="tooltipCircleOfBelonging.toggle()"
+                  matTooltip="המעגל החברתי אליו הילד"
+                  >help_outline</mat-icon
+                >
+              </mat-grid-tile>
+            </mat-grid-list>
+            <br />
+            <mat-grid-list cols="9" rowHeight="4rem">
+              <mat-grid-tile colspan="7">
+                <mat-form-field class="input">
+                  <mat-select
+                    placeholder="יעדי חיוב עיקריים"
+                    formControlName="mainBills"
+                    multiple
+                    required
+                  >
+                    <mat-option
+                      *ngFor="let billname of biilNames"
+                      [value]="billname"
+                    >
+                      {{ billname }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile colspan="2">
+                <mat-icon
+                  #tooltipMainBills="matTooltip"
+                  matSuffix
+                  (click)="tooltipMainBills.toggle()"
+                  matTooltip="בחירה ביעדי חיוב בשימוש הכי תדיר שלך"
+                  >help_outline</mat-icon
+                >
+              </mat-grid-tile>
+            </mat-grid-list>
+            <div id="mainBillDisplay">
+              <h3>יעדי חיוב עיקריים:</h3>
+              <ol class="mainBillol">
+                <li
+                  class="mainBillli"
+                  *ngFor="
+                    let mainBill of this.initialData.value.mainBills;
+                    let i = index
+                  "
+                >
+                  {{ mainBill }}
+                </li>
+              </ol>
+            </div>
+
+            <div id="registrationButton">
+              <button mat-stroked-button type="submit" id="singUpBtn">
+                עדכן פרטים של הילד
+              </button>
+            </div>
+          </form>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #user>
+  <div *ngIf="auth.user$ | async as user">
+    <div class="div-card-firstTime">
+      <mat-card>
+        <mat-card-header class="card-from">
+          <mat-card-title
+            >שלום, {{ user.displayName }}<br />ברוך הבא לאפליקציית רישום
+            נסיעות</mat-card-title
+          >
+          <mat-card-subtitle>שאלון פרטים אישיים</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <form [formGroup]="initialData" (ngSubmit)="onSubmit()">
+            <mat-grid-list cols="9" rowHeight="4rem">
+              <mat-grid-tile colspan="7">
+                <mat-form-field class="input">
+                  <mat-label class="inputLabel" for="displayName"
+                    >שם פרטי + שם משפחה:
+                  </mat-label>
+                  <input
+                    #name
+                    matInput
+                    formControlName="displayName"
+                    required
+                    [matAutocomplete]="auto"
+                  />
+                  <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option
+                      *ngFor="let option of filteredOptions | async"
+                      [value]="option"
+                    >
+                      {{ option }}
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile colspan="2">
+                <mat-icon
+                  #tooltipName="matTooltip"
+                  matSuffix
+                  (click)="tooltipName.toggle()"
+                  matTooltip="שם אשר יוצג באפליקציה רישום נסיעות"
+                  >help_outline</mat-icon
+                >
+              </mat-grid-tile>
+            </mat-grid-list>
+            <br />
+            <mat-grid-list cols="9" rowHeight="4rem">
+              <mat-grid-tile colspan="7">
+                <mat-form-field class="input">
+                  <mat-label class="inputLabel" for="defaultCollectionOfCar"
+                    >אשכול רכבים ראשי
+                  </mat-label>
+                  <mat-select
+                    placeholder="אשכול רכבים ראשי"
+                    formControlName="defaultCollectionOfCar"
+                    required
+                  >
+                    <mat-option>--</mat-option>
+                    <mat-option
+                      *ngFor="let carcollection of collectionOfCarFromDB"
+                      [value]="carcollection"
+                    >
+                      {{ carcollection }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile colspan="2">
+                <mat-icon
+                  #tooltipCarCollection="matTooltip"
+                  matSuffix
+                  (click)="tooltipCarCollection.toggle()"
+                  matTooltip="אשכול רכבים הוא אוסף רכבים הקשורים למרחב אחד. הראשי הוא אוסף ברירת המחדל האישית שלך."
+                  >help_outline</mat-icon
+                >
+              </mat-grid-tile>
+            </mat-grid-list>
+            <br />
+            <mat-grid-list cols="9" rowHeight="4rem">
+              <mat-grid-tile colspan="7">
+                <mat-form-field class="input">
+                  <mat-label class="inputLabel" for="circleOfBelonging"
+                    >מעגל שייכות</mat-label
+                  >
+                  <input
+                    matInput
+                    formControlName="circleOfBelonging"
+                    required
+                  />
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile colspan="2">
+                <mat-icon
+                  #tooltipCircleOfBelonging="matTooltip"
+                  matSuffix
+                  (click)="tooltipCircleOfBelonging.toggle()"
+                  matTooltip="המעגל החברתי אליו את/ה שייך"
+                  >help_outline</mat-icon
+                >
+              </mat-grid-tile>
+            </mat-grid-list>
+            <br />
+            <mat-grid-list cols="9" rowHeight="4rem">
+              <mat-grid-tile colspan="7">
+                <mat-form-field class="input">
+                  <mat-select
+                    placeholder="יעדי חיוב עיקריים"
+                    formControlName="mainBills"
+                    multiple
+                    required
+                  >
+                    <mat-option
+                      *ngFor="let billname of biilNames"
+                      [value]="billname"
+                    >
+                      {{ billname }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile colspan="2">
+                <mat-icon
+                  #tooltipMainBills="matTooltip"
+                  matSuffix
+                  (click)="tooltipMainBills.toggle()"
+                  matTooltip="בחירה ביעדי חיוב בשימוש הכי תדיר שלך"
+                  >help_outline</mat-icon
+                >
+              </mat-grid-tile>
+            </mat-grid-list>
+            <div id="mainBillDisplay">
+              <h3>יעדי חיוב עיקריים:</h3>
+              <ol class="mainBillol">
+                <li
+                  class="mainBillli"
+                  *ngFor="
+                    let mainBill of this.initialData.value.mainBills;
+                    let i = index
+                  "
+                >
+                  {{ mainBill }}
+                </li>
+              </ol>
+            </div>
+
+            <div class="profileBtn">
+              <button mat-stroked-button type="submit" id="singUpBtn">
+                עדכן פרטים אישיים
+              </button>
+            </div>
+          </form>
+          <button
+            mat-stroked-button
+            color="warn"
+            (click)="auth.signOut()"
+            class="profileBtn"
+          >
+            התנתק
+          </button>
+          <button
+            mat-stroked-button
+            color="primary"
+            routerLink="/child"
+            class="profileBtn"
+          >
+            הוספת ילדים
+          </button>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</ng-template>

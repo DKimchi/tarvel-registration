@@ -7,6 +7,7 @@ import { ProfileGuard } from './profile/profile.guard';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
+  { path: 'child', component: ProfileComponent },
   {
     path: 'profile',
     component: ProfileComponent,

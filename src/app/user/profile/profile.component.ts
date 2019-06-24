@@ -9,13 +9,7 @@ import {
   FormBuilder,
   FormArray
 } from '@angular/forms';
-import {
-  MatSnackBar,
-  MatAutocomplete,
-  MatAutocompleteTrigger,
-  MatInput
-} from '@angular/material';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatSnackBar, MatInput } from '@angular/material';
 import { take, startWith, map, tap } from 'rxjs/operators';
 import { DataFBService } from 'src/app/services/data-fb.service';
 
@@ -27,6 +21,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
+  ifChild = false;
   isFirstTime = false;
   myControl = new FormControl();
   mainBillsSelected: string;
@@ -80,10 +75,39 @@ export class ProfileComponent implements OnInit {
     });
     if (this.router.url.includes('firstTime')) {
       this.logInFirstTime();
+    } else if (this.router.url.includes('child')) {
+      this.addChild();
     } else {
       this.getUserData();
     }
   }
+
+  addChild() {
+    this.initialData.patchValue({
+      displayName: '',
+      defaultCollectionOfCar: 'ילדים',
+      circleOfBelonging: '',
+      mainBills: '',
+      constTrips: []
+    });
+    this.ifChild = true;
+  }
+
+  saveChildDataAndBack() {
+    const data = {
+      displayName: this.initialData.value.displayName,
+      defaultCollectionOfCar: this.initialData.value.defaultCollectionOfCar,
+      circleOfBelonging: this.initialData.value.circleOfBelonging,
+      mainBills: this.initialData.value.mainBills,
+      constTrips: [],
+      canEditCar: false,
+      uid: this.initialData.value.displayName,
+      email: 'אין'
+    };
+    this.auth.addChildToDataBase(data);
+    this.router.navigate(['/main-from']);
+  }
+
   logInFirstTime() {
     this.initialData.patchValue({
       displayName: '',
@@ -106,7 +130,7 @@ export class ProfileComponent implements OnInit {
   }
 
   test() {}
-
+  // TODO: להוריד test
   checkNameInList(name: string) {
     if (!this.listOfName.includes(name)) {
       const addNameSnackBar = this.snackBar.open(
@@ -126,10 +150,18 @@ export class ProfileComponent implements OnInit {
           this.dataFBService.setPasNamesinGeneralDatainFB(
             this.listOfName.toString()
           );
-          this.saveUserDataAndBack();
+          if (this.ifChild) {
+            this.saveChildDataAndBack();
+          } else {
+            this.saveUserDataAndBack();
+          }
         });
     } else {
-      this.saveUserDataAndBack();
+      if (this.ifChild) {
+        this.saveChildDataAndBack();
+      } else {
+        this.saveUserDataAndBack();
+      }
     }
   }
 
@@ -171,6 +203,13 @@ export class ProfileComponent implements OnInit {
   }
 
   onSubmit() {
-    this.checkNameInList(this.initialData.value.displayName);
+    if (this.initialData.invalid) {
+      const invalidForm = this.snackBar.open(`טופס לא תקין`, '', {
+        verticalPosition: 'top',
+        duration: 3000
+      });
+    } else {
+      this.checkNameInList(this.initialData.value.displayName);
+    }
   }
 }

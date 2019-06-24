@@ -65,6 +65,13 @@ export class AuthService {
     return userRef.set(data, { merge: true });
   }
 
+  addChildToDataBase(user: User) {
+    let newCityRef = this.afs
+      .collection('users')
+      .doc<User>(user.displayName)
+      .set(user);
+  }
+
   async signOut() {
     await this.afAuth.auth.signOut();
     this.router.navigate(['/']);
