@@ -9,12 +9,13 @@ import {
   FormBuilder,
   FormArray
 } from '@angular/forms';
-import { MatSnackBar, MatInput } from '@angular/material';
+import { MatSnackBar, MatInput, MatIconRegistry } from '@angular/material';
 import { take, startWith, map, tap } from 'rxjs/operators';
 import { DataFBService } from 'src/app/services/data-fb.service';
 
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { DomSanitizer } from '@angular/platform-browser';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -29,7 +30,6 @@ export class ProfileComponent implements OnInit {
   filteredOptions: Observable<string[]>;
   biilNames: string[];
   listOfName: string[];
-  firstTime = false;
   initialData = this.fb.group({
     displayName: ['', Validators.required],
     defaultCollectionOfCar: ['', Validators.required],
@@ -50,8 +50,17 @@ export class ProfileComponent implements OnInit {
     public auth: AuthService,
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
-    private router: Router
-  ) {}
+    private router: Router,
+    iconRegistry: MatIconRegistry,
+    sanitizer: DomSanitizer
+  ) {
+    iconRegistry.addSvgIcon(
+      'cancel_outline',
+      sanitizer.bypassSecurityTrustResourceUrl(
+        'assets/icons/outline-cancel-24px.svg'
+      )
+    );
+  }
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();

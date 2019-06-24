@@ -88,3 +88,13 @@
   width: -webkit-fill-available;
   margin-top: 1.3rem;
 }
+
+.closedBTN {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+}
+
+.closedBTN:hover {
+  cursor: pointer;
+}

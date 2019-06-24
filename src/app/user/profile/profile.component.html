@@ -5,6 +5,11 @@
   <div *ngIf="auth.user$ | async as user">
     <div class="div-card-firstTime">
       <mat-card>
+        <mat-icon
+          svgIcon="cancel_outline"
+          routerLink="/"
+          class="closedBTN"
+        ></mat-icon>
         <mat-card-header class="card-from">
           <mat-card-title
             >הכנס של ילדים לרשימת נוסעים<br />ברוך הבא לאפליקציית רישום
@@ -132,6 +137,12 @@
   <div *ngIf="auth.user$ | async as user">
     <div class="div-card-firstTime">
       <mat-card>
+        <mat-icon
+          *ngIf="!isFirstTime"
+          svgIcon="cancel_outline"
+          routerLink="/"
+          class="closedBTN"
+        ></mat-icon>
         <mat-card-header class="card-from">
           <mat-card-title
             >שלום, {{ user.displayName }}<br />ברוך הבא לאפליקציית רישום
@@ -281,6 +292,7 @@
             </div>
           </form>
           <button
+            *ngIf="!isFirstTime"
             mat-stroked-button
             color="warn"
             (click)="auth.signOut()"
@@ -289,6 +301,7 @@
             התנתק
           </button>
           <button
+            *ngIf="!isFirstTime"
             mat-stroked-button
             color="primary"
             routerLink="/child"
