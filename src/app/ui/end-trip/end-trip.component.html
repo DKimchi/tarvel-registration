@@ -44,7 +44,9 @@
   <mat-grid-list id="endTrip" cols="8" rowHeight="2rem">
     <mat-grid-tile class="sound" colspan="1">
       <button mat-icon-button color="primary" (click)="soundNoButClick()">
-        <mat-icon>{{ soundNo ? 'volume_up' : 'volume_off' }}</mat-icon>
+        <mat-icon>{{
+          audioService.isCanPlay ? 'volume_up' : 'volume_off'
+        }}</mat-icon>
       </button>
     </mat-grid-tile>
     <mat-grid-tile id="labelendKM" colspan="2">

@@ -8,6 +8,7 @@ import { copyStyles } from '@angular/animations/browser/src/util';
 import { take } from 'rxjs/operators';
 import { MatSnackBar, MatDialog } from '@angular/material';
 import { DialogMessageComponent } from '../dialog-message/dialog-message.component';
+import { AudioService } from 'src/app/services/audio.service';
 
 @Component({
   selector: 'app-end-trip',
@@ -97,7 +98,8 @@ export class EndTripComponent implements OnInit {
     private dialogMessage: MatDialog,
     public carDataService: CarDataService,
     public dataFBService: DataFBService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    public audioService: AudioService
   ) {}
 
   ngOnInit() {
@@ -477,6 +479,7 @@ export class EndTripComponent implements OnInit {
         messageName = 'confirmedTrip';
       } else {
         messageName = 'confirmedLongTrip';
+        this.audioService.playAudio('longTrip');
       }
       const dialogPasName = this.dialogMessage.open(DialogMessageComponent, {
         maxWidth: 400,
@@ -505,7 +508,8 @@ export class EndTripComponent implements OnInit {
   }
 
   soundNoButClick() {
-    this.soundNo = !this.soundNo;
+    this.audioService.isCanPlay = !this.audioService.isCanPlay;
+    localStorage.setItem('isCanPlay', `${this.audioService.isCanPlay}`);
     // TODO: לשים קולות לסגרית פפתיח של נסיעה
   }
 
@@ -693,6 +697,7 @@ export class EndTripComponent implements OnInit {
       verticalPosition: 'top',
       duration: 3000
     });
+    this.audioService.playAudio('endTrip');
     this.dataFBService.setTripToDB(this.endTripData);
     this.dataFBService.updataLastTripnoCar(
       this.endTripData.collectionOfCar,

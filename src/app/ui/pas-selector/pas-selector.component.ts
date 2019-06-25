@@ -1,13 +1,4 @@
-import {
-  Component,
-  OnInit,
-  Injectable,
-  Input,
-  SimpleChanges,
-  OnChanges,
-  EventEmitter,
-  Output
-} from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 
 import { MatDialog } from '@angular/material';
 

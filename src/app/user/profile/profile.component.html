@@ -294,20 +294,20 @@
           <button
             *ngIf="!isFirstTime"
             mat-stroked-button
-            color="warn"
-            (click)="auth.signOut()"
-            class="profileBtn"
-          >
-            התנתק
-          </button>
-          <button
-            *ngIf="!isFirstTime"
-            mat-stroked-button
             color="primary"
             routerLink="/child"
             class="profileBtn"
           >
             הוספת ילדים
+          </button>
+          <button
+            *ngIf="!isFirstTime"
+            mat-stroked-button
+            color="warn"
+            (click)="auth.signOut()"
+            class="profileBtn"
+          >
+            התנתק
           </button>
         </mat-card-content>
       </mat-card>

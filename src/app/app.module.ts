@@ -19,6 +19,7 @@ import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
 import { DataFBService } from './services/data-fb.service';
 import { CarDataService } from './services/car-data.service';
 import { AuthService } from './services/auth.service';
+import { AudioService } from './services/audio.service';
 import { UIModule } from './ui/ui.module';
 import 'hammerjs';
 import { PasSelectorComponent } from './ui/pas-selector/pas-selector.component';
@@ -38,7 +39,13 @@ import { PasSelectorComponent } from './ui/pas-selector/pas-selector.component';
     UIModule,
     MatSelectModule
   ],
-  providers: [DataFBService, CarDataService, AuthService, PasSelectorComponent],
+  providers: [
+    DataFBService,
+    CarDataService,
+    AuthService,
+    PasSelectorComponent,
+    AudioService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
