@@ -2,31 +2,18 @@ import {
   Component,
   OnInit,
   OnChanges,
-  Inject,
   SimpleChanges,
-  Input,
-  EventEmitter,
-  Output
+  Input
 } from '@angular/core';
-import {
-  MatBottomSheet,
-  MatBottomSheetRef,
-  MatDialog,
-  MatDialogConfig
-} from '@angular/material';
+import { MatDialog, MatDialogConfig } from '@angular/material';
 
 import { CarDataService } from 'src/app/services/car-data.service';
 import { DataFBService } from 'src/app/services/data-fb.service';
 import { carModule } from 'src/app/models/car-module';
-
 import { CarPickrComponent } from '../car-pickr/car-pickr.component';
 import { AuthService } from 'src/app/services/auth.service';
-import { elementStart } from '@angular/core/src/render3';
-import { take, last, takeLast } from 'rxjs/operators';
-import { FormControl } from '@angular/forms';
+import { take } from 'rxjs/operators';
 import { User } from 'src/app/models/user-module';
-import { PasPickrComponent } from '../pas-pickr/pas-pickr.component';
-import { async } from '@firebase/util';
 import { Router } from '@angular/router';
 import { PasSelectorComponent } from '../pas-selector/pas-selector.component';
 
@@ -96,9 +83,6 @@ export class CarSelectorComponent implements OnInit, OnChanges {
     this.carDataService.currentCarData.pipe(take(1)).subscribe(val => {
       this.carData = val;
       this.collectionOfCar = this.carData.collectionOfCar;
-      console.log(this.collectionOfCar);
-      console.log(this.carData.name);
-
       if (this.carData.name !== '') {
         this.carDataService.getDataFormFB(
           this.collectionOfCar,

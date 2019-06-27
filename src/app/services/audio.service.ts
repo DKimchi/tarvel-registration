@@ -8,9 +8,13 @@ export class AudioService {
   readFromLocalStorage = 'true';
   constructor() {
     this.readFromLocalStorage = localStorage.getItem('isCanPlay');
-    this.readFromLocalStorage === 'true'
-      ? (this.isCanPlay = true)
-      : (this.isCanPlay = false);
+    if (this.readFromLocalStorage === null) {
+      localStorage.setItem('isCanPlay', 'true');
+    } else if (this.readFromLocalStorage === 'true') {
+      this.isCanPlay = true;
+    } else {
+      this.isCanPlay = false;
+    }
   }
 
   playAudio(sound: string) {

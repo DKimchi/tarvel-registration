@@ -9,7 +9,10 @@ import { MatInputModule } from '@angular/material';
 import { MatSelectModule } from '@angular/material/select';
 
 import { AngularFireModule } from '@angular/fire';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
+import {
+  AngularFirestoreModule,
+  FirestoreSettingsToken
+} from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
 import { UserModule } from './user/user.module';
@@ -44,7 +47,8 @@ import { PasSelectorComponent } from './ui/pas-selector/pas-selector.component';
     CarDataService,
     AuthService,
     PasSelectorComponent,
-    AudioService
+    AudioService,
+    { provide: FirestoreSettingsToken, useValue: {} }
   ],
   bootstrap: [AppComponent]
 })

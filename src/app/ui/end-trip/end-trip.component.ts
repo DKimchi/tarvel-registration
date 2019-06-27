@@ -693,11 +693,11 @@ export class EndTripComponent implements OnInit {
   }
 
   closeRegistrationTrip() {
+    this.audioService.playAudio('endTrip');
     this.snackBar.open(`נסיעה נרשמה ב${this.endTripData.carName}`, '', {
       verticalPosition: 'top',
       duration: 3000
     });
-    this.audioService.playAudio('endTrip');
     this.dataFBService.setTripToDB(this.endTripData);
     this.dataFBService.updataLastTripnoCar(
       this.endTripData.collectionOfCar,

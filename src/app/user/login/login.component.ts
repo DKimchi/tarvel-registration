@@ -36,6 +36,11 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.auth.user$.pipe(take(1)).subscribe(val => {
+      if (val !== null) {
+        this.router.navigate(['/main-from']);
+      }
+    });
     this.dataFBService.getGeneralDataFormFB().subscribe(val => {
       this.InitialCodeFromDB = val['InitialCode'];
     });
