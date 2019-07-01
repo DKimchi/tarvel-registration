@@ -1,0 +1,25 @@
+[debug] [2019-07-01T20:06:31.757Z] ----------------------------------------------------------------------
+[debug] [2019-07-01T20:06:31.760Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\dank\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js serve
+[debug] [2019-07-01T20:06:31.761Z] CLI Version:   7.0.1
+[debug] [2019-07-01T20:06:31.761Z] Platform:      win32
+[debug] [2019-07-01T20:06:31.761Z] Node Version:  v8.11.3
+[debug] [2019-07-01T20:06:31.763Z] Time:          Mon Jul 01 2019 23:06:31 GMT+0300 (שעון קיץ ירושלים)
+[debug] [2019-07-01T20:06:31.763Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-07-01T20:06:31.776Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-07-01T20:06:31.777Z] > authorizing via signed-in user
+[debug] [2019-07-01T20:06:31.777Z] [iam] checking project travelregistration-b5dbd for permissions ["firebase.projects.get"]
+[debug] [2019-07-01T20:06:31.781Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/travelregistration-b5dbd:testIamPermissions  
+
+[debug] [2019-07-01T20:06:33.472Z] <<< HTTP RESPONSE 200
+[debug] [2019-07-01T20:06:33.474Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/travelregistration-b5dbd  
+ 
+[debug] [2019-07-01T20:06:34.463Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from 'D:\zav\tarvel-registration'...
+[info] 
+[debug] [2019-07-01T20:06:34.467Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/79605643022/clients/_:getWebAppConfig  
+ 
+[debug] [2019-07-01T20:06:35.103Z] <<< HTTP RESPONSE 200
+[info] i  hosting: Serving hosting files from: dist\tarvel-registration
+[info] +  hosting: Local server: http://localhost:5000

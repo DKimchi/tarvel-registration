@@ -10,7 +10,8 @@ export const environment = {
     databaseURL: 'https://travelregistration-b5dbd.firebaseio.com',
     projectId: 'travelregistration-b5dbd',
     storageBucket: 'travelregistration-b5dbd.appspot.com',
-    messagingSenderId: '79605643022'
+    messagingSenderId: '79605643022',
+    appId: '1:79605643022:web:0d09c345d121d6a7'
   }
 };
 /*

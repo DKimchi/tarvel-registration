@@ -363,7 +363,6 @@ export class DataFBService {
             i--;
           }
         }
-        names.sort();
         carNamesRef.set({ carNames: names });
       });
     // TODO: לתפוס תעות בהבטחה

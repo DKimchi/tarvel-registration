@@ -13,6 +13,8 @@ import {
   AngularFirestoreModule,
   FirestoreSettingsToken
 } from '@angular/fire/firestore';
+
+import { AngularFirePerformanceModule } from '@angular/fire/performance';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
 import { UserModule } from './user/user.module';
@@ -35,6 +37,7 @@ import { PasSelectorComponent } from './ui/pas-selector/pas-selector.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(firebaseConfig),
+    AngularFirePerformanceModule,
     AngularFirestoreModule, // firestore
     AngularFireAuthModule, // auth
     UserModule,
