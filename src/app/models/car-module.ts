@@ -2,6 +2,7 @@ import { tripModule } from './trip-module';
 
 // tslint:disable-next-line:class-name
 export interface carModule {
+  openRegistration: Date;
   whereToRegister: string;
   name: string;
   displayName?: string;

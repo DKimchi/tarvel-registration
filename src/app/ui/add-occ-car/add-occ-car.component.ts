@@ -15,6 +15,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class AddOccCarComponent implements OnInit {
   occCarNumber: number;
   occcardata: carModule = {
+    openRegistration: null,
     whereToRegister: '',
     name: '',
     typeOfCar: '',
@@ -23,6 +24,7 @@ export class AddOccCarComponent implements OnInit {
     carPayBy: 'משעול',
     lastRegister: '',
     lastTrip: {
+      openRegistration: null,
       whereToRegister: '',
       carName: '',
       monthBill: '',

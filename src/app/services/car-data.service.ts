@@ -39,6 +39,7 @@ export class CarDataService {
   startTripBtnText = 'התחלת נסיעה';
   isCarSelected = false;
   carData: carModule = {
+    openRegistration: null,
     whereToRegister: '',
     name: '',
     displayName: '',
@@ -48,6 +49,7 @@ export class CarDataService {
     carPayBy: '',
     lastRegister: '',
     lastTrip: {
+      openRegistration: null,
       whereToRegister: '',
       carName: '',
       monthBill: '',
@@ -270,6 +272,7 @@ export class CarDataService {
     );
 
     const data = {
+      openRegistration: Car.openRegistration,
       whereToRegister: Car.whereToRegister,
       name: Car.name,
       typeOfCar: Car.typeOfCar,
@@ -359,6 +362,7 @@ export class CarDataService {
     );
 
     const data = {
+      openRegistration: Car.openRegistration,
       whereToRegister: Car.whereToRegister,
       name: Car.name,
       displayName: Car.displayName,
@@ -407,6 +411,7 @@ export class CarDataService {
   async resetCarData() {
     this.isCarSelected = false;
     const carData: carModule = {
+      openRegistration: null,
       whereToRegister: '',
       name: '',
       displayName: '',
@@ -416,6 +421,7 @@ export class CarDataService {
       carPayBy: '',
       lastRegister: '',
       lastTrip: {
+        openRegistration: null,
         whereToRegister: '',
         carName: '',
         monthBill: '',

@@ -17,6 +17,7 @@ export class AddCarDetailComponent implements OnInit {
   payingCorporationsForCars = [];
   collectionOfCarFromDB: [];
   cardata: carModule = {
+    openRegistration: null,
     whereToRegister: '',
     name: '',
     displayName: '',
@@ -26,6 +27,7 @@ export class AddCarDetailComponent implements OnInit {
     carPayBy: '',
     lastRegister: '',
     lastTrip: {
+      openRegistration: null,
       whereToRegister: '',
       carName: '',
       monthBill: '',
@@ -229,6 +231,7 @@ export class AddCarDetailComponent implements OnInit {
   onSubmit() {
     if (this.newCarData.status === 'VALID') {
       const carDetails: carModule = {
+        openRegistration: null,
         whereToRegister: this.newCarData.value.whereToRegister,
         name: this.newCarData.value.name,
         typeOfCar: this.newCarData.value['typeOfCar'],

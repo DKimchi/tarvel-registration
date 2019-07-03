@@ -141,6 +141,12 @@ export class CarSelectorComponent implements OnInit, OnChanges {
           }
           this.carDataService.currentCarData.subscribe(val => {
             this.carData = val;
+            if (
+              this.carData.openRegistration === null ||
+              this.carData.openRegistration === undefined
+            ) {
+              this.carData.openRegistration = new Date();
+            }
             if (this.carData['code']) {
               this.selectCarBtnText =
                 this.carData['name'] + ': קוד ' + this.carData['code'];
@@ -153,6 +159,8 @@ export class CarSelectorComponent implements OnInit, OnChanges {
               // TODO: להפנות למקום משכניסים את הרכבים.
             }
           });
+
+          console.log(this.carData);
           this.carDataService.carChosen = true;
         }
       } else {

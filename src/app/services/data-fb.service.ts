@@ -267,6 +267,7 @@ export class DataFBService {
     this.afs
       .doc(collectionName + '/' + carName)
       .update({
+        openRegistration: null,
         currentTrip: {
           driver: {
             name: '',

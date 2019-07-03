@@ -1,5 +1,6 @@
 // tslint:disable-next-line:class-name
 export interface tripModule {
+  openRegistration: Date;
   whereToRegister: string;
   carName: string;
   monthBill: string;

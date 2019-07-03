@@ -13,6 +13,7 @@ import { CarDataService } from 'src/app/services/car-data.service';
 export class AddRepCarComponent implements OnInit {
   repCarName: string;
   repCarData: carModule = {
+    openRegistration: null,
     whereToRegister: '',
     name: '',
     typeOfCar: '',
@@ -21,6 +22,7 @@ export class AddRepCarComponent implements OnInit {
     carPayBy: '',
     lastRegister: '',
     lastTrip: {
+      openRegistration: null,
       whereToRegister: '',
       carName: '',
       monthBill: '',
@@ -220,6 +222,7 @@ export class AddRepCarComponent implements OnInit {
         }${ArrCarNumber[7]}`;
       }
       this.repCarData = {
+        openRegistration: null,
         whereToRegister: this.carDataService.carData.whereToRegister,
         name: `רכב חלופי ${this.carDataService.carData.name}`,
         typeOfCar: this.carDataService.carData.typeOfCar,
@@ -228,6 +231,7 @@ export class AddRepCarComponent implements OnInit {
         carPayBy: this.carDataService.carData.carPayBy,
         lastRegister: '',
         lastTrip: {
+          openRegistration: null,
           whereToRegister: '',
           carName: '',
           monthBill: '',
