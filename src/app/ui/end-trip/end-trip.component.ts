@@ -301,6 +301,7 @@ export class EndTripComponent implements OnInit {
 
       // TODO: לדסר הודעה על אי בחירת רכב.
     } else if (this.endTripData.startKM == null) {
+      this.isContinuedTrip = false;
       this.snackBar.open('חסר ק"מ פתיחה', '', {
         verticalPosition: 'top',
         duration: 2000
@@ -308,24 +309,28 @@ export class EndTripComponent implements OnInit {
 
       // TODO: לדסר הודעה על אי בחירת רכב.
     } else if (this.endTripData.endKM == null) {
+      this.isContinuedTrip = false;
       this.snackBar.open('חסר ק"מ סיום', '', {
         verticalPosition: 'top',
         duration: 2000
       });
       // TODO: לדסר הודעה על אי בחירת רכב.
     } else if (this.endTripData.driver['name'] === '') {
+      this.isContinuedTrip = false;
       this.snackBar.open('לא נבחר שם נהג', '', {
         verticalPosition: 'top',
         duration: 2000
       });
       // TODO: לדסר הודעה על אי בחירת רכב.
     } else if (this.endTripData.driver['bill']['nameOfBill'] === '') {
+      this.isContinuedTrip = false;
       this.snackBar.open('לא נבחר חשבון נהג', '', {
         verticalPosition: 'top',
         duration: 2000
       });
       // TODO: לדסר הודעה על אי בחירת רכב.
     } else if (this.endTripData.startKM > this.endTripData.endKM) {
+      this.isContinuedTrip = false;
       this.snackBar.open('ק"מ פתיחה לא יכול להיות יותר מק"מ סיום', '', {
         verticalPosition: 'top',
         duration: 2000
@@ -335,6 +340,7 @@ export class EndTripComponent implements OnInit {
       this.endTripData.pas2['name'] === '' &&
       this.endTripData.pas2['bill']['nameOfBill'] !== ''
     ) {
+      this.isContinuedTrip = false;
       this.snackBar.open('חסר שם לנוסע 2', '', {
         verticalPosition: 'top',
         duration: 2000
@@ -344,6 +350,7 @@ export class EndTripComponent implements OnInit {
       this.endTripData.pas2['bill']['nameOfBill'] === '' &&
       this.endTripData.pas2['name'] !== ''
     ) {
+      this.isContinuedTrip = false;
       this.snackBar.open('חסר יעד חיוב לנוסע 2', '', {
         verticalPosition: 'top',
         duration: 2000
@@ -353,6 +360,7 @@ export class EndTripComponent implements OnInit {
       this.endTripData.pas3['name'] === '' &&
       this.endTripData.pas3['bill']['nameOfBill'] !== ''
     ) {
+      this.isContinuedTrip = false;
       this.snackBar.open('חסר שם לנוסע 3', '', {
         verticalPosition: 'top',
         duration: 2000
@@ -362,6 +370,7 @@ export class EndTripComponent implements OnInit {
       this.endTripData.pas3['bill']['nameOfBill'] === '' &&
       this.endTripData.pas3['name'] !== ''
     ) {
+      this.isContinuedTrip = false;
       this.snackBar.open('חסר יעד חיוב לנוסע 3', '', {
         verticalPosition: 'top',
         duration: 2000
@@ -371,6 +380,7 @@ export class EndTripComponent implements OnInit {
       this.endTripData.pas4['name'] === '' &&
       this.endTripData.pas4['bill']['nameOfBill'] !== ''
     ) {
+      this.isContinuedTrip = false;
       this.snackBar.open('חסר שם לנוסע 4', '', {
         verticalPosition: 'top',
         duration: 2000
@@ -380,6 +390,7 @@ export class EndTripComponent implements OnInit {
       this.endTripData.pas4['bill']['nameOfBill'] === '' &&
       this.endTripData.pas4['name'] !== ''
     ) {
+      this.isContinuedTrip = false;
       this.snackBar.open('חסר יעד חיוב לנוסע 4', '', {
         verticalPosition: 'top',
         duration: 2000
@@ -389,6 +400,7 @@ export class EndTripComponent implements OnInit {
       this.endTripData.pas5['name'] === '' &&
       this.endTripData.pas5['bill']['nameOfBill'] !== ''
     ) {
+      this.isContinuedTrip = false;
       this.snackBar.open('חסר שם לנוסע 5', '', {
         verticalPosition: 'top',
         duration: 2000
@@ -398,6 +410,7 @@ export class EndTripComponent implements OnInit {
       this.endTripData.pas5['bill']['nameOfBill'] === '' &&
       this.endTripData.pas5['name'] !== ''
     ) {
+      this.isContinuedTrip = false;
       this.snackBar.open('חסר יעד חיוב לנוסע 5', '', {
         verticalPosition: 'top',
         duration: 2000
@@ -407,6 +420,7 @@ export class EndTripComponent implements OnInit {
       this.endTripData.pas6['name'] === '' &&
       this.endTripData.pas6['bill']['nameOfBill'] !== ''
     ) {
+      this.isContinuedTrip = false;
       this.snackBar.open('חסר שם לנוסע 6', '', {
         verticalPosition: 'top',
         duration: 2000
@@ -416,6 +430,7 @@ export class EndTripComponent implements OnInit {
       this.endTripData.pas6['bill']['nameOfBill'] === '' &&
       this.endTripData.pas6['name'] !== ''
     ) {
+      this.isContinuedTrip = false;
       this.snackBar.open('חסר יעד חיוב לנוסע 6', '', {
         verticalPosition: 'top',
         duration: 2000
@@ -425,6 +440,7 @@ export class EndTripComponent implements OnInit {
       this.endTripData.pas7['name'] === '' &&
       this.endTripData.pas7['bill']['nameOfBill'] !== ''
     ) {
+      this.isContinuedTrip = false;
       this.snackBar.open('חסר שם לנוסע 7', '', {
         verticalPosition: 'top',
         duration: 2000
@@ -434,6 +450,7 @@ export class EndTripComponent implements OnInit {
       this.endTripData.pas7['bill']['nameOfBill'] === '' &&
       this.endTripData.pas7['name'] !== ''
     ) {
+      this.isContinuedTrip = false;
       this.snackBar.open('חסר יעד חיוב לנוסע 7', '', {
         verticalPosition: 'top',
         duration: 2000
@@ -501,6 +518,7 @@ export class EndTripComponent implements OnInit {
           this.registrationToDB();
         } else {
           this.resetEndTripData();
+          this.isContinuedTrip = false;
           this.snackBar.open('רישום נסיעה בוטל', '', {
             verticalPosition: 'top',
             duration: 2000
@@ -716,6 +734,7 @@ export class EndTripComponent implements OnInit {
         this.endTripData.carName,
         this.endTripData
       );
+      this.carData.lastTrip['endKM'] = this.endTripData.endKM;
       this.isContinuedTrip = false;
       this.carData.openRegistration = new Date();
       this.carData.currentTrip = {

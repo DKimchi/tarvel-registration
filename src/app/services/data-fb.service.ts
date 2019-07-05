@@ -197,6 +197,7 @@ export class DataFBService {
     newCurrentTrip: tripModule
   ) {
     this.afs.doc(collectionName + '/' + carName).update({
+      openRegistration: new Date(),
       currentTrip: {
         driver: {
           name: newCurrentTrip.driver.name,
