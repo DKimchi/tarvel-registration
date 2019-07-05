@@ -2,7 +2,14 @@
   <!-- template will replace this div -->
 </div>
 <ng-template #occCar>
-  <mat-grid-list id="endTrip" cols="11" rowHeight="2rem">
+  <mat-grid-list id="endTrip" cols="12" rowHeight="2.5rem">
+    <mat-grid-tile class="sound" colspan="1">
+      <button mat-icon-button color="primary" (click)="soundNoButClick()">
+        <mat-icon>{{
+          audioService.isCanPlay ? 'volume_up' : 'volume_off'
+        }}</mat-icon>
+      </button>
+    </mat-grid-tile>
     <mat-grid-tile class="returnOccCarBtn" colspan="2">
       <button
         (click)="returnOccCar()"
@@ -13,15 +20,12 @@
         החזרה
       </button>
     </mat-grid-tile>
-    <mat-grid-tile class="sound" colspan="1">
-      <button mat-icon-button color="primary" (click)="soundNoButClick()">
-        <mat-icon>{{ soundNo ? 'volume_up' : 'volume_off' }}</mat-icon>
-      </button>
-    </mat-grid-tile>
-    <mat-grid-tile id="labelendKM" colspan="3">
-      <label for="endKM">ק"מ סיום:</label>
-    </mat-grid-tile>
-    <mat-grid-tile colspan="5">
+    <div id="labelendKM">
+      <mat-grid-tile colspan="3">
+        <label for="endKM">ק"מ סיום:</label>
+      </mat-grid-tile>
+    </div>
+    <mat-grid-tile colspan="6">
       <div class="endKM" id="divendkm">
         <mat-form-field class="endKM" appearance="fill">
           <mat-label class="endKM">ק"מ סיום - חובה</mat-label>
@@ -41,7 +45,7 @@
 </ng-template>
 
 <ng-template #conCar>
-  <mat-grid-list id="endTrip" cols="8" rowHeight="2rem">
+  <mat-grid-list id="endTrip" cols="12" rowHeight="2.5rem">
     <mat-grid-tile class="sound" colspan="1">
       <button mat-icon-button color="primary" (click)="soundNoButClick()">
         <mat-icon>{{
@@ -49,10 +53,13 @@
         }}</mat-icon>
       </button>
     </mat-grid-tile>
-    <mat-grid-tile id="labelendKM" colspan="2">
-      <label for="endKM">ק"מ סיום:</label>
-    </mat-grid-tile>
-    <mat-grid-tile colspan="5">
+    <mat-grid-tile class="returnOccCarBtn" colspan="2"> </mat-grid-tile>
+    <div id="labelendKM">
+      <mat-grid-tile colspan="3">
+        <label for="endKM">ק"מ סיום:</label>
+      </mat-grid-tile>
+    </div>
+    <mat-grid-tile colspan="6">
       <div class="endKM" id="divendkm">
         <mat-form-field class="endKM" appearance="fill">
           <mat-label class="endKM">ק"מ סיום - חובה</mat-label>

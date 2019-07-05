@@ -4,9 +4,10 @@
 }
 
 .endKM {
-  font-size: 0.9rem;
-  width: 10rem;
+  font-size: 1rem;
+  width: 100%;
   position: relative;
+  font-weight: bold;
 }
 
 #divEndTripBtns {
@@ -36,7 +37,7 @@
 }
 
 #labelendKM {
-  text-align: left;
+  justify-content: flex-end;
 }
 
 #btnLastTrip {
