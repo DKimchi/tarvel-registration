@@ -798,6 +798,8 @@ export class EndTripComponent implements OnInit {
       };
       this.resetEndTripData();
     } else {
+      localStorage.setItem('carName', '');
+      localStorage.setItem('collectionOfCar', '');
       this.dataFBService.resetCurrentTripnoCar(
         this.endTripData.collectionOfCar,
         this.endTripData.carName,

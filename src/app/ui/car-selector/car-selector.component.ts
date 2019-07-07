@@ -79,7 +79,12 @@ export class CarSelectorComponent implements OnInit, OnChanges {
       this.billNames['general'] = val['billNames'].split(',');
       //TODO: להוריד את האפס שם ולצור דרך אחרת לאפס את השם ויעד חיוב
     });
-
+    if (localStorage.getItem('carName')) {
+      this.readCarData(
+        localStorage.getItem('collectionOfCar'),
+        localStorage.getItem('carName')
+      );
+    }
     this.carDataService.currentCarData.pipe(take(1)).subscribe(val => {
       this.carData = val;
       this.collectionOfCar = this.carData.collectionOfCar;
@@ -117,6 +122,42 @@ export class CarSelectorComponent implements OnInit, OnChanges {
     });
   }
 
+  async readCarData(carCollection: string, carName: string) {
+    const carNameInDB = carName.split(':');
+    if (carNameInDB[0].includes('רכב חלופי')) {
+      this.carDataService.getDataFormFB('חלופים', carNameInDB[0]);
+    } else {
+      console.log(carCollection, carNameInDB[0]);
+      this.collectionOfCar = carCollection;
+      await this.carDataService.getDataFormFB(carCollection, carNameInDB[0]);
+    }
+    this.carDataService.currentCarData.subscribe(val => {
+      this.carData = val;
+      if (
+        this.carData.openRegistration === null ||
+        this.carData.openRegistration === undefined
+      ) {
+        this.carData.openRegistration = new Date();
+      }
+      localStorage.setItem('carName', this.carData.name);
+      localStorage.setItem('collectionOfCar', this.carData.collectionOfCar);
+      if (this.carData['code']) {
+        this.selectCarBtnText =
+          this.carData['name'] + ': קוד ' + this.carData['code'];
+      } else if (this.carData['name']) {
+        this.selectCarBtnText = this.carData['name'] + ': אין קוד';
+      } else if (this.carData['name'] === '') {
+        this.selectCarBtnText = 'בחר רכב';
+      } else {
+        this.selectCarBtnText = 'רכב לא במערכת';
+        // TODO: להפנות למקום משכניסים את הרכבים.
+      }
+    });
+
+    console.log(this.carData);
+    this.carDataService.carChosen = true;
+  }
+
   openCarPickrDialog() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = { collectionOfCar: `${this.collectionOfCar}` };
@@ -129,39 +170,8 @@ export class CarSelectorComponent implements OnInit, OnChanges {
         if (selected === 'openAddOccCar') {
           this.router.navigate(['/add-occ-car']);
         } else {
-          const carNameInDB = selected.carName.split(':');
-          if (carNameInDB[0].includes('רכב חלופי')) {
-            this.carDataService.getDataFormFB('חלופים', carNameInDB[0]);
-          } else {
-            this.collectionOfCar = selected.carCollection;
-            await this.carDataService.getDataFormFB(
-              selected.carCollection,
-              carNameInDB[0]
-            );
-          }
-          this.carDataService.currentCarData.subscribe(val => {
-            this.carData = val;
-            if (
-              this.carData.openRegistration === null ||
-              this.carData.openRegistration === undefined
-            ) {
-              this.carData.openRegistration = new Date();
-            }
-            if (this.carData['code']) {
-              this.selectCarBtnText =
-                this.carData['name'] + ': קוד ' + this.carData['code'];
-            } else if (this.carData['name']) {
-              this.selectCarBtnText = this.carData['name'] + ': אין קוד';
-            } else if (this.carData['name'] === '') {
-              this.selectCarBtnText = 'בחר רכב';
-            } else {
-              this.selectCarBtnText = 'רכב לא במערכת';
-              // TODO: להפנות למקום משכניסים את הרכבים.
-            }
-          });
-
-          console.log(this.carData);
-          this.carDataService.carChosen = true;
+          console.log(selected);
+          this.readCarData(selected.carCollection, selected.carName);
         }
       } else {
         console.log(selected);
