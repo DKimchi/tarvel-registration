@@ -1,15 +1,15 @@
 import { TestBed, async, inject } from '@angular/core/testing';
 
-import { MainFromGuardGuard } from './main-from-guard.guard';
+import { MainFromGuard } from './main-from-guard.guard';
 
 describe('MainFromGuardGuard', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [MainFromGuardGuard]
+      providers: [MainFromGuard]
     });
   });
 
-  it('should ...', inject([MainFromGuardGuard], (guard: MainFromGuardGuard) => {
+  it('should ...', inject([MainFromGuard], (guard: MainFromGuard) => {
     expect(guard).toBeTruthy();
   }));
 });

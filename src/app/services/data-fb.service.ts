@@ -9,6 +9,7 @@ import { map, take } from 'rxjs/operators';
 
 import { carModule } from '../models/car-module';
 import { tripModule } from '../models/trip-module';
+import * as firebase from 'firebase/app';
 
 @Injectable({
   providedIn: 'root'
@@ -335,17 +336,24 @@ export class DataFBService {
     // TODO: להוריד את הקונסול לוג
   }
 
-  saveOccCarDetails(occCarDetails: carModule) {
+  saveOccCarDetails(occCarDetails: carModule, endKM: number) {
     occCarDetails.occasional.endDateInFleet = new Date();
-    occCarDetails.occasional.endKMinFleet = occCarDetails.lastTrip['endKM'];
+    occCarDetails.occasional.endKMinFleet = endKM;
+    const readOccCar = this.afs.doc('/משעול-מזדמן/readOldOcc');
     this.afs
       .collection(`/משעול-מזדמן/${occCarDetails.name}/oldOccCar`)
       .add(occCarDetails)
       .then(function(docRef) {
+        readOccCar.update({
+          openOldOcc: firebase.firestore.FieldValue.arrayUnion(
+            `משעול-מזדמן/${occCarDetails.name}/oldOccCar/${docRef.id}`
+          )
+        });
         console.log('Document written with ID: ', docRef.id);
       })
       .catch(function(error) {
         console.error('Error adding document: ', error);
+        //: TODO: לתפוס תעות ברישם פרטים של רכב מזדמן
       });
   }
 

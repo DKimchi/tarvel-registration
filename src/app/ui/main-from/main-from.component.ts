@@ -47,6 +47,7 @@ export class MainFromComponent implements OnInit {
       this.user = val;
       this.constTrips = val.constTrips;
     });
+    // this.googleapi.login();
   }
 
   startCurrentTrip() {

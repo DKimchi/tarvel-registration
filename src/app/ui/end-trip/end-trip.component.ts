@@ -176,10 +176,6 @@ export class EndTripComponent implements OnInit {
     }
   }
 
-  test() {
-    console.log(this.carData.name);
-  }
-
   closeAndContinuedTrip() {
     this.isContinuedTrip = true;
     this.endTrip();
@@ -828,7 +824,10 @@ export class EndTripComponent implements OnInit {
               this.carData = val;
             });
             console.log('שמירה של הרכב', this.carData);
-            this.dataFBService.saveOccCarDetails(this.carData);
+            this.dataFBService.saveOccCarDetails(
+              this.carData,
+              this.endTripData['endKM']
+            );
             this.resetEndTripData();
             this.carDataService.resetCarData();
             console.log('שמירה של הרכב', this.carData);

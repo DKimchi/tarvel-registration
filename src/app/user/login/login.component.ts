@@ -72,12 +72,4 @@ export class LoginComponent implements OnInit {
       this.initialCode.markAsUntouched();
     }
   }
-
-  test() {
-    // this.auth.user$.subscribe(val => {
-    //   this.testVal = val;
-    //   console.log(this.testVal);
-    // });
-  }
-  // TODO : למחוק test
 }
