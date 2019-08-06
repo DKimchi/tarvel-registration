@@ -37,7 +37,7 @@ export class ProfileComponent implements OnInit {
     mainBills: ['', Validators.required],
     constTrips: ['']
   });
-  @ViewChild(MatInput) matInput: MatInput;
+  @ViewChild(MatInput, { static: false }) matInput: MatInput;
 
   get mainBills() {
     return this.initialData.get('mainBills') as FormArray;

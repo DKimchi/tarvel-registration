@@ -1,12 +1,13 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { startWith, map } from 'rxjs/operators';
+import { startWith, map, take } from 'rxjs/operators';
 
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { CarDataService } from 'src/app/services/car-data.service';
 import { carModule } from 'src/app/models/car-module';
 import { DataFBService } from 'src/app/services/data-fb.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-biil-pickr',
@@ -14,6 +15,7 @@ import { DataFBService } from 'src/app/services/data-fb.service';
   styleUrls: ['./bill-pickr.component.scss']
 })
 export class BillPickrComponent implements OnInit {
+  person;
   carData: carModule;
   fullBillList = true;
   disabledBillList = false;
@@ -26,11 +28,38 @@ export class BillPickrComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<BillPickrComponent>,
     public carDataService: CarDataService,
+    private auth: AuthService,
+    private snackBar: MatSnackBar,
     public dataFBService: DataFBService
   ) {}
 
   choosePas(event: any): void {
-    this.dialogRef.close(event);
+    if (
+      !this.data.generalBillNames.includes(event) &&
+      event !== 'אפס יעד חיוב'
+    ) {
+      const deleteBillNameSnackBar = this.snackBar.open(
+        `יעד חיוב "${event}" לא בשימוש יותר`,
+        'מחק',
+        {
+          verticalPosition: 'top',
+          duration: 4000
+        }
+      );
+      deleteBillNameSnackBar
+        .onAction()
+        .pipe(take(1))
+        .subscribe(val => {
+          const index = this.person['mainBills'].indexOf(event);
+          this.person['mainBills'].splice(index, 1);
+          this.billNames = this.person['mainBills'];
+          this.auth.updateUserData(this.person);
+          this.options = [];
+          this.changeBillList();
+        });
+    } else {
+      this.dialogRef.close(event);
+    }
   }
 
   ngOnInit() {
@@ -91,6 +120,7 @@ export class BillPickrComponent implements OnInit {
   setPasMainBill() {
     this.dataFBService.getUserData(this.data.pasName).subscribe(userData => {
       if (userData.length !== 0) {
+        this.person = userData[0];
         if (userData[0]['mainBills'].length !== 0) {
           this.billNames = userData[0]['mainBills'];
           this.fullBillList = false;

@@ -35,21 +35,20 @@ export class DataFBService {
   getUserData(userName: string) {
     return this.afs
       .collection('users', ref => ref.where('displayName', '==', userName))
-      .snapshotChanges()
-      .pipe(
-        map(actions =>
-          actions.map(a => {
-            if (a.payload.doc.exists) {
-              const data = a.payload.doc.data();
-              const id = a.payload.doc.id;
-              return { id, ...data };
-            } else {
-              return 'לא נמצא משתמש';
-            }
-          })
-        )
-      )
+      .valueChanges()
       .pipe(take(1));
+    // .snapshotChanges()
+    // .pipe(
+    //   map(actions =>
+    //     actions.map(a => {
+    //       if (a.payload.doc.exists) {
+    //         const data = a.payload.doc.data();
+    //         return { ...data };
+    //       }
+    //     })
+    //   )
+    // )
+    // .pipe(take(1));
   }
 
   getCarNames(collectionName: string) {

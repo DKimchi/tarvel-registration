@@ -63,8 +63,17 @@ export class MainFromComponent implements OnInit {
         // TODO: להוסיף התראה על חסר ק"מ פתיחה
       } else {
         this.dataFBService.updataCarData(collectionOfCar, name, this.carData);
-        this.carDataService.startTripBtnText =
-          'נסיעה החלה - לחץ כדי לשנות פרטים';
+        if (this.carData['currentTrip']['driver']['name'] === '') {
+          this.carData.openRegistration = null;
+          this.carDataService.startTripBtnText = 'התחלת נסיעה';
+        } else {
+          this.carDataService.startTripBtnText =
+            'נסיעה החלה - לחץ כדי לשנות פרטים';
+          if (this.carData.openRegistration === null) {
+            this.carData.openRegistration = new Date();
+          }
+        }
+        this.dataFBService.updataCarData(collectionOfCar, name, this.carData);
       }
     } else {
       console.log('לא נבחר רכב');

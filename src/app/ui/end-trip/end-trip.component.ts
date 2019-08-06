@@ -4,8 +4,6 @@ import { CarDataService } from 'src/app/services/car-data.service';
 import { DataFBService } from 'src/app/services/data-fb.service';
 import { tripModule } from 'src/app/models/trip-module';
 import { carModule } from 'src/app/models/car-module';
-import { copyStyles } from '@angular/animations/browser/src/util';
-import { take } from 'rxjs/operators';
 import { MatSnackBar, MatDialog } from '@angular/material';
 import { DialogMessageComponent } from '../dialog-message/dialog-message.component';
 import { AudioService } from 'src/app/services/audio.service';
@@ -167,8 +165,18 @@ export class EndTripComponent implements OnInit {
       const selectedPaidByOrganization = this.carData['currentTrip'][pas][
         'bill'
       ]['nameOfBill'].split(' - ');
-      this.carData['currentTrip'][pas]['bill']['paidByOrganization'] =
-        selectedPaidByOrganization[0];
+      if (
+        selectedPaidByOrganization[0] === 'הסעות חברים בית מדרש ארץ' ||
+        selectedPaidByOrganization[0] === 'הסעות חברים בית מדרש שושנה' ||
+        selectedPaidByOrganization[0] === 'נסיעות צוות בית מדרש ארץ' ||
+        selectedPaidByOrganization[0] === 'נסיעות צוות בית מדרש שושנה'
+      ) {
+        this.carData['currentTrip'][pas]['bill']['paidByOrganization'] =
+          'בית מדרש';
+      } else {
+        this.carData['currentTrip'][pas]['bill']['paidByOrganization'] =
+          selectedPaidByOrganization[0];
+      }
       console.log(
         'משולם ע"י',
         this.carData['currentTrip'][pas]['bill']['paidByOrganization']
@@ -193,8 +201,8 @@ export class EndTripComponent implements OnInit {
       carName: this.carData['name'],
       monthBill: `${this.endTripData.dateAndTime.getMonth() +
         1}/${this.endTripData.dateAndTime.getFullYear()}`,
-      startKM: this.carData['currentTrip']['startKM'],
-      endKM: this.endKM,
+      startKM: Math.round(this.carData['currentTrip']['startKM']),
+      endKM: Math.round(this.endKM),
       carPayBy: this.carData.carPayBy,
       carResponsible: this.carData.responsible,
       carNumber: this.carData.carNumber,
@@ -537,7 +545,7 @@ export class EndTripComponent implements OnInit {
     ) {
       const differenceBetweenTrips =
         this.endTripData.startKM - this.carData.lastTrip['endKM'];
-      if (differenceBetweenTrips <= 30 && differenceBetweenTrips > 0) {
+      if (differenceBetweenTrips > 0 && differenceBetweenTrips <= 30) {
         let lastTripDB;
         this.dataFBService
           .getLastTrip(this.carData.lastTrip['dateAndTime'])
@@ -550,6 +558,30 @@ export class EndTripComponent implements OnInit {
             this.dataFBService.fiXLastTripnoDB(lastTripDB['id'], lastTripDB);
             this.closeRegistrationTrip();
           });
+      } else if (
+        differenceBetweenTrips >= -30 &&
+        differenceBetweenTrips < 0 &&
+        this.endTripData['endKM'] >= this.carData.lastTrip['endKM']
+      ) {
+        this.endTripData['startKM'] -= differenceBetweenTrips;
+        this.closeRegistrationTrip();
+      } else if (
+        differenceBetweenTrips >= -30 &&
+        differenceBetweenTrips < 0 &&
+        this.endTripData['endKM'] < this.carData.lastTrip['endKM']
+      ) {
+        let lastTripDB;
+        this.dataFBService
+          .getLastTrip(this.carData.lastTrip['dateAndTime'])
+          .subscribe(data => {
+            lastTripDB = data[0];
+            lastTripDB['startKM'] = this.endTripData['startKM'];
+            lastTripDB['endKM'] = this.endTripData['endKM'];
+            this.endTripData['startKM'] = this.endTripData['endKM'];
+            this.endTripData['endKM'] = this.carData.lastTrip['endKM'];
+            this.dataFBService.fiXLastTripnoDB(lastTripDB['id'], lastTripDB);
+            this.closeRegistrationTrip();
+          });
       } else {
         const tempEndTrip = {
           // TODO: לסדר שני חלקים של גורם חיוב.
@@ -559,8 +591,8 @@ export class EndTripComponent implements OnInit {
           carName: this.carData['name'],
           monthBill: `${this.endTripData.dateAndTime.getMonth() +
             1}/${this.endTripData.dateAndTime.getFullYear()}`,
-          startKM: this.carData.lastTrip['endKM'],
-          endKM: this.endTripData.startKM,
+          startKM: Math.round(this.carData.lastTrip['endKM']),
+          endKM: Math.round(this.endTripData.startKM),
           carPayBy: this.carData.carPayBy,
           carResponsible: this.carData.responsible,
           carNumber: this.carData.carNumber,
@@ -717,19 +749,22 @@ export class EndTripComponent implements OnInit {
       verticalPosition: 'top',
       duration: 3000
     });
-
-    this.dataFBService.setTripToDB(this.endTripData);
-    this.dataFBService.updataLastTripnoCar(
-      this.endTripData.collectionOfCar,
-      this.endTripData.carName,
-      this.endTripData
-    );
-    if (this.isContinuedTrip) {
-      this.dataFBService.updateContinuedCurrentTripNoCar(
+    if (this.endTripData['endKM'] - this.endTripData.startKM != 0) {
+      this.dataFBService.setTripToDB(this.endTripData);
+      this.dataFBService.updataLastTripnoCar(
         this.endTripData.collectionOfCar,
         this.endTripData.carName,
         this.endTripData
       );
+    }
+    if (this.isContinuedTrip) {
+      if (this.endTripData['endKM'] - this.endTripData.startKM != 0) {
+        this.dataFBService.updateContinuedCurrentTripNoCar(
+          this.endTripData.collectionOfCar,
+          this.endTripData.carName,
+          this.endTripData
+        );
+      }
       this.carData.lastTrip['endKM'] = this.endTripData.endKM;
       this.isContinuedTrip = false;
       this.carData.openRegistration = new Date();
@@ -855,7 +890,6 @@ export class EndTripComponent implements OnInit {
         this.resetEndTripData();
         this.carDataService.resetCarData();
         console.log('סוף התהליך', this.carData);
-        // }
       }
     }
   }
