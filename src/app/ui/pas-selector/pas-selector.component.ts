@@ -1,6 +1,6 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 
 import { carModule } from 'src/app/models/car-module';
 import { CarDataService } from 'src/app/services/car-data.service';

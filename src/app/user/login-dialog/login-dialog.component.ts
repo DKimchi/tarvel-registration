@@ -3,8 +3,8 @@ import { AuthProvider } from 'ngx-auth-firebaseui';
 
 import { AuthService } from '../../services/auth.service';
 
-import { MatSnackBar } from '@angular/material';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { switchMap, map } from 'rxjs/operators';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { of } from 'rxjs';

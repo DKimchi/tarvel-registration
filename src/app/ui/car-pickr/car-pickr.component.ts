@@ -1,10 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import {
-  MAT_BOTTOM_SHEET_DATA,
-  MatBottomSheetRef,
-  MAT_DIALOG_DATA,
-  MatDialogRef
-} from '@angular/material';
+import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from '@angular/material/bottom-sheet';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { DataFBService } from 'src/app/services/data-fb.service';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';

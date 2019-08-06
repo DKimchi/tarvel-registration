@@ -9,7 +9,9 @@ import {
   FormBuilder,
   FormArray
 } from '@angular/forms';
-import { MatSnackBar, MatInput, MatIconRegistry } from '@angular/material';
+import { MatIconRegistry } from '@angular/material/icon';
+import { MatInput } from '@angular/material/input';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { take, startWith, map, tap } from 'rxjs/operators';
 import { DataFBService } from 'src/app/services/data-fb.service';
 

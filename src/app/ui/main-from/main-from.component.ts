@@ -7,7 +7,9 @@ import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/models/user-module';
 import { take } from 'rxjs/operators';
 import { DeleteConstTripComponent } from '../delete-const-trip/delete-const-trip.component';
-import { MatDialog, MatSnackBar, MatIconRegistry } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatIconRegistry } from '@angular/material/icon';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { DialogMessageComponent } from '../dialog-message/dialog-message.component';
 import { DomSanitizer } from '@angular/platform-browser';
 

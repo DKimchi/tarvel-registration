@@ -5,7 +5,7 @@ import {
   SimpleChanges,
   Input
 } from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
 import { CarDataService } from 'src/app/services/car-data.service';
 import { DataFBService } from 'src/app/services/data-fb.service';

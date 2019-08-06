@@ -7,8 +7,8 @@ import {
   FormBuilder,
   FormArray
 } from '@angular/forms';
-import { MatSnackBar } from '@angular/material';
-import { MatDialog } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
 import { LoginDialogComponent } from '../login-dialog/login-dialog.component';
 import { take, map } from 'rxjs/operators';
 import { DataFBService } from 'src/app/services/data-fb.service';

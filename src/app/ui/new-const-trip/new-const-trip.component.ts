@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
-import { MatDialog, MatSnackBar, MatIconRegistry } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatIconRegistry } from '@angular/material/icon';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { DataFBService } from 'src/app/services/data-fb.service';
 import { PasPickrComponent } from '../pas-pickr/pas-pickr.component';
 import { BillPickrComponent } from '../bill-pickr/bill-pickr.component';

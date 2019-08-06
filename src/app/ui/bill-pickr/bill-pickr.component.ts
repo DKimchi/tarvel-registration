@@ -3,7 +3,8 @@ import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { startWith, map, take } from 'rxjs/operators';
 
-import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { CarDataService } from 'src/app/services/car-data.service';
 import { carModule } from 'src/app/models/car-module';
 import { DataFBService } from 'src/app/services/data-fb.service';

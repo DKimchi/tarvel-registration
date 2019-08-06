@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 
 import { carModule } from 'src/app/models/car-module';
 import { CarDataService } from 'src/app/services/car-data.service';
-import { MatIconRegistry } from '@angular/material';
+import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({

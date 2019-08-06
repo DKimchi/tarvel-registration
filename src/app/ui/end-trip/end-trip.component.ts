@@ -4,7 +4,8 @@ import { CarDataService } from 'src/app/services/car-data.service';
 import { DataFBService } from 'src/app/services/data-fb.service';
 import { tripModule } from 'src/app/models/trip-module';
 import { carModule } from 'src/app/models/car-module';
-import { MatSnackBar, MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { DialogMessageComponent } from '../dialog-message/dialog-message.component';
 import { AudioService } from 'src/app/services/audio.service';
 
