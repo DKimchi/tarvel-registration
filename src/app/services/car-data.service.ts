@@ -7,9 +7,7 @@ import {
   AngularFirestoreDocument,
   AngularFirestore
 } from '@angular/fire/firestore';
-import { CastExpr } from '@angular/compiler';
-import { element } from '@angular/core/src/render3';
-import { PasSelectorComponent } from '../ui/pas-selector/pas-selector.component';
+
 import { take } from 'rxjs/operators';
 
 @Injectable({
