@@ -35,21 +35,21 @@ export class CarSelectorComponent implements OnInit, OnChanges {
     pas7: [];
     general: [];
   } = {
-    driver: null,
-    pas2: null,
-    pas3: null,
-    pas4: null,
-    pas5: null,
-    pas6: null,
-    pas7: null,
-    general: null
-  };
+      driver: null,
+      pas2: null,
+      pas3: null,
+      pas4: null,
+      pas5: null,
+      pas6: null,
+      pas7: null,
+      general: null
+    };
   carNames: string[];
   listOfCollection: Array<string>;
   selectCarBtnText: string;
   collectionOfCar: string = 'משעול-קבוע';
   // TODO: open  collectionOfCar from uesr Default
-  generalData: object;
+  generalData;
 
   carData: carModule;
   constructor(

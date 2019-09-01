@@ -6,6 +6,9 @@ import { carModule } from 'src/app/models/car-module';
 import { CarDataService } from 'src/app/services/car-data.service';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
+import { MessagingService } from '../../services/messaging.service';
+import { AuthService } from '../../services/auth.service';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-add-occ-car',
@@ -13,6 +16,7 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./add-occ-car.component.scss']
 })
 export class AddOccCarComponent implements OnInit {
+  myName: string;
   occCarNumber: number;
   occcardata: carModule = {
     openRegistration: null,
@@ -190,6 +194,8 @@ export class AddOccCarComponent implements OnInit {
     private fb: FormBuilder,
     private carDataService: CarDataService,
     private router: Router,
+    private fcm: MessagingService,
+    private auth: AuthService,
     iconRegistry: MatIconRegistry,
     sanitizer: DomSanitizer
   ) {
@@ -201,16 +207,21 @@ export class AddOccCarComponent implements OnInit {
     );
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.auth.user$.pipe(take(1)).subscribe(val => {
+      this.myName = val['displayName']
+    })
+  }
+
 
   getErrorMessageForCarNumber() {
     return this.newOccCarData.controls.carNumber.hasError('required')
       ? 'חייב להכניס מספר רכב'
       : this.newOccCarData.controls.carNumber.hasError('pattern')
-      ? 'חייב להיות 7 או 8 ספרות בלבד'
-      : this.newOccCarData.controls.carNumber.hasError('minlength')
-      ? 'חייב להיות 7 או 8 ספרות בלבד'
-      : '';
+        ? 'חייב להיות 7 או 8 ספרות בלבד'
+        : this.newOccCarData.controls.carNumber.hasError('minlength')
+          ? 'חייב להיות 7 או 8 ספרות בלבד'
+          : '';
   }
   onSubmit() {
     if (this.newOccCarData.valid) {
@@ -219,23 +230,23 @@ export class AddOccCarComponent implements OnInit {
       if (ArrCarNumber.length == 7) {
         displayCarNumber = `${ArrCarNumber[0]}${ArrCarNumber[1]}-${
           ArrCarNumber[2]
-        }${ArrCarNumber[3]}${ArrCarNumber[4]}-${ArrCarNumber[5]}${
+          }${ArrCarNumber[3]}${ArrCarNumber[4]}-${ArrCarNumber[5]}${
           ArrCarNumber[6]
-        }`;
+          }`;
       } else if (ArrCarNumber.length == 8) {
         displayCarNumber = `${ArrCarNumber[0]}${ArrCarNumber[1]}${
           ArrCarNumber[2]
-        }-${ArrCarNumber[3]}${ArrCarNumber[4]}-${ArrCarNumber[5]}${
+          }-${ArrCarNumber[3]}${ArrCarNumber[4]}-${ArrCarNumber[5]}${
           ArrCarNumber[6]
-        }${ArrCarNumber[7]}`;
+          }${ArrCarNumber[7]}`;
       }
       this.occcardata.collectionOfCar = 'משעול-מזדמן';
       this.occcardata.name = `רכב מזדמן ${
         this.newOccCarData.value.occCarNumber
-      }`;
+        }`;
       this.occcardata.displayName = `רכב מזדמן ${
         this.newOccCarData.value.occCarNumber
-      }: ${this.newOccCarData.value.typeName} - ${displayCarNumber}`;
+        }: ${this.newOccCarData.value.typeName} - ${displayCarNumber}`;
       this.occcardata.carNumber = this.newOccCarData.value.carNumber;
       this.occcardata.code = this.newOccCarData.value.code;
       this.occcardata.whereToRegister = 'משעול';
@@ -251,12 +262,19 @@ export class AddOccCarComponent implements OnInit {
       this.occcardata.lastTrip.dateAndTime = new Date();
       this.occcardata.currentTrip['driver']['name'] = '';
       console.log(this.occcardata);
-
+      const time = new Date();
+      const message = {
+        "title": `שכרתי ${this.occcardata.name}`,
+        "body": `שם: ${this.myName}, זמן פתיחת מזדמן: ${time.toLocaleTimeString()}`,
+        "icon": './assets/icons/favicon.ico'
+      };
+      this.fcm.sendMessageToUsher(message);
       this.carDataService.updateOccCarData(this.occcardata);
       this.carDataService.dataForCarSelected(this.occcardata);
       this.carDataService.changeTextName();
       this.carDataService.carChosen = true;
       this.router.navigate(['/main-from']);
+
     }
   }
 }

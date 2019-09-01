@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,6 +17,7 @@ import {
 
 import { AngularFirePerformanceModule } from '@angular/fire/performance';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireMessagingModule } from '@angular/fire/messaging';
 import { environment } from '../environments/environment';
 import { UserModule } from './user/user.module';
 const firebaseConfig = environment.firebase;
@@ -25,6 +27,7 @@ import { DataFBService } from './services/data-fb.service';
 import { CarDataService } from './services/car-data.service';
 import { AuthService } from './services/auth.service';
 import { AudioService } from './services/audio.service';
+import { MessagingService } from './services/messaging.service';
 import { UIModule } from './ui/ui.module';
 import 'hammerjs';
 import { PasSelectorComponent } from './ui/pas-selector/pas-selector.component';
@@ -38,12 +41,14 @@ import { PasSelectorComponent } from './ui/pas-selector/pas-selector.component';
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFirePerformanceModule,
-    AngularFirestoreModule, // firestore
-    AngularFireAuthModule, // auth
+    AngularFirestoreModule,
+    AngularFireAuthModule,
+    AngularFireMessagingModule,
     UserModule,
     NgxAuthFirebaseUIModule.forRoot(firebaseConfig),
     UIModule,
-    MatSelectModule
+    MatSelectModule,
+    HttpClientModule
   ],
   providers: [
     DataFBService,
@@ -51,8 +56,9 @@ import { PasSelectorComponent } from './ui/pas-selector/pas-selector.component';
     AuthService,
     PasSelectorComponent,
     AudioService,
+    MessagingService,
     { provide: FirestoreSettingsToken, useValue: {} }
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

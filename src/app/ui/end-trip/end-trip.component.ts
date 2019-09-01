@@ -8,6 +8,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DialogMessageComponent } from '../dialog-message/dialog-message.component';
 import { AudioService } from 'src/app/services/audio.service';
+import { MessagingService } from 'src/app/services/messaging.service';
+import { take } from 'rxjs/operators';
+import { AuthService } from 'src/app/services/auth.service';
+
 
 @Component({
   selector: 'app-end-trip',
@@ -15,6 +19,7 @@ import { AudioService } from 'src/app/services/audio.service';
   styleUrls: ['./end-trip.component.scss']
 })
 export class EndTripComponent implements OnInit {
+  myName: string;
   isContinuedTrip = false;
   isOccCarReturn = false;
   soundNo = true;
@@ -98,15 +103,20 @@ export class EndTripComponent implements OnInit {
     private dialogMessage: MatDialog,
     public carDataService: CarDataService,
     public dataFBService: DataFBService,
+    private fcm: MessagingService,
     private snackBar: MatSnackBar,
+    private auth: AuthService,
     public audioService: AudioService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.carDataService.currentCarData.subscribe(val => {
       this.carData = val;
       this.collectionOfCar = val.collectionOfCar;
     });
+    this.auth.user$.pipe(take(1)).subscribe(val => {
+      this.myName = val['displayName']
+    })
   }
 
   changeEndKM(e) {
@@ -856,6 +866,13 @@ export class EndTripComponent implements OnInit {
             const displayCarName = this.carData.displayName;
             console.log('שמירה של הרכב', this.carData);
             this.isOccCarReturn = false;
+            const time = new Date();
+            const message = {
+              "title": `החזרתי ${carName}`,
+              "body": `שם:${this.myName}, זמן החזרת מזדמן: ${time.toLocaleTimeString()}`,
+              "icon": './assets/icons/favicon.ico'
+            };
+            this.fcm.sendMessageToUsher(message);
             this.carDataService.currentCarData.subscribe(val => {
               this.carData = val;
             });

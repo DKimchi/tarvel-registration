@@ -20,10 +20,19 @@ export class DataFBService {
     billNames: '',
     carCollection: [],
     InitialCode: '',
-    pasNames: ''
+    pasNames: '',
+    misholUsher: ''
   };
 
-  constructor(private afs: AngularFirestore) {}
+  constructor(private afs: AngularFirestore) { }
+
+
+  getUsherTokens() {
+    return this.afs
+      .collection('users', ref => ref.where('displayName', '==', 'דן קמחי'))
+      .valueChanges()
+      .pipe(take(1));
+  }
 
   getUserConstTrip(constTripName) {
     return this.afs
@@ -37,18 +46,6 @@ export class DataFBService {
       .collection('users', ref => ref.where('displayName', '==', userName))
       .valueChanges()
       .pipe(take(1));
-    // .snapshotChanges()
-    // .pipe(
-    //   map(actions =>
-    //     actions.map(a => {
-    //       if (a.payload.doc.exists) {
-    //         const data = a.payload.doc.data();
-    //         return { ...data };
-    //       }
-    //     })
-    //   )
-    // )
-    // .pipe(take(1));
   }
 
   getCarNames(collectionName: string) {
@@ -167,11 +164,11 @@ export class DataFBService {
     this.afs
       .collection('רישום נסיעות')
       .add(tripData)
-      .then(function(docRef) {
+      .then(function (docRef) {
         console.log('Document written with ID: ', docRef.id);
         return docRef.id;
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.error('Error adding document: ', error);
       });
     // TODO:לטפל תטעות ולהוריד את קונסול לוג
@@ -342,7 +339,7 @@ export class DataFBService {
     this.afs
       .collection(`/משעול-מזדמן/${occCarDetails.name}/oldOccCar`)
       .add(occCarDetails)
-      .then(function(docRef) {
+      .then(function (docRef) {
         readOccCar.update({
           openOldOcc: firebase.firestore.FieldValue.arrayUnion(
             `משעול-מזדמן/${occCarDetails.name}/oldOccCar/${docRef.id}`
@@ -350,7 +347,7 @@ export class DataFBService {
         });
         console.log('Document written with ID: ', docRef.id);
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.error('Error adding document: ', error);
         //: TODO: לתפוס תעות ברישם פרטים של רכב מזדמן
       });
@@ -453,10 +450,10 @@ export class DataFBService {
       .collection(collectionTOSaveIn)
       .doc(`${carData.replacement.endDateInFleet}`)
       .set(carData)
-      .then(function(docRef) {
+      .then(function (docRef) {
         console.log('Document written with ID: ');
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.error('Error adding document: ', error);
       });
     this.addRepCarToCarNames(

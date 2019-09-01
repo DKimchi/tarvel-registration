@@ -12,6 +12,7 @@ import { MatIconRegistry } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DialogMessageComponent } from '../dialog-message/dialog-message.component';
 import { DomSanitizer } from '@angular/platform-browser';
+import { MessagingService } from 'src/app/services/messaging.service';
 
 @Component({
   selector: 'app-main-from',
@@ -19,6 +20,8 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./main-from.component.scss']
 })
 export class MainFromComponent implements OnInit {
+  misholUsher: string;
+  message;
   carData: carModule;
   user: User;
   openConstTrips = false;
@@ -30,7 +33,9 @@ export class MainFromComponent implements OnInit {
     public carDataService: CarDataService,
     private auth: AuthService,
     private snackBar: MatSnackBar,
+    private fcm: MessagingService,
     iconRegistry: MatIconRegistry,
+
     sanitizer: DomSanitizer
   ) {
     iconRegistry.addSvgIcon(
@@ -41,6 +46,7 @@ export class MainFromComponent implements OnInit {
     );
   }
 
+
   ngOnInit() {
     this.carDataService.currentCarData.subscribe(val => {
       this.carData = val;
@@ -48,10 +54,16 @@ export class MainFromComponent implements OnInit {
     this.auth.user$.subscribe(val => {
       this.user = val;
       this.constTrips = val.constTrips;
+      this.dataFBService.getGeneralDataFormFB().subscribe(val => {
+        this.misholUsher = val['misholUsher'];
+        if (this.user['displayName'] === this.misholUsher) {
+          this.fcm.requestPermission();
+          this.fcm.receiveMessage();
+          this.message = this.fcm.currentMessage;
+        }
+      });
     });
-    // this.googleapi.login();
   }
-
   startCurrentTrip() {
     const { collectionOfCar, name } = this.carData;
     console.log(collectionOfCar, name);

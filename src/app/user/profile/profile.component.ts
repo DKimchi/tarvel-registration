@@ -140,8 +140,7 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  test() {}
-  // TODO: להוריד test
+
   checkNameInList(name: string) {
     if (!this.listOfName.includes(name)) {
       const addNameSnackBar = this.snackBar.open(

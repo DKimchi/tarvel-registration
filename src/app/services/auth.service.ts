@@ -76,4 +76,17 @@ export class AuthService {
     await this.afAuth.auth.signOut();
     this.router.navigate(['/']);
   }
+
+  updateToken(user: User, token: string) {
+
+
+    const currentTokens: Array<string> = user.fcmTokens || []
+
+    // If token does not exist in firestore, update db
+    if (!currentTokens.includes(token)) {
+      const userRef = this.afs.collection('users').doc(user.uid)
+      const tokens = [...currentTokens, token]
+      userRef.update({ fcmTokens: tokens })
+    }
+  }
 }

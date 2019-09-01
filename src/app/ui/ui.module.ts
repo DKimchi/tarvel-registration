@@ -83,4 +83,4 @@ import { AddRepCarComponent } from './add-rep-car/add-rep-car.component';
   ],
   exports: [AddOccCarComponent]
 })
-export class UIModule {}
+export class UIModule { }

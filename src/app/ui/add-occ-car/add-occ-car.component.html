@@ -1,11 +1,7 @@
 <div class="main-div">
   <form [formGroup]="newOccCarData" (ngSubmit)="onSubmit()">
     <mat-card class="main-card">
-      <mat-icon
-        svgIcon="cancel_outline"
-        routerLink="/"
-        class="closedBTN"
-      ></mat-icon>
+      <mat-icon svgIcon="cancel_outline" routerLink="/" class="closedBTN"></mat-icon>
       <mat-card-header>
         <mat-card-title>
           <mat-grid-list cols="9" rowHeight="4rem" gutterSize="2px">
@@ -14,20 +10,12 @@
             </mat-grid-tile>
             <mat-grid-tile [colspan]="3" [rowspan]="1">
               <mat-form-field id="occCarNumber">
-                <input
-                  matInput
-                  #occCarNumber
-                  type="number"
-                  formControlName="occCarNumber"
-                  required
-                />
+                <input matInput #occCarNumber type="number" formControlName="occCarNumber" required />
               </mat-form-field>
             </mat-grid-tile>
           </mat-grid-list>
         </mat-card-title>
-        <mat-card-subtitle
-          >שאלון להכנסת פרטים של רכב מזדמן במשעול</mat-card-subtitle
-        >
+        <mat-card-subtitle>שאלון להכנסת פרטים של רכב מזדמן במשעול</mat-card-subtitle>
       </mat-card-header>
       <mat-card-content>
         <mat-grid-list cols="9" rowHeight="4rem" gutterSize="2px">
@@ -40,42 +28,24 @@
             </mat-form-field>
           </mat-grid-tile>
           <mat-grid-tile [colspan]="2" [rowspan]="1">
-            <mat-icon
-              #tooltipTypeName="matTooltip"
-              matSuffix
-              (click)="tooltipTypeName.toggle()"
-              matTooltip="פירטו של יצרן רכב הדגם של הרכב (לגודמה - ניסן מיקרה, פורד פוקוס)"
-              >help_outline</mat-icon
-            >
+            <mat-icon #tooltipTypeName="matTooltip" matSuffix (click)="tooltipTypeName.toggle()"
+              matTooltip="פירטו של יצרן רכב הדגם של הרכב (לגודמה - ניסן מיקרה, פורד פוקוס)">help_outline</mat-icon>
           </mat-grid-tile>
           <mat-grid-tile [colspan]="7" [rowspan]="1">
             <mat-form-field class="input">
               <mat-label class="inputLabel" for="carNumber">
                 מספר רכב
               </mat-label>
-              <input
-                #carNumber
-                type="string"
-                matInput
-                maxlength="8"
-                minlength="7"
-                pattern="^[0-9]*$"
-                formControlName="carNumber"
-                required
-              />
+              <input #carNumber type="string" matInput maxlength="8" minlength="7" pattern="^[0-9]*$"
+                formControlName="carNumber" required />
               <mat-error *ngIf="newOccCarData.get('carNumber').invalid">{{
                 getErrorMessageForCarNumber()
               }}</mat-error>
             </mat-form-field>
           </mat-grid-tile>
           <mat-grid-tile [colspan]="2" [rowspan]="1">
-            <mat-icon
-              #tooltipCarNumber="matTooltip"
-              matSuffix
-              (click)="tooltipCarNumber.toggle()"
-              matTooltip="מספר רישוי של הרכב. להכניס רק מספרים (12345678)"
-              >help_outline</mat-icon
-            >
+            <mat-icon #tooltipCarNumber="matTooltip" matSuffix (click)="tooltipCarNumber.toggle()"
+              matTooltip="מספר רישוי של הרכב. להכניס רק מספרים (12345678)">help_outline</mat-icon>
           </mat-grid-tile>
           <mat-grid-tile [colspan]="7" [rowspan]="1">
             <mat-form-field class="input">
@@ -86,36 +56,20 @@
             </mat-form-field>
           </mat-grid-tile>
           <mat-grid-tile [colspan]="2" [rowspan]="1">
-            <mat-icon
-              #tooltipCode="matTooltip"
-              matSuffix
-              (click)="tooltipCode.toggle()"
-              matTooltip="קוד ההנעה של הרכב. אם אין קוד לכתוב 'אין קוד'."
-              >help_outline</mat-icon
-            >
+            <mat-icon #tooltipCode="matTooltip" matSuffix (click)="tooltipCode.toggle()"
+              matTooltip="קוד ההנעה של הרכב. אם אין קוד לכתוב 'אין קוד'.">help_outline</mat-icon>
           </mat-grid-tile>
           <mat-grid-tile [colspan]="7" [rowspan]="1">
             <mat-form-field class="input">
               <mat-label class="inputLabel" for="startKMinFleet">
                 ק"מ פתיחת החוזה
               </mat-label>
-              <input
-                #startKMinFleet
-                matInput
-                type="number"
-                formControlName="startKMinFleet"
-                required
-              />
+              <input #startKMinFleet matInput type="number" formControlName="startKMinFleet" required />
             </mat-form-field>
           </mat-grid-tile>
           <mat-grid-tile [colspan]="2" [rowspan]="1">
-            <mat-icon
-              #tooltipStartKMinFleet="matTooltip"
-              matSuffix
-              (click)="tooltipStartKMinFleet.toggle()"
-              matTooltip='ק"מ שבו נלקח הרכב.'
-              >help_outline</mat-icon
-            >
+            <mat-icon #tooltipStartKMinFleet="matTooltip" matSuffix (click)="tooltipStartKMinFleet.toggle()"
+              matTooltip='ק"מ שבו נלקח הרכב.'>help_outline</mat-icon>
           </mat-grid-tile>
         </mat-grid-list>
         <mat-card-actions align="start">
