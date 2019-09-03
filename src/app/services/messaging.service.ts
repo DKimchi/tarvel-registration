@@ -52,9 +52,9 @@ export class MessagingService {
   }
 
   async sendMessageToUsher(payload: Object) {
-    let time = new Date()
     let tokens = []
     await this.dataFBService.getUsherTokens().toPromise().then(val => {
+      console.log(val[0])
       if (val[0]['fcmTokens']) {
         tokens = val[0]['fcmTokens']
       } else {

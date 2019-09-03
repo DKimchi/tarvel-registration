@@ -510,10 +510,12 @@ export class EndTripComponent implements OnInit {
       }
       const tripKM = this.endTripData.endKM - this.endTripData.startKM;
       let messageName: string;
+      let panelClass: string = null
       if (tripKM < 500) {
         messageName = 'confirmedTrip';
       } else {
         messageName = 'confirmedLongTrip';
+        panelClass = 'confirmedLongTrip'
         this.audioService.playAudio('longTrip');
       }
       const dialogPasName = this.dialogMessage.open(DialogMessageComponent, {
@@ -523,8 +525,8 @@ export class EndTripComponent implements OnInit {
           messageName: messageName,
           tripKM: tripKM
         },
-        autoFocus: false
-
+        autoFocus: false,
+        panelClass: panelClass
         // TODO: חזרה אחורה בטלפון תסגור את הדיאלוג
       });
 

@@ -73,12 +73,13 @@ export class CarSelectorComponent implements OnInit, OnChanges {
     this.dataFBService.getGeneralDataFormFB().subscribe(val => {
       this.listOfCollection = val['carCollection'];
       this.generalData = val;
-    });
-    this.dataFBService.getGeneralDataFormFB().subscribe(val => {
       this.pasNames = val['pasNames'].split(',');
       this.billNames['general'] = val['billNames'].split(',');
-      //TODO: להוריד את האפס שם ולצור דרך אחרת לאפס את השם ויעד חיוב
     });
+    // this.dataFBService.getGeneralDataFormFB().subscribe(val => {
+
+    //   //TODO: להוריד את האפס שם ולצור דרך אחרת לאפס את השם ויעד חיוב
+    // });
     if (localStorage.getItem('carName')) {
       this.readCarData(
         localStorage.getItem('collectionOfCar'),

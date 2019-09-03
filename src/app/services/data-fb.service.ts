@@ -24,12 +24,17 @@ export class DataFBService {
     misholUsher: ''
   };
 
-  constructor(private afs: AngularFirestore) { }
-
+  constructor(private afs: AngularFirestore) {
+    this.getGeneralDataFormFB().toPromise().then(val => {
+      this.generalData = val
+    }).catch(err => {
+      console.log('לא נמצא מידע כללי' + err)
+    });
+  };
 
   getUsherTokens() {
     return this.afs
-      .collection('users', ref => ref.where('displayName', '==', 'דן קמחי'))
+      .collection('users', ref => ref.where('displayName', '==', this.generalData['misholUsher']))
       .valueChanges()
       .pipe(take(1));
   }

@@ -5,16 +5,10 @@
     </h3>
     <p>
       האם לרשום נסיעה באורך <strong>{{ tripKM }}</strong> ק"מ
-      <strong>ב{{ endTripData.carName }}</strong
-      >?
+      <strong>ב{{ endTripData.carName }}</strong>?
     </p>
     <div class="btnMessage">
-      <button
-        class="btnCancel"
-        mat-stroked-button
-        color="warn"
-        (click)="cancel()"
-      >
+      <button class="btnCancel" mat-stroked-button color="warn" (click)="cancel()">
         לא
       </button>
       <button mat-stroked-button color="primary" (click)="registrationTrip()">
@@ -23,25 +17,19 @@
     </div>
   </ng-container>
   <ng-container *ngSwitchCase="'confirmedLongTrip'">
-    <h2>אזהרה - נסיעה ארוכה מהרגיל</h2>
+    <h2 id="confirmedLongTrip">אזהרה - נסיעה ארוכה מהרגיל</h2>
     <h3>
       רישום נסיעה - <strong>{{ endTripData.carName }}</strong>
     </h3>
     <p>
       האם לרשום נסיעה בארוכה במיוחד של <strong>{{ tripKM }}</strong> ק"מ
-      <strong>ב{{ endTripData.carName }}</strong
-      >?
+      <strong>ב{{ endTripData.carName }}</strong>?
     </p>
     <div class="btnMessage">
-      <button
-        class="btnCancel"
-        mat-stroked-button
-        color="warn"
-        (click)="cancel()"
-      >
+      <button class="btnCancel" mat-raised-button color="warn" (click)="cancel()">
         לא
       </button>
-      <button mat-stroked-button color="primary" (click)="registrationTrip()">
+      <button mat-raised-button color="primary" (click)="registrationTrip()">
         כן
       </button>
     </div>
@@ -55,12 +43,7 @@
       להוציא את <strong>{{ data.displayName }}</strong> מאפליקצית רישום נסיעות?
     </p>
     <div class="btnMessage">
-      <button
-        class="btnCancel"
-        mat-stroked-button
-        color="warn"
-        (click)="cancel()"
-      >
+      <button class="btnCancel" mat-stroked-button color="warn" (click)="cancel()">
         לא
       </button>
       <button mat-stroked-button color="primary" (click)="registrationTrip()">
@@ -77,12 +60,7 @@
       להוציא את <strong>{{ carData.name }}</strong> מאפליקצית רישום נסיעות?
     </p>
     <div class="btnMessage">
-      <button
-        class="btnCancel"
-        mat-stroked-button
-        color="warn"
-        (click)="cancel()"
-      >
+      <button class="btnCancel" mat-stroked-button color="warn" (click)="cancel()">
         לא
       </button>
       <button mat-stroked-button color="primary" (click)="registrationTrip()">
