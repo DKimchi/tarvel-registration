@@ -15,6 +15,8 @@ export class PasPickrComponent implements OnInit {
   myControl = new FormControl();
   psaSelected = this.data.psaSelected;
   displayName: string;
+  carName = this.data.carName;
+  carCode = this.data.carCode;
   pasName = this.data.pasName;
   options: string[] = this.data.pasNames;
   filteredOptions: Observable<string[]>;
@@ -22,7 +24,7 @@ export class PasPickrComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<PasPickrComponent>,
     public auth: AuthService
-  ) {}
+  ) { }
 
   choosePas(event: any): void {
     this.dialogRef.close(event);

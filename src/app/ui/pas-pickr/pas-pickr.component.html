@@ -1,18 +1,24 @@
-<mat-toolbar class="pasPickrToolbar">
-  <mat-toolbar-row class="pasPickrToolbar">
-    <div>
-      בחר שם {{ displayName }} - <br>
-      <strong class="ToolbarPasName">{{ pasName ? pasName : 'לא ניבחר' }}
-      </strong>
-    </div>
-    <div id="carNameAndCode">
-      <p>פינגוון<br> קוד:4333</p>
-    </div>
-    <mat-icon svgIcon="cancel_outline" (click)="closedPasPickr()" class="closedBTN"></mat-icon>
-  </mat-toolbar-row>
-</mat-toolbar>
+<mat-grid-list cols="7" rowHeight="4.5rem">
+  <mat-toolbar class="pasPickrToolbar">
+    <mat-toolbar-row class="pasPickrToolbar">
+      <mat-grid-tile colspan="4">
+        <div>
+          בחר שם {{ displayName }}<br>
+          <strong class="ToolbarPasName">{{ pasName ? pasName : 'לא ניבחר' }}
+          </strong>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile colspan="3">
+        <div>
+          <p>{{carName}}<br> קוד:{{carCode}}</p>
+        </div>
+      </mat-grid-tile>
+      <mat-icon svgIcon="cancel_outline" (click)="closedPasPickr()" class="closedBTN"></mat-icon>
+    </mat-toolbar-row>
+  </mat-toolbar>
+</mat-grid-list>
 
-<mat-grid-list id="endTrip" cols="11" rowHeight="3.8rem">
+<mat-grid-list id="pasNameGrid" cols="11" rowHeight="3.8rem">
   <mat-grid-tile colspan="5">
     <form class="example-form">
       <mat-form-field id="enterName" class="example-full-width">

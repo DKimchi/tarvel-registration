@@ -71,7 +71,9 @@ export class PasSelectorComponent implements OnInit {
       data: {
         pasNames: this.pasNames,
         pasName: this.carData.currentTrip[psaSelected]['name'],
-        psaSelected
+        psaSelected,
+        carName: this.carData.name,
+        carCode: this.carData.code
       },
       autoFocus: true
 
