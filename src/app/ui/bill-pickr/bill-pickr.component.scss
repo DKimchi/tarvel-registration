@@ -25,3 +25,14 @@
 .closedBTN:hover {
   cursor: pointer;
 }
+
+.addBtnOcc {
+  position: initial;
+  margin-right: 4rem;
+  border: 1px solid black;
+}
+
+.addBtnOcc:hover{
+   cursor: pointer;
+   background-color: rgb(111, 111, 238);
+}

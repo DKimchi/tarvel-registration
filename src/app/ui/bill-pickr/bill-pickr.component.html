@@ -1,36 +1,22 @@
 <mat-toolbar class="billPickrToolbar">
-  <mat-toolbar-row>{{ displayName }}</mat-toolbar-row>
-  <mat-icon
-    svgIcon="cancel_outline"
-    (click)="closedBillPickr()"
-    class="closedBTN"
-  ></mat-icon>
+  <mat-toolbar-row>{{ displayName }}
+  </mat-toolbar-row>
+  <mat-icon svgIcon="cancel_outline" (click)="closedBillPickr()" class="closedBTN"></mat-icon>
 </mat-toolbar>
 <mat-grid-list id="endTrip" cols="8" rowHeight="3.8rem">
   <mat-grid-tile colspan="4">
     <form class="example-form">
       <mat-form-field class="example-full-width">
-        <input
-          type="text"
-          placeholder="בחר יעד חיוב"
-          aria-label="conCar"
-          matInput
-          [formControl]="myControl"
-          [matAutocomplete]="auto"
-        />
+        <input type="text" placeholder="בחר יעד חיוב" aria-label="conCar" matInput [formControl]="myControl"
+          [matAutocomplete]="auto" />
         <mat-autocomplete #auto="matAutocomplete"> </mat-autocomplete>
       </mat-form-field>
     </form>
   </mat-grid-tile>
   <mat-grid-tile colspan="2">
     <div class="btnsDetails">
-      <mat-slide-toggle
-        class="example-margin"
-        color="primary"
-        [(ngModel)]="fullBillList"
-        (ngModelChange)="changeBillList()"
-        [disabled]="disabledBillList"
-      ></mat-slide-toggle>
+      <mat-slide-toggle class="example-margin" color="primary" [(ngModel)]="fullBillList"
+        (ngModelChange)="changeBillList()" [disabled]="disabledBillList"></mat-slide-toggle>
       <br />
       רשימה יעדים מלאה
     </div>

@@ -25,25 +25,6 @@ import { PasSelectorComponent } from '../pas-selector/pas-selector.component';
 export class CarSelectorComponent implements OnInit, OnChanges {
   userData: User;
   pasNames: string[];
-  billNames: {
-    driver: [];
-    pas2: [];
-    pas3: [];
-    pas4: [];
-    pas5: [];
-    pas6: [];
-    pas7: [];
-    general: [];
-  } = {
-      driver: null,
-      pas2: null,
-      pas3: null,
-      pas4: null,
-      pas5: null,
-      pas6: null,
-      pas7: null,
-      general: null
-    };
   carNames: string[];
   listOfCollection: Array<string>;
   selectCarBtnText: string;
@@ -74,12 +55,8 @@ export class CarSelectorComponent implements OnInit, OnChanges {
       this.listOfCollection = val['carCollection'];
       this.generalData = val;
       this.pasNames = val['pasNames'].split(',');
-      this.billNames['general'] = val['billNames'].split(',');
-    });
-    // this.dataFBService.getGeneralDataFormFB().subscribe(val => {
 
-    //   //TODO: להוריד את האפס שם ולצור דרך אחרת לאפס את השם ויעד חיוב
-    // });
+    });
     if (localStorage.getItem('carName')) {
       this.readCarData(
         localStorage.getItem('collectionOfCar'),

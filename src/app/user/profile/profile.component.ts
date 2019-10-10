@@ -75,7 +75,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     this.dataFBService.getGeneralDataFormFB().subscribe(val => {
       this.collectionOfCarFromDB = val['carCollection'];
-      this.biilNames = val['billNames'].split(',');
+      this.biilNames = val['arrBillNames'];
       this.listOfName = val['pasNames'].split(',');
       this.filteredOptions = this.initialData
         .get('displayName')

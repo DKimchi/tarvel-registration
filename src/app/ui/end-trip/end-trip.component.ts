@@ -19,6 +19,8 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./end-trip.component.scss']
 })
 export class EndTripComponent implements OnInit {
+  arrBillName = [];
+  arrPaidByOrganizations = [];
   myName: string;
   isContinuedTrip = false;
   isOccCarReturn = false;
@@ -117,6 +119,10 @@ export class EndTripComponent implements OnInit {
     this.auth.user$.pipe(take(1)).subscribe(val => {
       this.myName = val['displayName']
     })
+    this.dataFBService.getGeneralDataFormFB().pipe(take(1)).subscribe(val => {
+      this.arrPaidByOrganizations = val['arrPaidByOrganizations'];
+      this.arrBillName = val['arrBillNames'];
+    });
   }
 
   changeEndKM(e) {
@@ -173,25 +179,12 @@ export class EndTripComponent implements OnInit {
       } else {
         pas = 'pas' + index;
       }
-      const selectedPaidByOrganization = this.carData['currentTrip'][pas][
-        'bill'
-      ]['nameOfBill'].split(' - ');
-      if (
-        selectedPaidByOrganization[0] === 'הסעות חברים בית מדרש ארץ' ||
-        selectedPaidByOrganization[0] === 'הסעות חברים בית מדרש שושנה' ||
-        selectedPaidByOrganization[0] === 'נסיעות צוות בית מדרש ארץ' ||
-        selectedPaidByOrganization[0] === 'נסיעות צוות בית מדרש שושנה'
-      ) {
-        this.carData['currentTrip'][pas]['bill']['paidByOrganization'] =
-          'בית מדרש';
+      const indexBillName = this.arrBillName.indexOf(this.carData['currentTrip'][pas]['bill']['nameOfBill']);
+      if (indexBillName !== -1) {
+        this.carData['currentTrip'][pas]['bill']['paidByOrganization'] = this.arrPaidByOrganizations[indexBillName];
       } else {
-        this.carData['currentTrip'][pas]['bill']['paidByOrganization'] =
-          selectedPaidByOrganization[0];
+        this.carData['currentTrip'][pas]['bill']['paidByOrganization'] = '';
       }
-      console.log(
-        'משולם ע"י',
-        this.carData['currentTrip'][pas]['bill']['paidByOrganization']
-      );
     }
   }
 

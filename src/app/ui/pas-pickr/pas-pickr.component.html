@@ -1,16 +1,14 @@
 <mat-toolbar class="pasPickrToolbar">
   <mat-toolbar-row class="pasPickrToolbar">
     <div>
-      בחר שם {{ displayName }} -
-      <strong class="ToolbarPasName"
-        >{{ pasName ? pasName : 'לא ניבחר' }}
+      בחר שם {{ displayName }} - <br>
+      <strong class="ToolbarPasName">{{ pasName ? pasName : 'לא ניבחר' }}
       </strong>
     </div>
-    <mat-icon
-      svgIcon="cancel_outline"
-      (click)="closedPasPickr()"
-      class="closedBTN"
-    ></mat-icon>
+    <div id="carNameAndCode">
+      <p>פינגוון<br> קוד:4333</p>
+    </div>
+    <mat-icon svgIcon="cancel_outline" (click)="closedPasPickr()" class="closedBTN"></mat-icon>
   </mat-toolbar-row>
 </mat-toolbar>
 
@@ -18,62 +16,32 @@
   <mat-grid-tile colspan="5">
     <form class="example-form">
       <mat-form-field id="enterName" class="example-full-width">
-        <input
-          type="text"
-          id="enterName"
-          placeholder="שם נוסע"
-          aria-label="conCar"
-          matInput
-          [formControl]="myControl"
-          [matAutocomplete]="auto"
-        />
+        <input type="text" id="enterName" placeholder="שם נוסע" aria-label="conCar" matInput [formControl]="myControl"
+          [matAutocomplete]="auto" />
         <mat-autocomplete #auto="matAutocomplete"> </mat-autocomplete>
       </mat-form-field>
     </form>
   </mat-grid-tile>
   <mat-grid-tile colspan="2">
     <div class="btnsDetails" *ngIf="auth.user$ | async as user">
-      <button
-        mat-mini-fab
-        color="primary"
-        (click)="choosePas(user.displayName)"
-      >
-        <mat-icon aria-label="Example icon-button with a heart icon"
-          >account_circle</mat-icon
-        ></button
-      ><br />
+      <button mat-mini-fab color="primary" (click)="choosePas(user.displayName)">
+        <mat-icon aria-label="Example icon-button with a heart icon">account_circle</mat-icon>
+      </button><br />
       מלא שם שלי
     </div>
   </mat-grid-tile>
   <mat-grid-tile colspan="2">
-    <button
-      mat-stroked-button
-      color="accent"
-      *ngIf="displayName === 'נהג'"
-      (click)="openConstTrip()"
-      aria-hidden="false"
-      id="openConstTrip"
-      aria-label="כפתור נסיעות קבועות"
-    >
+    <button mat-stroked-button color="accent" *ngIf="displayName === 'נהג'" (click)="openConstTrip()"
+      aria-hidden="false" id="openConstTrip" aria-label="כפתור נסיעות קבועות">
       נסיעות<br />קבועות
     </button>
   </mat-grid-tile>
   <mat-grid-tile colspan="2">
     <div class="btnsDetails">
-      <button
-        mat-button
-        color="warn"
-        *ngIf="pasName !== ''"
-        (click)="choosePas('אפס שם')"
-      >
+      <button mat-button color="warn" *ngIf="pasName !== ''" (click)="choosePas('אפס שם')">
         אפס שם <br />ויעד חיוב
       </button>
-      <button
-        mat-button
-        color="warn"
-        *ngIf="pasName === ''"
-        (click)="choosePas('אפס שם')"
-      >
+      <button mat-button color="warn" *ngIf="pasName === ''" (click)="choosePas('אפס שם')">
         אין נוסעים <br />נוספים
       </button>
     </div>

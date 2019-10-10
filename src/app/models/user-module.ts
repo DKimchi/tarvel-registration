@@ -16,4 +16,5 @@ export interface User {
   };
   canEditCar: boolean;
   fcmTokens?: [];
+  canAddBillName?: boolean;
 }

@@ -30,7 +30,7 @@ export class LoginDialogComponent {
     private afs: AngularFirestore,
     public dialogEmailRef: MatDialogRef<LoginDialogComponent>,
     private router: Router
-  ) {}
+  ) { }
 
   onNoClick(): void {
     this.dialogEmailRef.close();

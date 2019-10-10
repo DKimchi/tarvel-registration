@@ -21,14 +21,15 @@ export class DataFBService {
     carCollection: [],
     InitialCode: '',
     pasNames: '',
-    misholUsher: ''
+    misholUsher: '',
+    testbillnames: Object
   };
 
   constructor(private afs: AngularFirestore) {
     this.getGeneralDataFormFB().toPromise().then(val => {
       this.generalData = val
     }).catch(err => {
-      console.log('לא נמצא מידע כללי' + err)
+      console.log('לא נמצא מידע כללי:' + err)
     });
   };
 

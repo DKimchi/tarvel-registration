@@ -50,7 +50,7 @@ import { AddRepCarComponent } from './add-rep-car/add-rep-car.component';
     AddCarDetailComponent,
     AddOccCarComponent,
     DialogMessageComponent,
-    AddRepCarComponent
+    AddRepCarComponent,
   ],
   imports: [
     CommonModule,

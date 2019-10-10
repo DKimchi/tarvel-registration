@@ -27,20 +27,20 @@ export class PasSelectorComponent implements OnInit {
     pas7: [];
     general: [];
   } = {
-    driver: null,
-    pas2: null,
-    pas3: null,
-    pas4: null,
-    pas5: null,
-    pas6: null,
-    pas7: null,
-    general: null
-  };
+      driver: null,
+      pas2: null,
+      pas3: null,
+      pas4: null,
+      pas5: null,
+      pas6: null,
+      pas7: null,
+      general: null
+    };
   constructor(
     private dialogPasPickr: MatDialog,
     public carDataService: CarDataService,
     public dataFBService: DataFBService
-  ) {}
+  ) { }
   @Output() openConstTrips: EventEmitter<boolean> = new EventEmitter();
 
   ngOnInit() {
@@ -59,7 +59,7 @@ export class PasSelectorComponent implements OnInit {
 
     this.dataFBService.getGeneralDataFormFB().subscribe(val => {
       this.pasNames = val['pasNames'].split(',');
-      this.billNames['general'] = val['billNames'].split(',');
+      this.billNames['general'] = val['arrBillNames'];
       //TODO: להוריד את האפס שם ולצור דרך אחרת לאפס את השם ויעד חיוב
     });
   }

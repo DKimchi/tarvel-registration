@@ -32,7 +32,7 @@ export class BillPickrComponent implements OnInit {
     private auth: AuthService,
     private snackBar: MatSnackBar,
     public dataFBService: DataFBService
-  ) {}
+  ) { }
 
   choosePas(event: any): void {
     if (
@@ -95,6 +95,7 @@ export class BillPickrComponent implements OnInit {
           break;
       }
     });
+
   }
 
   private _filter(value: string): string[] {

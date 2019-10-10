@@ -33,15 +33,15 @@ export class NewConstTripComponent implements OnInit {
     pas7: [];
     general: [];
   } = {
-    driver: null,
-    pas2: null,
-    pas3: null,
-    pas4: null,
-    pas5: null,
-    pas6: null,
-    pas7: null,
-    general: null
-  };
+      driver: null,
+      pas2: null,
+      pas3: null,
+      pas4: null,
+      pas5: null,
+      pas6: null,
+      pas7: null,
+      general: null
+    };
   pasNames: string[];
   constTrip = {
     name: '',
@@ -116,7 +116,7 @@ export class NewConstTripComponent implements OnInit {
   ngOnInit() {
     this.dataFBService.getGeneralDataFormFB().subscribe(val => {
       this.pasNames = val['pasNames'].split(',');
-      this.billNames['general'] = val['billNames'].split(',');
+      this.billNames['general'] = val['arrBillNames'];
     });
     this.carDataService.currentCarData.subscribe(val => {
       this.carData = val;
@@ -151,7 +151,7 @@ export class NewConstTripComponent implements OnInit {
   }
 
   // TODO: להוריד את האפס שם ולצור דרך אחרת לאפס את השם ויעד חיוב
-  test() {}
+  test() { }
   // TODO: למחוק פונציה test()
 
   openDialogPasNames(psaSelected: string) {
