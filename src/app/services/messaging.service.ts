@@ -69,9 +69,27 @@ export class MessagingService {
       this.http.post('https://fcm.googleapis.com/fcm/send', body, httpOptions)
         .toPromise().then(val => console.log(val)).catch(err => console.log('Error:' + err));
     });
-
-
   }
+  async sendMessageToUsherTH(payload: Object) {
+    let tokens = []
+    await this.dataFBService.getUsherTokens().toPromise().then(val => {
+      console.log(val[0])
+      if (val[0]['fcmTokens']) {
+        tokens = val[0]['fcmTokens']
+      } else {
+        console.log('אין אישורים לשלוח הודעות')
+      }
+    }).catch(err => console.log('Errer:' + err))
+    await tokens.forEach(token => {
+      const body = {
+        "notification": payload,
+        "to": token
+      };
+      this.http.post('https://fcm.googleapis.com/fcm/send', body, httpOptions)
+        .toPromise().then(val => console.log(val)).catch(err => console.log('Error:' + err));
+    });
+  }
+
   receiveMessage() {
     this.angularFireMessaging.messages.subscribe(
       (payload) => {

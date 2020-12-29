@@ -62,6 +62,7 @@ export class MainFromComponent implements OnInit {
           this.message = this.fcm.currentMessage;
         }
       });
+      console.log(this.constTrips)
     });
   }
   startCurrentTrip() {

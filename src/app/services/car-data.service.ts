@@ -201,7 +201,7 @@ export class CarDataService {
   constructor(
     public dataService: DataFBService,
     private afs: AngularFirestore
-  ) {}
+  ) { }
 
   getDataFormFB(collectionOfCar: string, carName: string) {
     this.dataService
@@ -392,6 +392,46 @@ export class CarDataService {
     return carRef.set(data);
   }
 
+  public updateOccCarDataTH(Car: carModule) {
+    // Sets user data to firestore on login
+    const carRef: AngularFirestoreDocument<carModule> = this.afs.doc(
+      `${Car.collectionOfCar}/${Car.name}`
+    );
+    console.log(Car);
+    const data = {
+      openRegistration: Car.openRegistration,
+      whereToRegister: Car.whereToRegister,
+      name: Car.name,
+      displayName: Car.displayName,
+      typeOfCar: Car.typeOfCar,
+      typename: Car.typename,
+      responsible: Car.responsible,
+      carPayBy: Car.carPayBy,
+      lastRegister: Car.lastRegister,
+      lastTrip: Car.lastTrip,
+      currentTrip: Car.currentTrip,
+      collectionOfCar: Car.collectionOfCar,
+      rentCompany: {
+        name: Car.rentCompany.name,
+        tel: Car.rentCompany.tel
+      },
+      sevenPasCar: Car.sevenPasCar,
+      carNumber: Car.carNumber,
+      code: Car.code,
+      registerOn: Car.registerOn,
+      permissibletoDrive: Car.permissibletoDrive,
+      occasional: {
+        startDateInFleet: Car.occasional.startDateInFleet,
+        endDateInFleet: Car.occasional.endDateInFleet,
+        startKMinFleet: Car.occasional.startKMinFleet,
+        endKMinFleet: Car.occasional.endKMinFleet
+      }
+    };
+    console.log(data)
+    this.dataService.addOccCarToCarNamesTH(Car.displayName);
+    return carRef.set(data);
+  }
+
   public updateRepCarData(Car: carModule) {
     // Sets user data to firestore on login
     const carRef: AngularFirestoreDocument<carModule> = this.afs.doc(
@@ -574,9 +614,8 @@ export class CarDataService {
     this.carData.replacement.active = false;
     this.carData.replacement.endDateInFleet = new Date();
     this.carData.replacement.endKMinFleet = this.carData.currentTrip['startKM'];
-    this.carData.collectionOfCar = `${
-      this.carData.replacement.replacingCarCollection
-    }/${this.carData.replacement.replacingCar}/repCarCollection`;
+    this.carData.collectionOfCar = `${this.carData.replacement.replacingCarCollection
+      }/${this.carData.replacement.replacingCar}/repCarCollection`;
     this.dataService.saveRepCarInConsCar(
       this.carData.collectionOfCar,
       this.carData

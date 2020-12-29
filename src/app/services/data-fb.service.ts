@@ -130,7 +130,7 @@ export class DataFBService {
           actions.map(a => {
             const data = a.payload.doc.data();
             const id = a.payload.doc.id;
-            return { id, ...data };
+            return { id, data };
           })
         )
       );
@@ -359,6 +359,27 @@ export class DataFBService {
       });
   }
 
+  saveOccCarDetailsTH(occCarDetails: carModule, endKM: number) {
+    occCarDetails.occasional.endDateInFleet = new Date();
+    occCarDetails.occasional.endKMinFleet = endKM;
+    const readOccCar = this.afs.doc('/תנועת הנוער-מזדמן/readOldOcc');
+    this.afs
+      .collection(`/תנועת הנוער-מזדמן/${occCarDetails.name}/oldOccCar`)
+      .add(occCarDetails)
+      .then(function (docRef) {
+        readOccCar.update({
+          openOldOcc: firebase.firestore.FieldValue.arrayUnion(
+            `תנועת הנוער-מזדמן/${occCarDetails.name}/oldOccCar/${docRef.id}`
+          )
+        });
+        console.log('Document written with ID: ', docRef.id);
+      })
+      .catch(function (error) {
+        console.error('Error adding document: ', error);
+        //: TODO: לתפוס תעות ברישם פרטים של רכב מזדמן
+      });
+  }
+
   removeCarFromCarNames(carName: string, collectionOfCar: string) {
     let names = [];
     const carNamesRef: AngularFirestoreDocument = this.afs.doc(
@@ -403,6 +424,36 @@ export class DataFBService {
     let names = [];
     const carNamesRef: AngularFirestoreDocument = this.afs.doc(
       `משעול-מזדמן/carNames`
+    );
+    carNamesRef
+      .get()
+      .toPromise()
+      .then(val => {
+        const arrOccCarNumber = [];
+        names = val.data().carNames;
+        names.forEach(val => {
+          arrOccCarNumber.push(parseInt(val.slice(10, val.indexOf(':')), 10));
+        });
+        const newOccCarNumber = parseInt(
+          displayName.slice(10, displayName.indexOf(':')),
+          10
+        );
+        function sortNumber(a, b) {
+          return a - b;
+        }
+        arrOccCarNumber.push(newOccCarNumber);
+        arrOccCarNumber.sort(sortNumber);
+        const index = arrOccCarNumber.findIndex(val => val === newOccCarNumber);
+        names.splice(index, 0, displayName);
+        carNamesRef.set({ carNames: names });
+      });
+    // TODO: לתפוס תעות בהבטחה
+  }
+
+  addOccCarToCarNamesTH(displayName: string) {
+    let names = [];
+    const carNamesRef: AngularFirestoreDocument = this.afs.doc(
+      `תנועת הנוער-מזדמן/carNames`
     );
     carNamesRef
       .get()

@@ -24,6 +24,7 @@ export class EndTripComponent implements OnInit {
   myName: string;
   isContinuedTrip = false;
   isOccCarReturn = false;
+  isOccCarReturnTH = false;
   soundNo = true;
   collectionOfCar: string;
   endKM: number = null;
@@ -167,6 +168,11 @@ export class EndTripComponent implements OnInit {
 
   returnOccCar() {
     this.isOccCarReturn = true;
+    console.log('החזרה רכב');
+    this.endTrip();
+  }
+  returnOccCarTH() {
+    this.isOccCarReturnTH = true;
     console.log('החזרה רכב');
     this.endTrip();
   }
@@ -885,6 +891,56 @@ export class EndTripComponent implements OnInit {
             );
             this.dataFBService.updataCarData(
               'משעול-מזדמן',
+              carName,
+              this.carData
+            );
+            console.log('סוף התהליך', this.carData);
+          } else {
+            this.snackBar.open('רכב לא חזר להשכרה', '', {
+              verticalPosition: 'top',
+              duration: 2000
+            });
+            this.resetEndTripData();
+            this.carDataService.resetCarData();
+            console.log('סוף התהליך', this.carData);
+          }
+        });
+      } else if (this.isOccCarReturnTH == true) {
+        const dialogPasName = this.dialogMessage.open(DialogMessageComponent, {
+          maxWidth: 400,
+          data: {
+            endTripData: this.endTripData,
+            messageName: 'returnOccCarTH',
+            displayName: this.carData.displayName
+          },
+          autoFocus: false
+
+          // TODO: חזרה אחורה בטלפון תסגור את הדיאלוג
+        });
+        dialogPasName.afterClosed().subscribe(confirmTrip => {
+          if (confirmTrip) {
+            const carName = this.carData.name;
+            const displayCarName = this.carData.displayName;
+            console.log('שמירה של הרכב', this.carData);
+            this.isOccCarReturnTH = false;
+            const time = new Date();
+            this.carDataService.currentCarData.subscribe(val => {
+              this.carData = val;
+            });
+            console.log('שמירה של הרכב', this.carData);
+            this.dataFBService.saveOccCarDetailsTH(
+              this.carData,
+              this.endTripData['endKM']
+            );
+            this.resetEndTripData();
+            this.carDataService.resetCarData();
+            console.log('שמירה של הרכב', this.carData);
+            this.dataFBService.removeCarFromCarNames(
+              displayCarName,
+              'תנועת הנוער-מזדמן'
+            );
+            this.dataFBService.updataCarData(
+              'תנועת הנוער-מזדמן',
               carName,
               this.carData
             );

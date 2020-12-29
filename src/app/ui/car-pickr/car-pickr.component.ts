@@ -72,6 +72,9 @@ export class CarPickrComponent implements OnInit {
   openAddOccCar() {
     this.dialogRef.close('openAddOccCar');
   }
+  openAddOccCarTH() {
+    this.dialogRef.close('openAddOccCarTH');
+  }
 
   closedCarPickr() {
     this.dialogRef.close();

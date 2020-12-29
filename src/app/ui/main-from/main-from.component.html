@@ -86,11 +86,11 @@
               (click)="gatConstTrip(constTrip)"
               (click)="sidenavConstTrips.toggle()"
             >
-              {{ constTrip.name }}
+              {{ constTrip['name'] }}
             </button>
             <div>
               <mat-icon
-                [routerLink]="['/new-const-trip', constTrip.name]"
+                [routerLink]="['/new-const-trip', constTrip['name']]"
                 class="editConstTrip"
                 aria-hidden="false"
                 aria-label="עריכה של נסיעה קבוע"

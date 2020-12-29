@@ -147,7 +147,10 @@ export class CarSelectorComponent implements OnInit, OnChanges {
       if (selected) {
         if (selected === 'openAddOccCar') {
           this.router.navigate(['/add-occ-car']);
-        } else {
+        } else if (selected === 'openAddOccCarTH') {
+          this.router.navigate(['/add-occ-car-th']);
+        }
+        else {
           console.log(selected);
           this.readCarData(selected.carCollection, selected.carName);
         }

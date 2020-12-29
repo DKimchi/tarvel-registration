@@ -1,4 +1,4 @@
-<div *ngIf="collectionOfCar === 'משעול-מזדמן'; then occCar; else conCar">
+<div *ngIf="collectionOfCar === 'משעול-מזדמן' || collectionOfCar === 'תנועת הנוער-מזדמן'; then occCar; else conCar">
   <!-- template will replace this div -->
 </div>
 <ng-template #occCar>
@@ -10,9 +10,19 @@
         }}</mat-icon>
       </button>
     </mat-grid-tile>
-    <mat-grid-tile class="returnOccCarBtn" colspan="2">
+    <mat-grid-tile *ngIf="collectionOfCar === 'משעול-מזדמן'" class="returnOccCarBtn" colspan="2">
       <button
         (click)="returnOccCar()"
+        class="addBtnOcc"
+        aria-hidden="false"
+        aria-label="החזרה של רכב מזדמן"
+      >
+        החזרה
+      </button>
+    </mat-grid-tile>
+    <mat-grid-tile *ngIf="collectionOfCar === 'תנועת הנוער-מזדמן'" class="returnOccCarBtn" colspan="2">
+      <button
+        (click)="returnOccCarTH()"
         class="addBtnOcc"
         aria-hidden="false"
         aria-label="החזרה של רכב מזדמן"

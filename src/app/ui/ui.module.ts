@@ -34,6 +34,7 @@ import { AddCarDetailComponent } from './add-car-detail/add-car-detail.component
 import { AddOccCarComponent } from './add-occ-car/add-occ-car.component';
 import { DialogMessageComponent } from './dialog-message/dialog-message.component';
 import { AddRepCarComponent } from './add-rep-car/add-rep-car.component';
+import { AddOccCarTHComponent } from './add-occ-car-th/add-occ-car-th.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { AddRepCarComponent } from './add-rep-car/add-rep-car.component';
     AddOccCarComponent,
     DialogMessageComponent,
     AddRepCarComponent,
+    AddOccCarTHComponent,
   ],
   imports: [
     CommonModule,

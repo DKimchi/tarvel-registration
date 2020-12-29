@@ -11,6 +11,14 @@
       >add</mat-icon
     >
     <mat-icon
+      *ngIf="collectionOfCar === 'תנועת הנוער-מזדמן'"
+      (click)="openAddOccCarTH()"
+      class="addBtnOcc"
+      aria-hidden="false"
+      aria-label="הוסף רכב מזדמן"
+      >add</mat-icon
+    >
+    <mat-icon
       svgIcon="cancel_outline"
       (click)="closedCarPickr()"
       class="closedBTN"

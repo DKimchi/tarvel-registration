@@ -7,6 +7,7 @@ import { AddCarDetailComponent } from './add-car-detail/add-car-detail.component
 import { AddOccCarComponent } from './add-occ-car/add-occ-car.component';
 import { AddRepCarComponent } from './add-rep-car/add-rep-car.component';
 import { AddRepCarGuard } from './add-rep-car/add-rep-car.guard';
+import { AddOccCarTHComponent } from './add-occ-car-th/add-occ-car-th.component';
 
 const routes: Routes = [
   {
@@ -29,6 +30,12 @@ const routes: Routes = [
   {
     path: 'add-occ-car',
     component: AddOccCarComponent,
+    canActivate: [MainFromGuard],
+    children: [{ path: ':name', component: AddCarDetailComponent }]
+  },
+  {
+    path: 'add-occ-car-th',
+    component: AddOccCarTHComponent,
     canActivate: [MainFromGuard],
     children: [{ path: ':name', component: AddCarDetailComponent }]
   },
