@@ -621,5 +621,6 @@ export class CarDataService {
       this.carData
     );
     this.resetCarData();
+    // window.location.href = "https://forms.gle/6AtmCdjSgANWcYCg8";
   }
 }

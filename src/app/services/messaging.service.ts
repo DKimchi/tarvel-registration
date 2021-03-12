@@ -43,6 +43,7 @@ export class MessagingService {
       this.angularFireMessaging.requestToken.subscribe(
         (token) => {
           this.auth.updateToken(val, token);
+          console.log(token);
         },
         (err) => {
           console.error('Unable to get permission to notify.', err);
@@ -93,7 +94,7 @@ export class MessagingService {
   receiveMessage() {
     this.angularFireMessaging.messages.subscribe(
       (payload) => {
-        console.log(payload)
+        console.log(payload);
         this.currentMessage.next(payload);
         const messageText = this.currentMessage.getValue();
         const text = `${messageText['notification']['title']} ${messageText['notification']['body']}`

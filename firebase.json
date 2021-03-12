@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist\\tarvel-registration",
+    "public": "dist/tarvel-registration",
     "ignore": [
       "firebase.json",
       "**/.*",

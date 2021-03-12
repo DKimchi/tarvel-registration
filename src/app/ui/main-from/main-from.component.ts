@@ -27,6 +27,7 @@ export class MainFromComponent implements OnInit {
   openConstTrips = false;
   dateLastTrip;
   constTrips: Array<object>;
+  zavHatnua: string[];
   constructor(
     private dialogDel: MatDialog,
     public dataFBService: DataFBService,
@@ -54,6 +55,7 @@ export class MainFromComponent implements OnInit {
     this.auth.user$.subscribe(val => {
       this.user = val;
       this.constTrips = val.constTrips;
+      // tslint:disable-next-line: no-shadowed-variable
       this.dataFBService.getGeneralDataFormFB().subscribe(val => {
         this.misholUsher = val['misholUsher'];
         if (this.user['displayName'] === this.misholUsher) {
@@ -61,9 +63,16 @@ export class MainFromComponent implements OnInit {
           this.fcm.receiveMessage();
           this.message = this.fcm.currentMessage;
         }
+        this.zavHatnua = val['zavHatnua'];
+        if (this.zavHatnua.includes(this.user['displayName'])) {
+          this.fcm.requestPermission();
+          this.fcm.receiveMessage();
+          this.message = this.fcm.currentMessage;
+        }
       });
-      console.log(this.constTrips)
+      console.log(this.constTrips);
     });
+
   }
   startCurrentTrip() {
     const { collectionOfCar, name } = this.carData;

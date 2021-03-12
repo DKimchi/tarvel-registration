@@ -139,23 +139,47 @@
           <div matLine>
             {{ carData.name }}
           </div>
-          <div [ngSwitch]="carData.collectionOfCar">
-            <div *ngSwitchCase="'משעול-מזדמן'"></div>
-            <button
-              *ngSwitchCase="'חלופים'"
-              (click)="removeRepCar()"
-              (click)="sidenavCarDetails.close()"
-              [disabled]="!this.carDataService.isCarSelected"
-            >
-              הוצא רכב חלופי
-            </button>
-            <button
-              *ngSwitchDefault
-              [routerLink]="['/add-rep-car', carData.name]"
-              [disabled]="!this.carDataService.isCarSelected"
-            >
-              הכנסת רכב חלופי
-            </button>
+          <div [ngSwitch]="carData.responsible">
+            <div *ngSwitchCase="'צב התנועה'">
+              <div [ngSwitch]="carData.collectionOfCar">
+                <div *ngSwitchCase="'משעול-מזדמן'"></div>
+                <button
+                  *ngSwitchCase="'חלופים'"
+                  (click)="removeRepCar()"
+                  (click)="sidenavCarDetails.close()"
+                  [disabled]="!this.carDataService.isCarSelected"
+                >
+                  הוצא רכב חלופי
+                </button>
+                <button
+                  *ngSwitchDefault
+                  (click)="removeRepCar()"
+                  [disabled]="!this.carDataService.isCarSelected"
+                >
+                  הכנסת רכב חלופי
+                </button>
+              </div>
+            </div>
+            <div *ngSwitchDefault>
+            <div [ngSwitch]="carData.collectionOfCar">
+              <div *ngSwitchCase="'משעול-מזדמן'"></div>
+              <button
+                *ngSwitchCase="'חלופים'"
+                (click)="removeRepCar()"
+                (click)="sidenavCarDetails.close()"
+                [disabled]="!this.carDataService.isCarSelected"
+              >
+                הוצא רכב חלופי
+              </button>
+              <button
+                *ngSwitchDefault
+                [routerLink]="['/add-rep-car', carData.name]"
+                [disabled]="!this.carDataService.isCarSelected"
+              >
+                הכנסת רכב חלופי
+              </button>
+              </div>
+            </div>
           </div>
         </mat-list-item>
         <mat-list-item>
