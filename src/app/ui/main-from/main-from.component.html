@@ -143,21 +143,14 @@
             <div *ngSwitchCase="'צב התנועה'">
               <div [ngSwitch]="carData.collectionOfCar">
                 <div *ngSwitchCase="'משעול-מזדמן'"></div>
-                <button
-                  *ngSwitchCase="'חלופים'"
-                  (click)="removeRepCar()"
-                  (click)="sidenavCarDetails.close()"
-                  [disabled]="!this.carDataService.isCarSelected"
-                >
-                  הוצא רכב חלופי
-                </button>
-                <button
-                  *ngSwitchDefault
-                  (click)="removeRepCar()"
-                  [disabled]="!this.carDataService.isCarSelected"
-                >
-                  הכנסת רכב חלופי
-                </button>
+                <a href="https://forms.gle/L1mQTipjaJZsTwDU9" (click) = "gotoGoogleFrom()">
+                  <button
+                    *ngSwitchDefault
+
+                    [disabled]="!this.carDataService.isCarSelected"
+                    >טופס מסירת וקבלה של רכב
+                  </button>
+                </a>
               </div>
             </div>
             <div *ngSwitchDefault>
