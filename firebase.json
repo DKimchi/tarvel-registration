@@ -1,16 +1,22 @@
 {
   "hosting": {
     "public": "dist/tarvel-registration",
+    "redirects": [
+      {
+        "source": "/main-from",
+        "destination": "/",
+        "type": 301
+      },
+      {
+        "source": "/login",
+        "destination": "/",
+        "type": 301
+      }
+    ],
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
-    ],
-    "rewrites": [
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
     ]
   }
 }

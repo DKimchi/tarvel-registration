@@ -175,6 +175,7 @@ export class MainFromComponent implements OnInit {
         }
       });
   }
+
   gotoGoogleFrom() {
     localStorage.setItem('carName', '');
     localStorage.setItem('collectionOfCar', '');

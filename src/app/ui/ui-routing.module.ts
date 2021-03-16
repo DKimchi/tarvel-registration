@@ -44,6 +44,12 @@ const routes: Routes = [
     component: AddRepCarComponent,
     canActivate: [AddRepCarGuard],
     children: [{ path: ':name', component: AddCarDetailComponent }]
+  },
+  {
+    path: 'insert-rep-zav',
+    component: AddRepCarComponent,
+    canActivate: [AddRepCarGuard],
+    children: [{ path: ':name', component: AddCarDetailComponent }]
   }
 ];
 
