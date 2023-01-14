@@ -6,6 +6,10 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { DataFBService } from 'src/app/services/data-fb.service';
 import { take } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogMessageComponent } from '../dialog-message/dialog-message.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 
 @Component({
   selector: 'app-add-car-detail',
@@ -186,9 +190,11 @@ export class AddCarDetailComponent implements OnInit {
   });
 
   constructor(
+    private dialogMessage: MatDialog,
     private carDataService: CarDataService,
     private fb: FormBuilder,
     public dataFBService: DataFBService,
+    private snackBar: MatSnackBar,
     private router: Router
   ) {}
 
@@ -258,5 +264,44 @@ export class AddCarDetailComponent implements OnInit {
       this.router.navigate(['/main-from']);
     }
     // TODO: להגדיר מה קורה שטופס לא מלא ברכב חדש
+  }
+  deleteConstCer(){
+    const dialogPasName = this.dialogMessage.open(DialogMessageComponent, {
+      maxWidth: 400,
+      data: {
+        carName: this.cardata.name,
+        messageName: 'deleteConstCer',
+        
+      },
+      autoFocus: false,
+      panelClass: 'confirmedLongTrip'
+      // TODO: חזרה אחורה בטלפון תסגור את הדיאלוג
+    });
+    dialogPasName.afterClosed().subscribe(confirmTrip => {
+      if (confirmTrip) {
+        this.deleteCarFormDB();
+      } else {
+        this.notDeleteConstCar();
+      }
+    });
+  }
+  deleteCarFormDB(){
+
+    const carNameToDel = this.cardata.name + ' נמחק מהרישום נסיעות'
+    this.snackBar.open(carNameToDel, '', {
+      verticalPosition: 'top',
+      duration: 2000
+    });
+    this.dataFBService.removeCarFromCarNames(this.cardata.name, 
+    this.cardata.collectionOfCar )
+    this.carDataService.resetCarData();
+    this.router.navigate(['/main-from']);
+  }
+  notDeleteConstCar(){
+    const carNameToDel = this.cardata.name + ' לא נמחק'
+    this.snackBar.open(carNameToDel, '', {
+      verticalPosition: 'top',
+      duration: 2000
+    });
   }
 }

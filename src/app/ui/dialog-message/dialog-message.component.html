@@ -88,4 +88,24 @@
   <ng-container *ngSwitchDefault>
     לא נבחר שום מסר
   </ng-container>
+  <ng-container *ngSwitchCase="'deleteConstCer'">
+    <h2>מחיקת רכב קבוע מהרישום ניסעות</h2>
+    <h3>
+      מחיקה של <strong>{{ carName }}</strong>
+    </h3>
+    <p>
+      האם למחוק את <strong>{{ carName }}</strong> מאפליקצית רישום נסיעות?
+    </p>
+    <div class="btnMessage">
+      <button class="btnCancel" mat-stroked-button color="warn" (click)="cancel()">
+        לא
+      </button>
+      <button mat-stroked-button color="primary" (click)="registrationTrip()">
+        כן
+      </button>
+    </div>
+  </ng-container>
+  <ng-container *ngSwitchDefault>
+    לא נבחר שום מסר
+  </ng-container>
 </div>

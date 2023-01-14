@@ -97,18 +97,17 @@ export class CarSelectorComponent implements OnInit, OnChanges {
     });
   }
 
-  async readCarData(carCollection: string, carName: string) {
+  readCarData(carCollection: string, carName: string) {
     const carNameInDB = carName.split(':');
+    console.log(this.carData);
     if (carNameInDB[0].includes('רכב חלופי')) {
       this.carDataService.getDataFormFB('חלופים', carNameInDB[0]);
-    } else if (carNameInDB[1]) {
-      if (carNameInDB[1].includes('קבלת רכב מאלבר')) {
-        window.location.replace("https://forms.gle/L1mQTipjaJZsTwDU9");
-      }
+    } else if (carNameInDB[1] !== undefined && carNameInDB[1].includes('קבלת רכב מאלבר')) {
+      window.location.replace("https://forms.gle/L1mQTipjaJZsTwDU9");
     } else {
       console.log(carCollection, carNameInDB[0]);
       this.collectionOfCar = carCollection;
-      await this.carDataService.getDataFormFB(carCollection, carNameInDB[0]);
+      this.carDataService.getDataFormFB(carCollection, carNameInDB[0]);
     }
     this.carDataService.currentCarData.subscribe(val => {
       this.carData = val;
@@ -144,14 +143,13 @@ export class CarSelectorComponent implements OnInit, OnChanges {
     dialogConfig.panelClass = 'custom-dialog';
     dialogConfig.autoFocus = false;
     const dialogRef = this.dialog.open(CarPickrComponent, dialogConfig);
-    dialogRef.afterClosed().subscribe(async selected => {
+    dialogRef.afterClosed().subscribe(selected => {
       if (selected) {
         if (selected === 'openAddOccCar') {
           this.router.navigate(['/add-occ-car']);
         } else if (selected === 'openAddOccCarTH') {
           this.router.navigate(['/add-occ-car-th']);
-        }
-        else {
+        } else {
           console.log(selected);
           this.readCarData(selected.carCollection, selected.carName);
         }

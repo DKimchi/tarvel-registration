@@ -22,6 +22,7 @@ export class DataFBService {
     InitialCode: '',
     pasNames: '',
     misholUsher: '',
+    misholUsherTeam: [],
     testbillnames: Object
   };
 
@@ -33,11 +34,19 @@ export class DataFBService {
     });
   };
 
-  getUsherTokens() {
+  getUsherTokens(name: string) { 
     return this.afs
-      .collection('users', ref => ref.where('displayName', '==', this.generalData['misholUsher']))
+      .collection('users', ref => ref.where('displayName', '==', name))
       .valueChanges()
       .pipe(take(1));
+  }
+
+  getUsherName() {
+    return this.generalData['misholUsherTeam'];
+  }
+
+  getUsherNameTH(){
+    return this.generalData['THUsherTeam'];
   }
 
   getUserConstTrip(constTripName) {

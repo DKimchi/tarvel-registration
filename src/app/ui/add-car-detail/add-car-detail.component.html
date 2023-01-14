@@ -311,13 +311,23 @@
           </mat-grid-tile>
         </mat-grid-list>
         <mat-card-actions align="start">
-          <div>
+          <div id="" >
             <button mat-stroked-button type="submit" id="singUpBtn">
               עדכן פרטים רכב
             </button>
           </div>
         </mat-card-actions>
       </form>
+      <mat-card-actions align="start">
+        <button 
+        *ngIf=car.name
+          mat-stroked-button 
+          color="warn"
+          (click)="deleteConstCer()"
+          class="deleteCarBtn">
+          מחק רכב מרישום נסיעות
+        </button>
+      </mat-card-actions>
     </mat-card-content>
   </mat-card>
 </div>

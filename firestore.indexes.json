@@ -1,0 +1,47 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "משעול-קבוע",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "carPayBy",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "name",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "רישום נסיעות",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "carName",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "dateAndTime",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "רישום נסיעות",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "carName",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "dateAndTime",
+          "order": "DESCENDING"
+        }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}

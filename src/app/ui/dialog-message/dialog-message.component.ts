@@ -15,6 +15,7 @@ export class DialogMessageComponent implements OnInit {
   messageName = this.data.messageName;
   tripKM = this.data.tripKM;
   carData: carModule;
+  carName = this.data.carName;
   constructor(
     public dialogRef: MatDialogRef<DialogMessageComponent>,
     public carDataService: CarDataService,

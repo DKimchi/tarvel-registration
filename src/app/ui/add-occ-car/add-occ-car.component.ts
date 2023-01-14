@@ -225,27 +225,21 @@ export class AddOccCarComponent implements OnInit {
   }
   onSubmit() {
     if (this.newOccCarData.valid) {
-      let ArrCarNumber = Array.from(this.newOccCarData.value.carNumber);
+      const ArrCarNumber = Array.from(this.newOccCarData.value.carNumber);
       let displayCarNumber;
-      if (ArrCarNumber.length == 7) {
-        displayCarNumber = `${ArrCarNumber[0]}${ArrCarNumber[1]}-${
-          ArrCarNumber[2]
-          }${ArrCarNumber[3]}${ArrCarNumber[4]}-${ArrCarNumber[5]}${
-          ArrCarNumber[6]
+      if (ArrCarNumber.length === 7) {
+        displayCarNumber = `${ArrCarNumber[0]}${ArrCarNumber[1]}-${ArrCarNumber[2]
+          }${ArrCarNumber[3]}${ArrCarNumber[4]}-${ArrCarNumber[5]}${ArrCarNumber[6]
           }`;
-      } else if (ArrCarNumber.length == 8) {
-        displayCarNumber = `${ArrCarNumber[0]}${ArrCarNumber[1]}${
-          ArrCarNumber[2]
-          }-${ArrCarNumber[3]}${ArrCarNumber[4]}-${ArrCarNumber[5]}${
-          ArrCarNumber[6]
+      } else if (ArrCarNumber.length === 8) {
+        displayCarNumber = `${ArrCarNumber[0]}${ArrCarNumber[1]}${ArrCarNumber[2]
+          }-${ArrCarNumber[3]}${ArrCarNumber[4]}-${ArrCarNumber[5]}${ArrCarNumber[6]
           }${ArrCarNumber[7]}`;
       }
       this.occcardata.collectionOfCar = 'משעול-מזדמן';
-      this.occcardata.name = `רכב מזדמן ${
-        this.newOccCarData.value.occCarNumber
+      this.occcardata.name = `רכב מזדמן ${this.newOccCarData.value.occCarNumber
         }`;
-      this.occcardata.displayName = `רכב מזדמן ${
-        this.newOccCarData.value.occCarNumber
+      this.occcardata.displayName = `רכב מזדמן ${this.newOccCarData.value.occCarNumber
         }: ${this.newOccCarData.value.typeName} - ${displayCarNumber}`;
       this.occcardata.carNumber = this.newOccCarData.value.carNumber;
       this.occcardata.code = this.newOccCarData.value.code;
